@@ -1,0 +1,108 @@
+.tg__container {
+    font-family: outfit;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.tg__up {
+    display: flex;
+    justify-content: center;
+    height: 25%;
+}
+
+.tg__logo {
+    padding-top: 4%;
+    padding-bottom: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tg__logo > img {
+    width: 90%;
+    min-width: 60%;
+    max-width: 700px;
+    max-height: 65px;
+}
+
+.tg__down {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background-color: #E2E4E5;
+    top: 10px;
+    width: 45%;
+    min-width: 250px;
+    max-width: 350px;
+    border-radius: 20px;
+    border: 0;
+}
+
+.card-title {
+    padding-top: 20px;
+    border: 0;
+}
+
+.card-title > h2 {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: #3C9A46;
+}
+
+.card-body {
+    color: #3C9A46;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 15px 15px;
+}
+
+.tg__fields {
+    width: 75%;
+}
+
+.tg__fields > label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.tg__fields > input {
+    margin-bottom: 15px;
+    border: 0;
+    box-shadow: inset -5px 33px 17px -40px rgba(0,0,0,1);
+}
+
+.tg__button-login {
+    padding: 30px 15px;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}
+
+.tg__button-login > button {
+    width: 100%;
+    color: white;
+}
+
+.card-footer {
+    background-color: #379CE5;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0px 15px;
+    border: 0;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+.card-footer > a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
