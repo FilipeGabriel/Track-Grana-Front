@@ -46,7 +46,7 @@
 }
 
 .tg__register {
-    width: 70%;
+    width: 80%;
     height: 65%;
     display: flex;
     align-items: center;
@@ -58,8 +58,8 @@
     width: 90%;
     height: 100%;
     min-width: 235px;
-    max-width: 430px;
-    max-height: 400px;
+    max-width: 550px;
+    max-height: 500px;
     border-radius: 20px;
     border: 0;
 }
@@ -73,7 +73,7 @@
     display: flex;
     justify-content: center;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
     color: #3C9A46;
 }
 
@@ -81,9 +81,9 @@
     color: #3C9A46;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    padding: 0px 15px 15px;
+    padding: 0px 30px 15px;
 }
 
 .tg__fields {
