@@ -1,11 +1,11 @@
-.layout__container {
+.home__container {
     font-family: outfit;
     display: flex;
     width: 100vw;
     height: 100vh;
 }
 
-.layout__content {
+.home__content {
     display: flex;
     align-items: center;
     width: 100%;
