@@ -29,7 +29,9 @@ export class RegisterComponent {
             .insert(this.user)
             .subscribe({
                 next: (response) => {
-                    console.log(response)
+                    this.user.username = ""
+                    this.user.password = ""
+                    this.user.email = ""
                 },
                 error: (error) => {
                     console.log(error)
