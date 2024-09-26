@@ -1,14 +1,25 @@
 <div class="sidebar__container">
     <nav class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
-        <div class="content">
-          <button (click)="toggleSidebar()">Toggle Sidebar</button>
-          <h1>Main Content</h1>
-          <p>This is the content area.</p>
+        <div class="sidebar__notCollapsed" *ngIf="!isCollapsed">
+            <div class="account__img"></div>
+            <p>Filipe</p>
+            <div class="vertical-line"></div>
+            <button (click)="toggleSidebar()"><i class="fas fa-caret-left"></i></button>
         </div>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
+        <div class="sidebar__isCollapsed" *ngIf="isCollapsed">
+            <div class="account__img"></div>
+            <button (click)="toggleSidebar()"><i class="fas fa-caret-right"></i></button>
+        </div>
+        <div class="sidebar__links" *ngIf="!isCollapsed">
+            <h3>MENU</h3>
+            <hr>
+            <ul>
+                <li><a href="#">Gráfico</a></li>
+                <li><a href="#">Faturas</a></li>
+                <li><a href="#">Tipos de Gasto</a></li>
+                <li><a href="#">Sair</a></li>
+            </ul>
+        </div>
+
     </nav>
 </div>
