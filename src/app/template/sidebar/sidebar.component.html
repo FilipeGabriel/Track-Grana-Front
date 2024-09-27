@@ -10,16 +10,70 @@
             <div class="account__img"></div>
             <button (click)="toggleSidebar()"><i class="fas fa-caret-right"></i></button>
         </div>
-        <div class="sidebar__links" *ngIf="!isCollapsed">
+        <div class="sidebar__links__notCollapsed" *ngIf="!isCollapsed">
             <h3>MENU</h3>
             <hr>
             <ul>
-                <li><a href="#">Gráfico</a></li>
-                <li><a href="#">Faturas</a></li>
-                <li><a href="#">Tipos de Gasto</a></li>
-                <li><a href="#">Sair</a></li>
+                <li>
+                    <button>
+                        <img src="../../../assets/images/profile_icone.png" alt="profile_icone">
+                    </button>
+                    <a href="#">Perfil</a>
+                </li>
+                <li>
+                    <button>
+                        <img src="../../../assets/images/graphic_icone.png" alt="graphic_icone">
+                    </button>
+                    <a href="#">Gráfico</a>
+                </li>
+                <li>
+                    <button>
+                        <img src="../../../assets/images/invoice_icone.png" alt="invoice_icone">
+                    </button>
+                    <a href="#">Faturas</a>
+                </li>
+                <li>
+                    <button>
+                        <img src="../../../assets/images/expense_type_icone.png" alt="expense_type_icone">
+                    </button>
+                    <a href="#">Tipos de Gasto</a>
+                </li>
+                <li>
+                    <button>
+                        <img src="../../../assets/images/exit_icone.png" alt="exit_icone">
+                    </button>
+                    <a href="#">Sair</a>
+                </li>
             </ul>
         </div>
-
+        <div class="sidebar__links__isCollapsed" *ngIf="isCollapsed">
+            <ul>
+                <li>
+                    <button mat-raised-button matTooltip="Perfil" matTooltipPosition="right">
+                        <img src="../../../assets/images/profile_icone.png" alt="profile_icone">
+                    </button>
+                </li>
+                <li>
+                    <button mat-raised-button matTooltip="Gráfico" matTooltipPosition="right">
+                        <img src="../../../assets/images/graphic_icone.png" alt="graphic_icone">
+                    </button>
+                </li>
+                <li>
+                    <button mat-raised-button matTooltip="Faturas" matTooltipPosition="right">
+                        <img src="../../../assets/images/invoice_icone.png" alt="invoice_icone">
+                    </button>
+                </li>
+                <li>
+                    <button mat-raised-button matTooltip="Tipos de Gasto" matTooltipPosition="right">
+                        <img src="../../../assets/images/expense_type_icone.png" alt="expense_type_icone">
+                    </button>
+                </li>
+                <li>
+                    <button mat-raised-button matTooltip="Sair" matTooltipPosition="right">
+                        <img src="../../../assets/images/exit_icone.png" alt="exit_icone">
+                    </button>
+                </li>
+            </ul>
+        </div>
     </nav>
 </div>
