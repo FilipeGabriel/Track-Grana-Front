@@ -1,0 +1,36 @@
+<div class="graphic__container">
+    <div class="graphic__title">
+        <h3>Gráfico de gasto por mês</h3>
+    </div>
+    <div class="graphic__years">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-success" for="btnradio1">2022</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-success" for="btnradio2">2023</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-success" for="btnradio3">2024</label>
+        </div>
+    </div>
+    <div class="graphic__div">
+        <div class="bar-chart__div">
+            <app-bar-chart></app-bar-chart>
+        </div>
+        <div class="graphic__index">
+            <div class="index__div">
+                <img src="../../../assets/images/smaller_index.png" alt="smaller_index">
+                <p>Menor Gasto</p>
+            </div>
+            <div class="index__div">
+                <img src="../../../assets/images/higher_index.png" alt="higher_index">
+                <p>Maior Gasto</p>
+            </div>
+            <div class="index__div">
+                <img src="../../../assets/images/others_index.png" alt="others_index">
+                <p>Outros</p>
+            </div>
+        </div>
+    </div>
+</div>

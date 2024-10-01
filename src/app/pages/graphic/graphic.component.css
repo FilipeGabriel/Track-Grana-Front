@@ -1,0 +1,62 @@
+.graphic__container {
+    font-family: outfit;
+    color: #757575;
+    background-color: #E2E4E5;
+    box-shadow: inset 6px 6px 24px 0px rgba(153,151,153,1);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 100%;
+    height: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.graphic__title > h3 {
+    font-size: 25px;
+}
+
+.btn-group {
+    background-image: #4faa6d;
+}
+
+.graphic__div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    height: 70%;
+    margin-bottom: 20px;
+}
+
+.bar-chart__div {
+    height: 90%;
+    margin-bottom: 10px;
+}
+
+.graphic__index {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.index__div {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.index__div > img {
+    width: 30px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+.index__div > p {
+    font-size: small;
+    margin: 0;
+}
