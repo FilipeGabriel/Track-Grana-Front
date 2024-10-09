@@ -15,16 +15,16 @@
             <hr>
             <ul>
                 <li>
-                    <button>
+                    <button routerLink="../home/profile">
                         <img src="../../../assets/images/profile_icone.png" alt="profile_icone">
                     </button>
-                    <a href="#">Perfil</a>
+                    <a routerLink="../home/profile">Perfil</a>
                 </li>
                 <li>
-                    <button routerLink="/home/graphic">
+                    <button routerLink="../home/graphic">
                         <img src="../../../assets/images/graphic_icone.png" alt="graphic_icone">
                     </button>
-                    <a routerLink="/home/graphic">Gráfico</a>
+                    <a routerLink="../home/graphic">Gráfico</a>
                 </li>
                 <li>
                     <button>
@@ -49,12 +49,12 @@
         <div class="sidebar__links__isCollapsed" *ngIf="isCollapsed">
             <ul>
                 <li>
-                    <button mat-raised-button matTooltip="Perfil" matTooltipPosition="right">
+                    <button mat-raised-button matTooltip="Perfil" matTooltipPosition="right" routerLink="../home/profile">
                         <img src="../../../assets/images/profile_icone.png" alt="profile_icone">
                     </button>
                 </li>
                 <li>
-                    <button mat-raised-button matTooltip="Gráfico" matTooltipPosition="right" routerLink="/home/graphic">
+                    <button mat-raised-button matTooltip="Gráfico" matTooltipPosition="right" routerLink="../home/graphic">
                         <img src="../../../assets/images/graphic_icone.png" alt="graphic_icone">
                     </button>
                 </li>
