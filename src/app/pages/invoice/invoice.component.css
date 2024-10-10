@@ -1,0 +1,82 @@
+.invoice__container {
+    font-family: outfit;
+    color: #757575;
+    background-color: #E2E4E5;
+    box-shadow: inset 6px 6px 24px 0px rgba(153,151,153,1);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+
+.invoice__title {
+    position: fixed;
+    top: 8%;
+}
+
+.invoice__title > h3 {
+    font-size: 25px;
+}
+
+.invoice__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    width: 100%;
+    height: 100%;
+}
+
+.line__one {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.group-buttons {
+    display: flex;
+}
+
+.radio-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #B7BCB8;
+    color: #FFF;
+    font-size: 15px;
+    transition: transform 0.1s, background-color 0.2s;
+}
+
+.radio-button input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.radio-button > span {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width: 100px;
+    height: 35px;
+}
+
+.radio-button:hover {
+    background-color: #3DA648;
+    color: white;
+}
+
+.radio-button > input[type="radio"]:checked + span {
+    background-color: #3DA648;
+    color: white;
+}
+

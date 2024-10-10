@@ -24,7 +24,7 @@ export class SidebarComponent implements OnInit{
     }
 
     checkScreenWidth() {
-        this.reducedScreen = window.innerWidth < 800;
+        this.reducedScreen = window.innerWidth < 900;
         if (this.reducedScreen) {
           this.isCollapsed = true;
         }
