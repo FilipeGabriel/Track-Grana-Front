@@ -28,7 +28,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     width: 100%;
     height: 100%;
@@ -87,6 +87,7 @@
 
     border: 0;
     background-color: #379CE5;
+    color: #FFF;
     width: 40px;
     height: 35px;
     transition: transform 0.1s, background-color 0.2s;
@@ -101,8 +102,86 @@
     background-color: #266c9e;
 }
 
-.fa-plus {
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+    background-image: linear-gradient(to bottom, #73bd7a, #65b36c, #56aa5e, #47a04f, #379741);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #379741;
+    width: 400px;
+    height: 240px;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     color: #FFF;
+    text-align: center;
+}
+
+.modal__content > h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.modal__line-one {
+    display: flex;
+    justify-content: space-evenly;
+
+    padding: 0px 50px;
+}
+
+.modal__line-one > p {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.data__input {
+    display: flex;
+    flex-direction: column;
+}
+
+.data__input > label {
+    align-self: self-start;
+    font-size: 12px;
+
+}
+
+.data__input > input {
+    text-align: center;
+    box-shadow: inset -5px 34px 20px -40px rgba(0,0,0,1);
+    border: 0px;
+    border-radius: 10px;
+    width: 100px;
+    height: 32px;
+    outline: none;
+}
+
+.data__input > I {
+    font-size: 9px;
+}
+
+.modal__line-two {
+    display: flex;
+    justify-content: space-evenly;
+
+    padding: 0px 50px;
+}
+
+.modal__line-two > button {
+    width: 100px;
 }
 
 .line__two {
@@ -118,7 +197,7 @@ table {
 }
 
 th, td {
-    width: 110px;
+    width: 115px;
     height: 30px;
     text-align: center;
     font-size: 12px;
@@ -140,18 +219,25 @@ tbody {
     background-color: #D9D9D9;
 }
 
-#change__width {
+.change__width {
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-content: space-between;
     color: #3DA648;
     border: 1px solid #E2E4E5;
 
     background-color: #D9D9D9;
-    width: 330px;
+    width: 350px;
     height: 30px;
     font-size: 12px;
     font-weight: bold;
+}
+
+#center__div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .change-td__color {
@@ -165,4 +251,45 @@ tbody {
     align-items: center;
 
     width: 100%;
+}
+
+.button-plus__scale {
+    border: 0;
+    border-radius: 5px;
+    color: #FFF;
+    background-color: #3DA648;
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.button-down__scale {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 0;
+    border-radius: 5px;
+    color: #3DA648;
+    background-color: #D9D9D9;
+    margin-right: 5px;
+}
+
+.caret-down__size {
+    width: 20px;
+    height: 20px;
+}
+
+.monthly-expense__table {
+    display: flex;
+    flex-direction: column;
+
+    margin-right: 10px;
+}
+
+.monthly-contracts__table {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 10px;
 }

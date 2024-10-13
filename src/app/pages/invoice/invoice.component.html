@@ -19,12 +19,36 @@
                     <input type="radio" name="option" value="3">
                     <span>Março</span>
                 </label>
-                <button><i class="fas fa-plus"></i></button>
+
+                <button (click)="openModal()"><i class="fas fa-plus"></i></button>
+
+                <div class="modal" *ngIf="isModalVisible">
+                    <div class="modal__content">
+                        <h3>Informe o mês e ano da fatura</h3>
+                        <div class="modal__line-one">
+                            <div class="data__input">
+                                <label for="">Mês: *</label>
+                                <input type="text" name="month">
+                                <I>ex: (01, 02, 03,...)</I>
+                            </div>
+                            <p>/</p>
+                            <div class="data__input">
+                                <label for="">Ano: *</label>
+                                <input type="text" name="year">
+                                <I>ex: (2021, 2022,...)</I>
+                            </div>
+                        </div>
+                        <div class="modal__line-two">
+                            <button class="btn btn-secondary close" (click)="closeModal()">Cancelar</button>
+                            <button class="btn btn-primary">Criar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="line__two">
             <div class="total-invoice__table">
-                <div id="change__width">
+                <div class="change__width" id="center__div">
                     <span>Fatural Total</span>
                 </div>
                 <table>
@@ -62,11 +86,13 @@
         </div>
         <div class="line__three">
             <div class="monthly-expense__table">
+                <div class="change__width">
+                    <button class="button-plus__scale"><i class="fas fa-plus"></i></button>
+                    <span>Gastos Mensais</span>
+                    <button class="button-down__scale"><i class="fas fa-caret-down caret-down__size"></i></button>
+                </div>
                 <table>
                     <thead>
-                        <tr>
-                            <th>Gastos Mensais</th>
-                        </tr>
                         <tr>
                             <th>Descrição</th>
                             <th>Parcela</th>
@@ -98,11 +124,13 @@
                 </table>
             </div>
             <div class="monthly-contracts__table">
+                <div class="change__width">
+                    <button class="button-plus__scale"><i class="fas fa-plus"></i></button>
+                    <span>Contratos</span>
+                    <button class="button-down__scale"><i class="fas fa-caret-down caret-down__size"></i></button>
+                </div>
                 <table>
                     <thead>
-                        <tr>
-                            <th>Contratos</th>
-                        </tr>
                         <tr>
                             <th>Descrição</th>
                             <th>Parcela</th>
