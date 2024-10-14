@@ -89,36 +89,35 @@
                 <div class="change__width">
                     <button class="button-plus__scale"><i class="fas fa-plus"></i></button>
                     <span>Gastos Mensais</span>
-                    <button class="button-down__scale"><i class="fas fa-caret-down caret-down__size"></i></button>
+                    <button class="button-down__scale" (click)="toggleExpenseTable()"><i class="fas fa-caret-down caret-down__size"></i></button>
                 </div>
                 <table>
-                    <thead>
+                    <thead *ngIf="!isExpenseCollapsed">
                         <tr>
                             <th>Descrição</th>
-                            <th>Parcela</th>
                             <th>Valor</th>
+                            <th>Parcela</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngIf="!isExpenseCollapsed">
                             <td>Televisão</td>
-                            <td>1/10</td>
                             <td>R$ 218,00</td>
+                            <td>1/10</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!isExpenseCollapsed">
                             <td>Sofá</td>
-                            <td>1/5</td>
                             <td>R$ 300,00</td>
+                            <td>1/5</td>
+                        </tr>
+                        <tr *ngIf="!isExpenseCollapsed">
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="change-td__color">Total</td>
+                            <td>R$ 518,00</td>
                         </tr>
                     </tbody>
                 </table>
@@ -127,36 +126,35 @@
                 <div class="change__width">
                     <button class="button-plus__scale"><i class="fas fa-plus"></i></button>
                     <span>Contratos</span>
-                    <button class="button-down__scale"><i class="fas fa-caret-down caret-down__size"></i></button>
+                    <button class="button-down__scale" (click)="toggleContractsTable()"><i class="fas fa-caret-down caret-down__size"></i></button>
                 </div>
                 <table>
-                    <thead>
+                    <thead *ngIf="!isContractsCollapsed">
                         <tr>
                             <th>Descrição</th>
-                            <th>Parcela</th>
                             <th>Valor</th>
+                            <th>Fim Contrato</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngIf="!isContractsCollapsed">
                             <td>Spotfy</td>
-                            <td>20/10/2023</td>
                             <td>R$ 21,90</td>
+                            <td>20/10/2023</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!isContractsCollapsed">
                             <td>Amazon Prime</td>
-                            <td>20/10/2033</td>
                             <td>R$ 19,90</td>
+                            <td>20/10/2033</td>
+                        </tr>
+                        <tr *ngIf="!isContractsCollapsed">
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="change-td__color">Total</td>
+                            <td>R$ 41,80</td>
                         </tr>
                     </tbody>
                 </table>

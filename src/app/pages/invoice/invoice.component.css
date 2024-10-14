@@ -194,6 +194,7 @@
 table {
     width: 100%;
     border-collapse: collapse;
+    transition: width 0.3s;
 }
 
 th, td {

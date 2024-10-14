@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 export class InvoiceComponent {
 
     isModalVisible: boolean = false;
+    isExpenseCollapsed = false;
+    isContractsCollapsed = false;
 
     openModal() {
         this.isModalVisible = true;
@@ -19,6 +21,14 @@ export class InvoiceComponent {
 
     closeModal() {
         this.isModalVisible = false;
+    }
+
+    toggleExpenseTable() {
+        this.isExpenseCollapsed = !this.isExpenseCollapsed;
+    }
+
+    toggleContractsTable() {
+        this.isContractsCollapsed = !this.isContractsCollapsed;
     }
 
 }
