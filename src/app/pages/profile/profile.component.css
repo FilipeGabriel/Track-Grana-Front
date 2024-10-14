@@ -3,11 +3,13 @@ label {
 }
 
 input {
+    text-align: center;
     box-shadow: inset -5px 34px 20px -40px rgba(0,0,0,1);
     border: 0px;
     border-radius: 10px;
     width: 200px;
     height: 35px;
+    outline: none;
 }
 
 .profile__container {
@@ -53,14 +55,14 @@ input {
     align-items: center;
     justify-content: space-evenly;
 
-    width: 700px;
-    height: 400px;
+    width: 650px;
+    height: 380px;
 }
 
 .div__form {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .div__image {
@@ -73,11 +75,21 @@ input {
 }
 
 .user__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     background-color: #E2E4E5;
+    width: 160px;
+    height: 160px;
+    border-radius: 100%;
+    margin-bottom: 15px;
+}
+
+.user__image > img {
     width: 150px;
     height: 150px;
     border-radius: 100%;
-    margin-bottom: 15px;
 }
 
 .div__inputs {
@@ -109,6 +121,7 @@ input {
 }
 
 .input__password > input {
+    text-align: center;
     font-size: 30px;
     width: 120px;
     background-color: #B1B1B1;
