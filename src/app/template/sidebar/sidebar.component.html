@@ -1,13 +1,17 @@
 <div class="sidebar__container">
     <nav class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
         <div class="sidebar__notCollapsed" *ngIf="!isCollapsed">
-            <div class="account__img"></div>
+            <div class="account__img">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s" alt="">
+            </div>
             <p>Filipe</p>
             <div class="vertical-line"></div>
             <button (click)="toggleSidebar()"><i class="fas fa-caret-left"></i></button>
         </div>
         <div class="sidebar__isCollapsed" *ngIf="isCollapsed">
-            <div class="account__img"></div>
+            <div class="account__img">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s" alt="">
+            </div>
             <button (click)="toggleSidebar()"><i class="fas fa-caret-right"></i></button>
         </div>
         <div class="sidebar__links__notCollapsed" *ngIf="!isCollapsed">
