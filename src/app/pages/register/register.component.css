@@ -25,6 +25,7 @@
 .tg__images > img {
     width: 80%;
     height: 85%;
+    min-height: 450px;
 }
 
 .tg__div-right {
@@ -46,8 +47,8 @@
 }
 
 .tg__register {
-    width: 80%;
-    height: 65%;
+    width: 450px;
+    height: 450px;
     display: flex;
     align-items: center;
     justify-content: center;
