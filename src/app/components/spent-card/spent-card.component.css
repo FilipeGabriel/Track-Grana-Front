@@ -11,6 +11,12 @@
     border-radius: 10px;
     width: 250px;
     height: 150px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.div__card:hover {
+    transform: translateY(-10px);
 }
 
 .card__shadow {
@@ -19,6 +25,6 @@
     left: 30px;
     width: 250px;
     height: 150px;
-    background-color: #4c4d4c94;
+    background-color: #72727294;
     border-radius: 10px;
 }
