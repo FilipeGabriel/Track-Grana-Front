@@ -4,11 +4,36 @@
     </div>
     <div class="spent__body">
         <div class="cards">
+            <div class="div__add-card">
+                <div class="card__shadow"></div>
+                <div class="div__card" (click)="openModal()"></div>
+            </div>
             <app-spent-card></app-spent-card>
             <app-spent-card></app-spent-card>
             <app-spent-card></app-spent-card>
             <app-spent-card></app-spent-card>
-            <app-spent-card></app-spent-card>
+        </div>
+    </div>
+    <div class="modal" *ngIf="isModalVisible">
+        <div class="modal__content">
+            <h3>Informe o mês e ano da fatura</h3>
+            <div class="modal__line-one">
+                <div class="data__input">
+                    <label for="">Mês: *</label>
+                    <input type="text" name="month">
+                    <I>ex: (01, 02, 03,...)</I>
+                </div>
+                <p>/</p>
+                <div class="data__input">
+                    <label for="">Ano: *</label>
+                    <input type="text" name="year">
+                    <I>ex: (2021, 2022,...)</I>
+                </div>
+            </div>
+            <div class="modal__line-two">
+                <button class="btn btn-secondary close" (click)="closeModal()">Cancelar</button>
+                <button class="btn btn-primary">Criar</button>
+            </div>
         </div>
     </div>
 </div>
