@@ -17,6 +17,8 @@
 }
 
 .div__router-outlet {
+    background-color: #E2E4E5;
+    box-shadow: inset 6px 6px 24px 0px rgba(153,151,153,1);
     border-radius: 15px;
     overflow-y: auto;
     scrollbar-width: none;
