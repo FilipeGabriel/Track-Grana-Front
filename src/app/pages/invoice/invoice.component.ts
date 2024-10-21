@@ -11,16 +11,34 @@ import { CommonModule } from '@angular/common';
 })
 export class InvoiceComponent {
 
-    isModalVisible: boolean = false;
+    isModalInvoiceVisible: boolean = false;
+    isModalExpensesVisible: boolean = false;
+    isModalContractsVisible: boolean = false;
     isExpenseCollapsed = false;
     isContractsCollapsed = false;
 
-    openModal() {
-        this.isModalVisible = true;
+    openInvoiceModal() {
+        this.isModalInvoiceVisible = true;
     }
 
-    closeModal() {
-        this.isModalVisible = false;
+    closeInvoiceModal() {
+        this.isModalInvoiceVisible = false;
+    }
+
+    openExpensesModal() {
+        this.isModalExpensesVisible = true;
+    }
+
+    closeExpensesModal() {
+        this.isModalExpensesVisible = false;
+    }
+
+    openContractsModal() {
+        this.isModalContractsVisible = true;
+    }
+
+    closeContractsModal() {
+        this.isModalContractsVisible = false;
     }
 
     toggleExpenseTable() {

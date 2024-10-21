@@ -5,20 +5,6 @@
     height: 200px;
 }
 
-.div__card {
-    position: absolute;
-    background-color: rgb(231, 18, 18);
-    border-radius: 10px;
-    width: 250px;
-    height: 150px;
-    transition: transform 0.3s;
-    cursor: pointer;
-}
-
-.div__card:hover {
-    transform: translateY(-10px);
-}
-
 .card__shadow {
     position: absolute;
     top: 10px;
@@ -27,4 +13,158 @@
     height: 150px;
     background-color: #72727294;
     border-radius: 10px;
+}
+
+.div__card {
+    position: absolute;
+    color: #E5DADA;
+    background-color: rgb(231, 18, 18);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 250px;
+    height: 150px;
+    padding: 10px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.div__card:hover {
+    transform: translateY(-10px);
+}
+
+.line-one__card {
+    display: flex;
+    justify-content: flex-end
+}
+
+.line-one__card > img {
+    width: 15px;
+    height: 20px;
+}
+
+.line-two__card {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    margin-bottom: 5px;
+}
+
+.line-two__card > img {
+    margin-left: 10px;
+    width: 35px;
+    height: 30px;
+}
+
+.line-two__card > span {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 20px;
+    margin-left: 15px;
+}
+
+.line-three__card {
+    display: flex;
+    flex-direction: column;
+}
+
+.line-three__card > span {
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.line-three__card > img {
+    align-self: self-end;
+    width: 55px;
+    height: 35px;
+}
+
+.modal {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+    background-image: linear-gradient(to bottom, #73bd7a, #65b36c, #56aa5e, #47a04f, #379741);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: fixed;
+
+    margin: 15% auto;
+    padding: 20px;
+    width: 400px;
+    height: 240px;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    color: #FFF;
+    text-align: center;
+}
+
+.modal__content > h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.modal__line-one {
+    display: flex;
+    justify-content: space-evenly;
+
+    padding: 0px 50px;
+}
+
+.modal__line-one > p {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.data__input {
+    display: flex;
+    flex-direction: column;
+}
+
+.data__input > label {
+    align-self: self-start;
+    font-size: 12px;
+
+}
+
+.data__input > input {
+    text-align: center;
+    box-shadow: inset -5px 34px 20px -40px rgba(0,0,0,1);
+    border: 0px;
+    border-radius: 10px;
+    width: 100px;
+    height: 32px;
+    outline: none;
+}
+
+.data__input > I {
+    font-size: 9px;
+}
+
+.modal__line-two {
+    display: flex;
+    justify-content: space-evenly;
+
+    padding: 0px 50px;
+}
+
+.modal__line-two > button {
+    width: 100px;
 }

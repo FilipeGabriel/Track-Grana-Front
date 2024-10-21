@@ -11,13 +11,13 @@
 
     width: 100%;
     height: 100%;
-    padding-top: 80px;
+    padding-top: 3.5%;
     padding-bottom: 40px;
 }
 
 .graphic__title {
-    position: fixed;
-    top: 8%;
+    position: sticky;
+    top: -100px;
 }
 
 .graphic__title > h3 {
@@ -36,6 +36,7 @@
 
 .group-buttons {
     display: flex;
+    padding: 10% 0;
 }
 
 .radio-button {

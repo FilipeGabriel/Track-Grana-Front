@@ -1,5 +1,39 @@
 <div class="spent-card__container">
     <div class="card__shadow"></div>
-    <div class="div__card"></div>
+    <div class="div__card" (click)="openModal()">
+        <div class="line-one__card">
+            <img src="../../../assets/images/crisp_card_approach.png" alt="card_approach">
+        </div>
+        <div class="line-two__card">
+            <img src="../../../assets/images/crisp_chip_card.png" alt="chip_card">
+            <span>Adicionar Novo</span>
+        </div>
+        <div class="line-three__card">
+            <span>1234 5678 1234 5678</span>
+            <img src="../../../assets/images/crisp_card_detail.png" alt="">
+        </div>
+    </div>
+    <div class="modal" *ngIf="isModalVisible">
+        <div class="modal__content">
+            <h3>Informe o mês e ano da fatura</h3>
+            <div class="modal__line-one">
+                <div class="data__input">
+                    <label for="">Mês: *</label>
+                    <input type="text" name="month">
+                    <I>ex: (01, 02, 03,...)</I>
+                </div>
+                <p>/</p>
+                <div class="data__input">
+                    <label for="">Ano: *</label>
+                    <input type="text" name="year">
+                    <I>ex: (2021, 2022,...)</I>
+                </div>
+            </div>
+            <div class="modal__line-two">
+                <button class="btn btn-primary">Criar</button>
+                <button class="btn btn-secondary close" (click)="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </div>
 

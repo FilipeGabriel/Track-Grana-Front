@@ -9,41 +9,15 @@
                     <input type="radio" name="option" value="1">
                     <span>Janeiro</span>
                 </label>
-
                 <label class="radio-button">
                     <input type="radio" name="option" value="2">
                     <span>Fevereiro</span>
                 </label>
-
                 <label class="radio-button">
                     <input type="radio" name="option" value="3">
                     <span>Março</span>
                 </label>
-
-                <button (click)="openModal()"><i class="fas fa-plus"></i></button>
-
-                <div class="modal" *ngIf="isModalVisible">
-                    <div class="modal__content">
-                        <h3>Informe o mês e ano da fatura</h3>
-                        <div class="modal__line-one">
-                            <div class="data__input">
-                                <label for="">Mês: *</label>
-                                <input type="text" name="month">
-                                <I>ex: (01, 02, 03,...)</I>
-                            </div>
-                            <p>/</p>
-                            <div class="data__input">
-                                <label for="">Ano: *</label>
-                                <input type="text" name="year">
-                                <I>ex: (2021, 2022,...)</I>
-                            </div>
-                        </div>
-                        <div class="modal__line-two">
-                            <button class="btn btn-primary">Criar</button>
-                            <button class="btn btn-secondary close" (click)="closeModal()">Cancelar</button>
-                        </div>
-                    </div>
-                </div>
+                <button (click)="openInvoiceModal()"><i class="fas fa-plus"></i></button>
             </div>
         </div>
         <div class="line__two">
@@ -87,7 +61,7 @@
         <div class="line__three">
             <div class="monthly-expense__table">
                 <div class="change__width">
-                    <button class="button-plus__scale"><i class="fas fa-plus"></i></button>
+                    <button class="button-plus__scale" (click)="openExpensesModal()"><i class="fas fa-plus"></i></button>
                     <span>Gastos Mensais</span>
                     <button class="button-down__scale" (click)="toggleExpenseTable()"><i class="fas fa-caret-down caret-down__size"></i></button>
                 </div>
@@ -154,7 +128,7 @@
             </div>
             <div class="monthly-contracts__table">
                 <div class="change__width">
-                    <button class="button-plus__scale"><i class="fas fa-plus"></i></button>
+                    <button class="button-plus__scale" (click)="openContractsModal()"><i class="fas fa-plus"></i></button>
                     <span>Contratos</span>
                     <button class="button-down__scale" (click)="toggleContractsTable()"><i class="fas fa-caret-down caret-down__size"></i></button>
                 </div>
@@ -188,6 +162,72 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="add-invoice__modal" *ngIf="isModalInvoiceVisible">
+            <div class="invoice-modal__content">
+                <h3>Informe o mês e ano da fatura</h3>
+                <div class="invoice-modal__line-one">
+                    <div class="invoice-data__input">
+                        <label for="">Mês: *</label>
+                        <input type="text" name="month">
+                        <I>ex: (01, 02, 03,...)</I>
+                    </div>
+                    <p>/</p>
+                    <div class="invoice-data__input">
+                        <label for="">Ano: *</label>
+                        <input type="text" name="year">
+                        <I>ex: (2021, 2022,...)</I>
+                    </div>
+                </div>
+                <div class="invoice-modal__line-two">
+                    <button class="btn btn-primary">Criar</button>
+                    <button class="btn btn-secondary close" (click)="closeInvoiceModal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <div class="add-expenses__modal" *ngIf="isModalExpensesVisible">
+            <div class="expenses-modal__content">
+                <h3>Adicione um novo Item</h3>
+                <div class="expenses-modal__line-one">
+                    <div class="expenses-data__input">
+                        <label for="">Mês: *</label>
+                        <input type="text" name="month">
+                        <I>ex: (01, 02, 03,...)</I>
+                    </div>
+                    <p>/</p>
+                    <div class="expenses-data__input">
+                        <label for="">Ano: *</label>
+                        <input type="text" name="year">
+                        <I>ex: (2021, 2022,...)</I>
+                    </div>
+                </div>
+                <div class="expenses-modal__line-two">
+                    <button class="btn btn-primary">Criar</button>
+                    <button class="btn btn-secondary close" (click)="closeExpensesModal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        <div class="add-contracts__modal" *ngIf="isModalContractsVisible">
+            <div class="contracts-modal__content">
+                <h3>Adicione um novo Contrato</h3>
+                <div class="contracts-modal__line-one">
+                    <div class="contracts-data__input">
+                        <label for="">Mês: *</label>
+                        <input type="text" name="month">
+                        <I>ex: (01, 02, 03,...)</I>
+                    </div>
+                    <p>/</p>
+                    <div class="contracts-data__input">
+                        <label for="">Ano: *</label>
+                        <input type="text" name="year">
+                        <I>ex: (2021, 2022,...)</I>
+                    </div>
+                </div>
+                <div class="contracts-modal__line-two">
+                    <button class="btn btn-primary">Criar</button>
+                    <button class="btn btn-secondary close" (click)="closeContractsModal()">Cancelar</button>
+                </div>
             </div>
         </div>
     </div>
