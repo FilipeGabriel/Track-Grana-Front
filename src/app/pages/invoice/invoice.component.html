@@ -172,14 +172,12 @@
                 <div class="invoice-modal__line-one">
                     <div class="invoice-data__input">
                         <label for="">Mês: *</label>
-                        <input type="text" name="month">
-                        <I>ex: (01, 02, 03,...)</I>
+                        <input type="number" name="month" placeholder=" ex: 04">
                     </div>
                     <p>/</p>
                     <div class="invoice-data__input">
                         <label for="">Ano: *</label>
-                        <input type="text" name="year">
-                        <I>ex: (2021, 2022,...)</I>
+                        <input type="number" name="year" placeholder=" ex: 2023">
                     </div>
                 </div>
                 <div class="invoice-modal__line-two">
@@ -190,21 +188,30 @@
         </div>
         <div class="add-expenses__modal" *ngIf="isModalExpensesVisible">
             <div class="expenses-modal__content">
-                <h3>Adicione um novo Item</h3>
+                <h3>Adicione novo item</h3>
                 <div class="expenses-modal__line-one">
                     <div class="expenses-data__input">
-                        <label for="">Mês: *</label>
-                        <input type="text" name="month">
-                        <I>ex: (01, 02, 03,...)</I>
+                        <label for="">Descrição: *</label>
+                        <input type="text" name="description" placeholder=" ex: Calculadora">
                     </div>
-                    <p>/</p>
                     <div class="expenses-data__input">
-                        <label for="">Ano: *</label>
-                        <input type="text" name="year">
-                        <I>ex: (2021, 2022,...)</I>
+                        <label for="">Valor: *</label>
+                        <input type="text" name="value"  placeholder=" ex: R$ 50,00">
                     </div>
                 </div>
                 <div class="expenses-modal__line-two">
+                    <div class="expenses-data__input">
+                        <label for="">Parcela: *</label>
+                        <input type="number" name="installment"  placeholder=" ex: 4">
+                    </div>
+                    <div class="expenses-data__input">
+                        <label for="dropdown">Tipo de Gasto: *</label>
+                        <select id="dropdown" (change)="onSelectType($event)">
+                            <option *ngFor="let item of items" [value]="item">{{ item }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="expenses-modal__line-three">
                     <button class="btn btn-primary">Criar</button>
                     <button class="btn btn-secondary close" (click)="closeExpensesModal()">Cancelar</button>
                 </div>
@@ -212,21 +219,30 @@
         </div>
         <div class="add-contracts__modal" *ngIf="isModalContractsVisible">
             <div class="contracts-modal__content">
-                <h3>Adicione um novo Contrato</h3>
+                <h3>Adicione novo contrato</h3>
                 <div class="contracts-modal__line-one">
                     <div class="contracts-data__input">
-                        <label for="">Mês: *</label>
-                        <input type="text" name="month">
-                        <I>ex: (01, 02, 03,...)</I>
+                        <label for="">Descrição: *</label>
+                        <input type="text" name="description"  placeholder=" ex: Spotfy">
                     </div>
-                    <p>/</p>
                     <div class="contracts-data__input">
-                        <label for="">Ano: *</label>
-                        <input type="text" name="year">
-                        <I>ex: (2021, 2022,...)</I>
+                        <label for="">Valor: *</label>
+                        <input type="text" name="value"  placeholder=" ex: R$ 24,90">
                     </div>
                 </div>
                 <div class="contracts-modal__line-two">
+                    <div class="expenses-data__input">
+                        <label for="">Fim Contrato: *</label>
+                        <input type="date" name="installment">
+                    </div>
+                    <div class="expenses-data__input">
+                        <label for="dropdown">Tipo de Gasto: *</label>
+                        <select id="dropdown" (change)="onSelectType($event)">
+                            <option *ngFor="let item of items" [value]="item">{{ item }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="contracts-modal__line-three">
                     <button class="btn btn-primary">Criar</button>
                     <button class="btn btn-secondary close" (click)="closeContractsModal()">Cancelar</button>
                 </div>

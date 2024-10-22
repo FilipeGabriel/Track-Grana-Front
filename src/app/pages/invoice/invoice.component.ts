@@ -14,8 +14,12 @@ export class InvoiceComponent {
     isModalInvoiceVisible: boolean = false;
     isModalExpensesVisible: boolean = false;
     isModalContractsVisible: boolean = false;
+
     isExpenseCollapsed = false;
     isContractsCollapsed = false;
+
+    items = ['', 'Santander', 'Inter', 'NuBank'];
+    selectedTypeExpenses: string = this.items[0];
 
     openInvoiceModal() {
         this.isModalInvoiceVisible = true;
@@ -47,6 +51,11 @@ export class InvoiceComponent {
 
     toggleContractsTable() {
         this.isContractsCollapsed = !this.isContractsCollapsed;
+    }
+
+    onSelectType(event: Event) {
+        const selectElement = event.target as HTMLSelectElement;
+        this.selectedTypeExpenses = selectElement.value;
     }
 
 }

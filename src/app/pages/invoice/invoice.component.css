@@ -1,3 +1,7 @@
+input::placeholder {
+    color: #a1a0a0;
+}
+
 .invoice__container {
     font-family: outfit;
     color: #757575;
@@ -134,7 +138,7 @@ thead {
 }
 
 tbody {
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
 }
 
 .change__width {
@@ -145,7 +149,7 @@ tbody {
     color: #3DA648;
     border: 1px solid #E2E4E5;
 
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
     width: 350px;
     height: 30px;
     font-size: 12px;
@@ -190,7 +194,7 @@ tbody {
     border: 0;
     border-radius: 5px;
     color: #3DA648;
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
     margin-right: 5px;
 }
 
@@ -272,7 +276,6 @@ tbody {
 .invoice-data__input > label {
     align-self: self-start;
     font-size: 12px;
-
 }
 
 .invoice-data__input > input {
@@ -283,10 +286,6 @@ tbody {
     width: 100px;
     height: 32px;
     outline: none;
-}
-
-.invoice-data__input > I {
-    font-size: 9px;
 }
 
 .invoice-modal__line-two {
@@ -326,7 +325,7 @@ tbody {
     margin: 15% auto;
     padding: 20px;
     width: 400px;
-    height: 240px;
+    height: 300px;
     max-width: 500px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -343,23 +342,18 @@ tbody {
     display: flex;
     justify-content: space-evenly;
 
-    padding: 0px 50px;
-}
-
-.expenses-modal__line-one > p {
-    margin-top: 20px;
-    font-size: 20px;
+    width: 100%;
 }
 
 .expenses-data__input {
     display: flex;
     flex-direction: column;
+    padding: 15px 0;
 }
 
 .expenses-data__input > label {
     align-self: self-start;
     font-size: 12px;
-
 }
 
 .expenses-data__input > input {
@@ -367,24 +361,39 @@ tbody {
     box-shadow: inset -5px 34px 20px -40px rgba(0,0,0,1);
     border: 0px;
     border-radius: 10px;
-    width: 100px;
+    width: 150px;
     height: 32px;
     outline: none;
 }
 
-.expenses-data__input > I {
-    font-size: 9px;
+.expenses-data__input > select {
+    box-shadow: inset -5px 34px 20px -40px rgba(0,0,0,1);
+    border: 0px;
+    border-radius: 10px;
+    width: 150px;
+    height: 32px;
+    outline: none;
 }
 
 .expenses-modal__line-two {
     display: flex;
     justify-content: space-evenly;
 
-    padding: 0px 50px;
+    width: 100%;
 }
 
-.expenses-modal__line-two > button {
+.expenses-modal__line-three {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    padding-top: 15px;
+}
+
+.expenses-modal__line-three > button {
     width: 100px;
+    height: 38px;
+    margin: 0 10px;
 }
 
 .add-contracts__modal {
@@ -413,7 +422,7 @@ tbody {
     margin: 15% auto;
     padding: 20px;
     width: 400px;
-    height: 240px;
+    height: 300px;
     max-width: 500px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -430,23 +439,18 @@ tbody {
     display: flex;
     justify-content: space-evenly;
 
-    padding: 0px 50px;
-}
-
-.contracts-modal__line-one > p {
-    margin-top: 20px;
-    font-size: 20px;
+    width: 100%;
 }
 
 .contracts-data__input {
     display: flex;
     flex-direction: column;
+    padding: 15px 0;
 }
 
 .contracts-data__input > label {
     align-self: self-start;
     font-size: 12px;
-
 }
 
 .contracts-data__input > input {
@@ -454,22 +458,37 @@ tbody {
     box-shadow: inset -5px 34px 20px -40px rgba(0,0,0,1);
     border: 0px;
     border-radius: 10px;
-    width: 100px;
+    width: 150px;
     height: 32px;
     outline: none;
 }
 
-.contracts-data__input > I {
-    font-size: 9px;
+.contracts-data__input > select {
+    box-shadow: inset -5px 34px 20px -40px rgba(0,0,0,1);
+    border: 0px;
+    border-radius: 10px;
+    width: 150px;
+    height: 32px;
+    outline: none;
 }
 
 .contracts-modal__line-two {
     display: flex;
     justify-content: space-evenly;
 
-    padding: 0px 50px;
+    width: 100%;
 }
 
-.contracts-modal__line-two > button {
+.contracts-modal__line-three {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    padding-top: 15px;
+}
+
+.contracts-modal__line-three > button {
     width: 100px;
+    height: 38px;
+    margin: 0 10px;
 }
