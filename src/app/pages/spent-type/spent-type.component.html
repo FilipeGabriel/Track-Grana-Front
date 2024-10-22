@@ -32,17 +32,19 @@
             <div class="modal__line-one">
                 <div class="data__input">
                     <label for="">Mês: *</label>
-                    <input type="text" name="month">
-                    <I>ex: (01, 02, 03,...)</I>
+                    <input type="text" name="month" placeholder=" ex: 4">
                 </div>
                 <p>/</p>
                 <div class="data__input">
                     <label for="">Ano: *</label>
-                    <input type="text" name="year">
-                    <I>ex: (2021, 2022,...)</I>
+                    <input type="text" name="year" placeholder=" ex: 2023">
                 </div>
             </div>
             <div class="modal__line-two">
+                <label for="colorPicker">Escolha uma cor: *</label>
+                <input type="color" id="colorPicker" [value]="selectedColor" (input)="onColorChange($event)">
+            </div>
+            <div class="modal__line-three">
                 <button class="btn btn-primary">Criar</button>
                 <button class="btn btn-secondary close" (click)="closeModal()">Cancelar</button>
             </div>

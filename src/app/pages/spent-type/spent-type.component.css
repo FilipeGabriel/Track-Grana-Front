@@ -1,3 +1,7 @@
+input::placeholder {
+    color: #a1a0a0;
+}
+
 .spent__container {
     font-family: outfit;
     color: #757575;
@@ -200,11 +204,26 @@
 
 .modal__line-two {
     display: flex;
+    justify-content: center;
+
+    padding-right: 65px;
+    margin-bottom: 15px;
+}
+
+.modal__line-two > input {
+    border: 0;
+    border-radius: 10px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+.modal__line-three {
+    display: flex;
     justify-content: space-evenly;
 
     padding: 0px 50px;
 }
 
-.modal__line-two > button {
+.modal__line-three > button {
     width: 100px;
 }

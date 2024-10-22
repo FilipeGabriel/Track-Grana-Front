@@ -12,7 +12,14 @@ import { CommonModule } from '@angular/common';
 })
 export class SpentTypeComponent {
 
+    selectedColor: string = '#000000';
+
     isModalVisible: boolean = false;
+
+    onColorChange(event: Event) {
+        const inputElement = event.target as HTMLInputElement;
+        this.selectedColor = inputElement.value;
+    }
 
     openModal() {
         this.isModalVisible = true;
