@@ -63,7 +63,8 @@
                 <div class="change__width">
                     <button class="button-plus__scale" (click)="openExpensesModal()"><i class="fas fa-plus"></i></button>
                     <span>Gastos Mensais</span>
-                    <button class="button-down__scale" (click)="toggleExpenseTable()"><i class="fas fa-caret-down caret-down__size"></i></button>
+                    <button class="button-down__scale" (click)="toggleExpenseTable()" *ngIf="isExpenseCollapsed"><i class="fas fa-caret-down caret-down__size"></i></button>
+                    <button class="button-down__scale" (click)="toggleExpenseTable()" *ngIf="!isExpenseCollapsed"><i class="fas fa-caret-up caret-down__size"></i></button>
                 </div>
                 <table>
                     <thead *ngIf="!isExpenseCollapsed">
@@ -130,7 +131,8 @@
                 <div class="change__width">
                     <button class="button-plus__scale" (click)="openContractsModal()"><i class="fas fa-plus"></i></button>
                     <span>Contratos</span>
-                    <button class="button-down__scale" (click)="toggleContractsTable()"><i class="fas fa-caret-down caret-down__size"></i></button>
+                    <button class="button-down__scale" (click)="toggleContractsTable()" *ngIf="isContractsCollapsed"><i class="fas fa-caret-down caret-down__size"></i></button>
+                    <button class="button-down__scale" (click)="toggleContractsTable()" *ngIf="!isContractsCollapsed"><i class="fas fa-caret-up caret-down__size"></i></button>
                 </div>
                 <table>
                     <thead *ngIf="!isContractsCollapsed">
