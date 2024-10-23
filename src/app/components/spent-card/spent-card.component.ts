@@ -10,7 +10,14 @@ import { Component } from '@angular/core';
 })
 export class SpentCardComponent {
 
+    selectedColor: string = '#000000';
+
     isModalVisible: boolean = false;
+
+    onColorChange(event: Event) {
+        const inputElement = event.target as HTMLInputElement;
+        this.selectedColor = inputElement.value;
+    }
 
     openModal() {
         this.isModalVisible = true;

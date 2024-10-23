@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class SpentTypeComponent {
 
-    selectedColor: string = '#000000';
+    selectedColor: string = '#B5B0B0';
 
     isModalVisible: boolean = false;
 

@@ -143,87 +143,116 @@ input::placeholder {
 }
 
 .modal__content {
-    background-image: linear-gradient(to bottom, #73bd7a, #65b36c, #56aa5e, #47a04f, #379741);
+    background-color: #B5B0B0;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     position: fixed;
 
-    margin: 15% auto;
-    padding: 20px;
-    width: 400px;
+    width: 390px;
     height: 240px;
-    max-width: 500px;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     color: #FFF;
     text-align: center;
 }
 
-.modal__content > h3 {
-    font-size: 18px;
-    margin: 0;
-}
-
-.modal__line-one {
+.line-one__modal {
     display: flex;
-    justify-content: space-evenly;
-
-    padding: 0px 50px;
+    justify-content: flex-end
 }
 
-.modal__line-one > p {
+.line-one__modal > h3 {
+    font-size: 22px;
+    padding-right: 45px;
+}
+
+.line-one__modal > img {
+    width: 23px;
+    height: 30px;
+}
+
+.line-two__modal {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.line-two__modal > img {
+    margin-left: 20px;
     margin-top: 20px;
-    font-size: 20px;
+    width: 50px;
+    height: 42px;
 }
 
-.data__input {
+.div__description {
     display: flex;
     flex-direction: column;
+
+    margin-left: 25px;
 }
 
-.data__input > label {
+.line-two__modal > .div__description > label {
     align-self: self-start;
     font-size: 12px;
-
 }
 
-.data__input > input {
+.line-two__modal > .div__description > input {
     text-align: center;
     box-shadow: inset -5px 34px 20px -40px rgba(0,0,0,1);
     border: 0px;
     border-radius: 10px;
-    width: 100px;
-    height: 32px;
+    width: 190px;
+    height: 35px;
     outline: none;
 }
 
-.data__input > I {
-    font-size: 9px;
-}
-
-.modal__line-two {
+.div__color {
     display: flex;
-    justify-content: center;
-
-    padding-right: 65px;
-    margin-bottom: 15px;
+    flex-direction: column;
+    margin-left: 10px;
 }
 
-.modal__line-two > input {
-    border: 0;
+.line-two__modal > .div__color > label {
+    align-self: self-start;
+    font-size: 12px;
+}
+
+#colorPicker {
+    border: 1px solid rgb(56, 56, 56);
     border-radius: 10px;
-    margin-left: 12px;
+    height: 35px;
     cursor: pointer;
 }
 
-.modal__line-three {
+.line-three__modal {
     display: flex;
-    justify-content: space-evenly;
-
-    padding: 0px 50px;
+    flex-direction: column;
 }
 
-.modal__line-three > button {
-    width: 100px;
+.line-three__modal > span {
+    align-self: flex-start;
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-left: 30px;
+}
+
+.div__down {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 65px;
+}
+
+.div__down > button {
+    width: 90px;
+    height: 38px;
+    margin: 0 5px;
+}
+
+.div__down > img {
+    width: 85px;
+    height: 53px;
 }
