@@ -75,54 +75,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngIf="!isExpenseCollapsed">
-                            <td>Televisão</td>
-                            <td>R$ 218,00</td>
-                            <td>1/10</td>
-                        </tr>
-                        <tr *ngIf="!isExpenseCollapsed">
-                            <td>Sofá</td>
-                            <td>R$ 300,00</td>
-                            <td>1/5</td>
-                        </tr>
-                        <tr *ngIf="!isExpenseCollapsed">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr *ngIf="!isExpenseCollapsed">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr *ngIf="!isExpenseCollapsed">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr *ngIf="!isExpenseCollapsed">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr *ngIf="!isExpenseCollapsed">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr *ngIf="!isExpenseCollapsed">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr *ngIf="!isExpenseCollapsed">
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let i of items">
+                            <td *ngIf="!isExpenseCollapsed">{{ i.description }}</td>
+                            <td *ngIf="!isExpenseCollapsed">{{ i.itemValue }}</td>
+                            <td *ngIf="!isExpenseCollapsed">{{ i.installment }}</td>
                         </tr>
                         <tr>
                             <td class="change-td__color">Total</td>
-                            <td>R$ 518,00</td>
+                            <td>{{ totalValueExpenses }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -207,7 +167,7 @@
                     <div class="expenses-data__input">
                         <label for="dropdown">Tipo de Gasto: *</label>
                         <select id="dropdown" (change)="onSelectType($event)">
-                            <option *ngFor="let item of items" [value]="item">{{ item }}</option>
+                            <option *ngFor="let item of spentItems" [value]="item">{{ item }}</option>
                         </select>
                     </div>
                 </div>
@@ -238,7 +198,7 @@
                     <div class="expenses-data__input">
                         <label for="dropdown">Tipo de Gasto: *</label>
                         <select id="dropdown" (change)="onSelectType($event)">
-                            <option *ngFor="let item of items" [value]="item">{{ item }}</option>
+                            <option *ngFor="let item of spentItems" [value]="item">{{ item }}</option>
                         </select>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ import { Account } from '../../models/account';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
 
     account: Account;
     trueAccount: Account;
