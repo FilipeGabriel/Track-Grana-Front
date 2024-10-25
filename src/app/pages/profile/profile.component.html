@@ -2,64 +2,66 @@
     <div class="profile__title">
         <app-title title="Profile"></app-title>
     </div>
-    <div class="profile__body">
-        <div class="profile__form">
-            <div class="div__form">
-                <div class="div__image">
-                    <div class="user__image">
-                        <img [src]="imageSrc" alt="user_image">
-                    </div>
-                    <button class="btn btn-primary" (click)="fileInput.click()" >Alterar foto</button>
-                    <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" />
-                </div>
-                <div class="div__inputs">
-                    <div class="form__line-one">
-                        <div class="div__username">
-                            <label for="">Username:</label>
-                            <input type="text">
+    <form #form="ngForm" (submit)="onSubmit()">
+        <div class="profile__body">
+            <div class="profile__form">
+                <div class="div__form">
+                    <div class="div__image">
+                        <div class="user__image">
+                            <img [src]="account.accountImg" alt="user_image" name="accountImg">
                         </div>
-                        <div class="div__password">
-                            <label for="">Senha:</label>
-                            <div class="input__password">
-                                <input type="text" disabled value="••••••••••">
-                                <button (click)="openModal()">Alterar senha</button>
+                        <button class="btn btn-primary" (click)="fileInput.click()" type="button">Alterar foto</button>
+                        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" />
+                    </div>
+                    <div class="div__inputs">
+                        <div class="form__line-one">
+                            <div class="div__username">
+                                <label for="">Username:</label>
+                                <input type="text" disabled="">
+                            </div>
+                            <div class="div__password">
+                                <label for="">Senha:</label>
+                                <div class="input__password">
+                                    <input type="text" disabled value="••••••••••">
+                                    <button (click)="openModal()" type="button">Alterar senha</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__line-two">
+                            <div class="div__full-name">
+                                <label for="">Nome completo:</label>
+                                <input type="text" [(ngModel)]="account.name" name="name" placeholder="ex: José Anastácio da Silva">
+                            </div>
+                        </div>
+                        <div class="form__line-three">
+                            <div class="div__email">
+                                <label for="">E-mail:</label>
+                                <input type="text" disabled="">
+                            </div>
+                            <div class="div__cpf">
+                                <label for="">CPF:</label>
+                                <input type="text" [(ngModel)]="account.cpf" name="cpf" placeholder="ex: 123.456.789-10">
+                            </div>
+                        </div>
+                        <div class="form__line-four">
+                            <div class="div__telephone">
+                                <label for="">Telefone:</label>
+                                <input type="text" [(ngModel)]="account.telephone" name="telephone" placeholder="ex: (81)99999-9999">
+                            </div>
+                            <div class="div__birth-date">
+                                <label for="">Data de nascimento:</label>
+                                <input type="date" [(ngModel)]="account.birthDate" name="birthDate">
                             </div>
                         </div>
                     </div>
-                    <div class="form__line-two">
-                        <div class="div__full-name">
-                            <label for="">Nome completo:</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="form__line-three">
-                        <div class="div__email">
-                            <label for="">E-mail:</label>
-                            <input type="text">
-                        </div>
-                        <div class="div__cpf">
-                            <label for="">CPF:</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="form__line-four">
-                        <div class="div__telephone">
-                            <label for="">Telefone:</label>
-                            <input type="text">
-                        </div>
-                        <div class="div__birth-date">
-                            <label for="">Data de nascimento:</label>
-                            <input type="text">
-                        </div>
-                    </div>
+                </div>
+                <div class="form__buttons">
+                    <button class="btn btn-primary" type="submit">Salvar</button>
+                    <button class="btn btn-secondary" type="button" (click)="cancelAlteration()">Cancelar</button>
                 </div>
             </div>
-            <div class="form__buttons">
-                <button class="btn btn-primary">Salvar</button>
-                <button class="btn btn-secondary">Cancelar</button>
-            </div>
         </div>
-    </div>
+    </form>
     <div class="modal" *ngIf="isModalVisible">
         <div class="modal__content">
             <h3>Alterar senha</h3>
