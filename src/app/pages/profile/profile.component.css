@@ -160,7 +160,6 @@ form {
 }
 
 .input__password > button:active {
-    transform: scale(0.95);
     background-color: #0855c7;
 }
 

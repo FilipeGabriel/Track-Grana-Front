@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SpentType } from '../../models/spent-type';
 
 @Component({
   selector: 'app-spent-card',
@@ -10,13 +11,19 @@ import { Component } from '@angular/core';
 })
 export class SpentCardComponent {
 
+    @Input()
+    spentType: SpentType;
+
     selectedColor: string = '#000000';
 
     isModalVisible: boolean = false;
 
+    constructor() {
+    }
+
     onColorChange(event: Event) {
         const inputElement = event.target as HTMLInputElement;
-        this.selectedColor = inputElement.value;
+        this.spentType.color = inputElement.value;
     }
 
     openModal() {
