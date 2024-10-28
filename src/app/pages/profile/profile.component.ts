@@ -3,6 +3,7 @@ import { TitleComponent } from '../../components/title/title.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Account } from '../../models/account';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ import { Account } from '../../models/account';
 })
 export class ProfileComponent implements OnInit {
 
+    user: User;
     account: Account;
     trueAccount: Account;
 
@@ -26,16 +28,24 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this.user = {
+            username: 'Teste',
+            password: '123456',
+            email: 'teste@gmail.com'
+        }
+
         this.account = {
-            name: 'João',
-            cpf: '11201955432',
-            telephone: '81984946724',
+            name: 'Teste',
+            cpf: '112.019.554-32',
+            telephone: '(81)98494-6724',
             birthDate: '18/04/1997',
             accountImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s',
             userId: 1
         };
 
         this.trueAccount = { ...this.account };
+
     }
 
 

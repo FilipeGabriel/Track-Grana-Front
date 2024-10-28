@@ -17,12 +17,12 @@
                         <div class="form__line-one">
                             <div class="div__username">
                                 <label for="">Username:</label>
-                                <input type="text" disabled="">
+                                <input type="text" [(ngModel)]="user.username" name="username" disabled="">
                             </div>
                             <div class="div__password">
                                 <label for="">Senha:</label>
                                 <div class="input__password">
-                                    <input type="text" disabled value="••••••••••">
+                                    <input type="text" disabled="" value="••••••••••">
                                     <button (click)="openModal()" type="button">Alterar senha</button>
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                         <div class="form__line-three">
                             <div class="div__email">
                                 <label for="">E-mail:</label>
-                                <input type="text" disabled="">
+                                <input type="text" [(ngModel)]="user.email" name="email" disabled="">
                             </div>
                             <div class="div__cpf">
                                 <label for="">CPF:</label>

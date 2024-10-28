@@ -2,6 +2,10 @@ input::placeholder {
     color: #a1a0a0;
 }
 
+input:disabled {
+    background-color: #88d48d;
+}
+
 label {
     font-size: 12px;
 }
@@ -131,7 +135,6 @@ form {
     text-align: center;
     font-size: 30px;
     width: 120px;
-    background-color: #B1B1B1;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -144,22 +147,21 @@ form {
     border: 0;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
-    background-color: #8C8988;
+    background-color: #0d6efd;
     color: #FBF3F3;
     width: 80px;
     text-decoration: none;
     font-size: 11px;
-    font-weight: bold;
     transition: transform 0.1s, background-color 0.2s;
 }
 
 .input__password > button:hover {
-    background-color: #646363;
+    background-color: #095fe0;
 }
 
 .input__password > button:active {
     transform: scale(0.95);
-    background-color: #474747;
+    background-color: #0855c7;
 }
 
 .div__full-name {
