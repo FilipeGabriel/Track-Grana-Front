@@ -34,24 +34,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Santander</td>
-                            <td>R$ 150,00</td>
-                            <td>Não</td>
-                        </tr>
-                        <tr>
-                            <td>Inter</td>
-                            <td>R$ 150,00</td>
-                            <td>Não</td>
-                        </tr>
-                        <tr>
-                            <td>Bradesco</td>
-                            <td>R$ 150,00</td>
-                            <td>Não</td>
+                        <tr *ngFor="let spent of spentTypes">
+                            <td [style.color]="spent.color">{{ spent.description }}</td>
+                            <td>{{ spent.value }}</td>
+                            <td>{{ spent.paid }}</td>
                         </tr>
                         <tr>
                             <td class="change-td__color">Gasto total</td>
-                            <td>R$ 450,00</td>
+                            <td>{{ totalValueSpent }}</td>
                             <td>Não</td>
                         </tr>
                     </tbody>

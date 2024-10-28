@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TitleComponent } from '../../components/title/title.component';
 import { CommonModule } from '@angular/common';
 import { ExpensesItem } from '../../models/expenses-item';
+import { SpentType } from '../../models/spent-type';
 
 @Component({
   selector: 'app-invoice',
@@ -14,7 +15,11 @@ export class InvoiceComponent implements OnInit {
 
     item: ExpensesItem;
     items: ExpensesItem[];
+    itemColor: string;
     totalValueExpenses: number;
+    spentType: SpentType;
+    spentTypes: SpentType[];
+    totalValueSpent: number;
 
     isModalInvoiceVisible: boolean = false;
     isModalExpensesVisible: boolean = false;
@@ -64,6 +69,32 @@ export class InvoiceComponent implements OnInit {
         this.totalValueExpenses = 0
         for (let item of this.items) {
             this.totalValueExpenses += item.itemValue;
+        }
+
+        this.spentTypes = [
+            this.spentType = {
+                description: 'Inter',
+                value: 150,
+                color: '#f85c01',
+                paid: false
+            },
+            this.spentType = {
+                description: 'Bradesco',
+                value: 350,
+                color: '#be0202',
+                paid: false
+            },
+            this.spentType = {
+                description: 'Nubank',
+                value: 200,
+                color: '#7700ff',
+                paid: false
+            }
+        ]
+
+        this.totalValueSpent = 0;
+        for (let spent of this.spentTypes) {
+            this.totalValueSpent += spent.value;
         }
 
     }
