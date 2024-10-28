@@ -36,7 +36,7 @@
                     <tbody>
                         <tr *ngFor="let spent of spentTypes">
                             <td [style.color]="spent.color">{{ spent.description }}</td>
-                            <td>{{ spent.value }}</td>
+                            <td>{{ spent.spentValue }}</td>
                             <td>{{ spent.paid }}</td>
                         </tr>
                         <tr>
@@ -65,10 +65,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let i of items">
-                            <td *ngIf="!isExpenseCollapsed">{{ i.description }}</td>
-                            <td *ngIf="!isExpenseCollapsed">{{ i.itemValue }}</td>
-                            <td *ngIf="!isExpenseCollapsed">{{ i.installment }}</td>
+                        <tr *ngFor="let item of items">
+                            <td *ngIf="!isExpenseCollapsed">{{ item.description }}</td>
+                            <td *ngIf="!isExpenseCollapsed">{{ item.itemValue }}</td>
+                            <td *ngIf="!isExpenseCollapsed">{{ item.installment }}</td>
                         </tr>
                         <tr>
                             <td class="change-td__color">Total</td>
@@ -93,24 +93,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngIf="!isContractsCollapsed">
-                            <td>Spotfy</td>
-                            <td>R$ 21,90</td>
-                            <td>20/10/2023</td>
-                        </tr>
-                        <tr *ngIf="!isContractsCollapsed">
-                            <td>Amazon Prime</td>
-                            <td>R$ 19,90</td>
-                            <td>20/10/2033</td>
-                        </tr>
-                        <tr *ngIf="!isContractsCollapsed">
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let contract of monthlyContracts">
+                            <td *ngIf="!isContractsCollapsed">{{ contract.description }}</td>
+                            <td *ngIf="!isContractsCollapsed">{{ contract.contractValue }}</td>
+                            <td *ngIf="!isContractsCollapsed">{{ contract.contractEnd }}</td>
                         </tr>
                         <tr>
                             <td class="change-td__color">Total</td>
-                            <td>R$ 41,80</td>
+                            <td>{{ totalValueContract }}</td>
                         </tr>
                     </tbody>
                 </table>
