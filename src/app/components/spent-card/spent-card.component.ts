@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { SpentType } from '../../models/spent-type';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-spent-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './spent-card.component.html',
   styleUrl: './spent-card.component.css'
 })

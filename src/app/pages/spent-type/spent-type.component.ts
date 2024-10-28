@@ -40,7 +40,7 @@ export class SpentTypeComponent implements OnInit{
                 paid: false
             },
             this.spentType = {
-                description: 'Nubttank',
+                description: 'Nubank',
                 spentValue: 200,
                 color: '#7700ff',
                 paid: false
