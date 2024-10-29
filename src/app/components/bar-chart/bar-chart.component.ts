@@ -34,11 +34,11 @@ export class BarChartComponent {
         { name: 'Abril', value: 4100, color: 'rgb(183, 188, 184)' },
         { name: 'Maio', value: 2900, color: 'rgb(183, 188, 184)' },
         { name: 'Junho', value: 2750, color: 'rgb(183, 188, 184)' },
-        { name: 'Julho', value: 3900, color: 'rgb(183, 188, 184)' },
-        { name: 'Agosto', value: 3950, color: 'rgb(183, 188, 184)' },
-        { name: 'Setembro', value: 3700, color: 'rgb(183, 188, 184)' },
-        { name: 'Outubro', value: 3700, color: 'rgb(183, 188, 184)' },
-        { name: 'Novembro', value: 3750, color: 'rgb(183, 188, 184)' },
+        { name: 'Julho', value: 2200, color: 'rgb(183, 188, 184)' },
+        { name: 'Agosto', value: 3550, color: 'rgb(183, 188, 184)' },
+        { name: 'Setembro', value: 2760, color: 'rgb(183, 188, 184)' },
+        { name: 'Outubro', value: 2600, color: 'rgb(183, 188, 184)' },
+        { name: 'Novembro', value: 2950, color: 'rgb(183, 188, 184)' },
         { name: 'Dezembro', value: 2850, color: 'rgb(183, 188, 184)' }
     ]
 

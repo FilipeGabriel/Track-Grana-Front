@@ -15,8 +15,6 @@ export class SpentCardComponent {
     @Input()
     spentType: SpentType;
 
-    selectedColor: string = '#000000';
-
     isModalVisible: boolean = false;
 
     constructor() {
