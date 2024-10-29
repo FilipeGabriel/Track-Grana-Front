@@ -5,17 +5,9 @@
     <div class="invoice__body">
         <div class="line__one">
             <div class="group-buttons">
-                <label class="radio-button">
-                    <input type="radio" name="option" value="1">
-                    <span>Janeiro</span>
-                </label>
-                <label class="radio-button">
-                    <input type="radio" name="option" value="2">
-                    <span>Fevereiro</span>
-                </label>
-                <label class="radio-button">
-                    <input type="radio" name="option" value="3">
-                    <span>Março</span>
+                <label class="radio-button" *ngFor="let invoice of invoices">
+                    <input type="radio" name="option">
+                    <span>{{ invoice.monthName }}</span>
                 </label>
                 <button (click)="openInvoiceModal()"><i class="fas fa-plus"></i></button>
             </div>

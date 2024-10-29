@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ExpensesItem } from '../../models/expenses-item';
 import { SpentType } from '../../models/spent-type';
 import { MonthlyContract } from '../../models/monthly-contract';
+import { Invoice } from '../../models/invoice';
 
 @Component({
   selector: 'app-invoice',
@@ -14,6 +15,8 @@ import { MonthlyContract } from '../../models/monthly-contract';
 })
 export class InvoiceComponent implements OnInit {
 
+    invoice: Invoice;
+    invoices: Invoice[];
     spentType: SpentType;
     spentTypes: SpentType[];
     totalValueSpent: number;
@@ -38,6 +41,34 @@ export class InvoiceComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this.invoices = [
+            this.invoice = {
+                month: 6,
+                monthName: 'Junho',
+                year: 2024
+            },
+            this.invoice = {
+                month: 7,
+                monthName: 'Julho',
+                year: 2024
+            },
+            this.invoice = {
+                month: 8,
+                monthName: 'Agosto',
+                year: 2024
+            },
+            this.invoice = {
+                month: 9,
+                monthName: 'Setembro',
+                year: 2024
+            },
+            this.invoice = {
+                month: 10,
+                monthName: 'outubro',
+                year: 2024
+            }
+        ]
 
         this.spentTypes = [
             this.spentType = {
