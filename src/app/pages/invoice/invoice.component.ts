@@ -5,6 +5,7 @@ import { ExpensesItem } from '../../models/expenses-item';
 import { SpentType } from '../../models/spent-type';
 import { MonthlyContract } from '../../models/monthly-contract';
 import { Invoice } from '../../models/invoice';
+import { MonthTranslateService } from '../../services/month-translate.service';
 
 @Component({
   selector: 'app-invoice',
@@ -37,7 +38,7 @@ export class InvoiceComponent implements OnInit {
     spentItems = ['', 'Santander', 'Inter', 'NuBank'];
     selectedTypeExpenses: string = this.spentItems[0];
 
-    constructor() {
+    constructor(private monthTranslate: MonthTranslateService) {
     }
 
     ngOnInit() {
@@ -45,27 +46,27 @@ export class InvoiceComponent implements OnInit {
         this.invoices = [
             this.invoice = {
                 month: 6,
-                monthName: 'Junho',
+                monthName: this.monthTranslate.translate('June'),
                 year: 2024
             },
             this.invoice = {
                 month: 7,
-                monthName: 'Julho',
+                monthName: this.monthTranslate.translate('July'),
                 year: 2024
             },
             this.invoice = {
                 month: 8,
-                monthName: 'Agosto',
+                monthName: this.monthTranslate.translate('August'),
                 year: 2024
             },
             this.invoice = {
                 month: 9,
-                monthName: 'Setembro',
+                monthName: this.monthTranslate.translate('September'),
                 year: 2024
             },
             this.invoice = {
                 month: 10,
-                monthName: 'outubro',
+                monthName: this.monthTranslate.translate('October'),
                 year: 2024
             }
         ]
