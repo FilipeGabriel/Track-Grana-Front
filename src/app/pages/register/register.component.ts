@@ -4,6 +4,7 @@ import { User } from '../../models/user';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,10 @@ export class RegisterComponent {
     successMessage: string;
     errorMessage: string;
 
-    constructor( private authService: AuthService ) {
+    constructor(
+        private authService: AuthService,
+        private toastr: ToastrService
+    ) {
         this.user = new User();
     }
 
@@ -29,12 +33,13 @@ export class RegisterComponent {
             .insert(this.user)
             .subscribe({
                 next: (response) => {
-                    this.user.username = ""
-                    this.user.password = ""
-                    this.user.email = ""
+                    this.toastr.success('Cadastro realizado com sucesso', 'Parabéns!');
+                    this.user.username = "";
+                    this.user.password = "";
+                    this.user.email = "";
                 },
                 error: (error) => {
-                    console.log(error)
+                    this.toastr.error(error.error.error, 'Erro ao cadastrar!');
                 }
             })
     }
