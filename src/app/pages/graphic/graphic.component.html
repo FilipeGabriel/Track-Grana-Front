@@ -5,19 +5,9 @@
     <div class="graphic__body">
         <div class="graphic__years">
             <div class="group-buttons">
-                <label class="radio-button">
-                    <input type="radio" name="option" value="1">
-                    <span>2022</span>
-                </label>
-
-                <label class="radio-button">
-                    <input type="radio" name="option" value="2">
-                    <span>2023</span>
-                </label>
-
-                <label class="radio-button">
-                    <input type="radio" name="option" value="3">
-                    <span>2024</span>
+                <label class="radio-button" *ngFor="let year of uniqueYear">
+                    <input type="radio" name="option">
+                    <span>{{ year }}</span>
                 </label>
             </div>
         </div>

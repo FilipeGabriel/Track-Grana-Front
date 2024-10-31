@@ -156,6 +156,10 @@ export class InvoiceComponent implements OnInit {
         this.isModalInvoiceVisible = true;
     }
 
+    saveInvoice() {
+        this.closeInvoiceModal();
+    }
+
     closeInvoiceModal() {
         this.isModalInvoiceVisible = false;
     }
@@ -164,12 +168,20 @@ export class InvoiceComponent implements OnInit {
         this.isModalExpensesVisible = true;
     }
 
+    saveExpenses() {
+        this.closeExpensesModal()
+    }
+
     closeExpensesModal() {
         this.isModalExpensesVisible = false;
     }
 
     openContractsModal() {
         this.isModalContractsVisible = true;
+    }
+
+    saveContracts() {
+        this.closeContractsModal();
     }
 
     closeContractsModal() {
