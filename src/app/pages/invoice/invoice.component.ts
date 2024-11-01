@@ -6,11 +6,12 @@ import { SpentType } from '../../models/spent-type';
 import { MonthlyContract } from '../../models/monthly-contract';
 import { Invoice } from '../../models/invoice';
 import { MonthTranslateService } from '../../services/month-translate.service';
+import { RealCurrencyPipe } from '../../pipes/real-currency.pipe';
 
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [TitleComponent, CommonModule],
+  imports: [TitleComponent, CommonModule, RealCurrencyPipe],
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.css'
 })

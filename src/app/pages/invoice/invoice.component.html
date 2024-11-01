@@ -28,12 +28,12 @@
                     <tbody>
                         <tr *ngFor="let spent of spentTypes">
                             <td [style.color]="spent.color">{{ spent.description }}</td>
-                            <td>{{ spent.spentValue }}</td>
+                            <td>{{ spent.spentValue | realCurrency }}</td>
                             <td>{{ spent.paid }}</td>
                         </tr>
                         <tr>
                             <td class="change-td__color">Gasto total</td>
-                            <td>{{ totalValueSpent }}</td>
+                            <td>{{ totalValueSpent | realCurrency }}</td>
                             <td>Não</td>
                         </tr>
                     </tbody>
@@ -59,12 +59,12 @@
                     <tbody>
                         <tr *ngFor="let item of items">
                             <td *ngIf="!isExpenseCollapsed">{{ item.description }}</td>
-                            <td *ngIf="!isExpenseCollapsed">{{ item.itemValue }}</td>
+                            <td *ngIf="!isExpenseCollapsed">{{ item.itemValue | realCurrency }}</td>
                             <td *ngIf="!isExpenseCollapsed">{{ item.installment }}</td>
                         </tr>
                         <tr>
                             <td class="change-td__color">Total</td>
-                            <td>{{ totalValueExpenses }}</td>
+                            <td>{{ totalValueExpenses | realCurrency }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -87,12 +87,12 @@
                     <tbody>
                         <tr *ngFor="let contract of monthlyContracts">
                             <td *ngIf="!isContractsCollapsed">{{ contract.description }}</td>
-                            <td *ngIf="!isContractsCollapsed">{{ contract.contractValue }}</td>
+                            <td *ngIf="!isContractsCollapsed">{{ contract.contractValue | realCurrency }}</td>
                             <td *ngIf="!isContractsCollapsed">{{ contract.contractEnd }}</td>
                         </tr>
                         <tr>
                             <td class="change-td__color">Total</td>
-                            <td>{{ totalValueContract }}</td>
+                            <td>{{ totalValueContract  | realCurrency }}</td>
                         </tr>
                     </tbody>
                 </table>
