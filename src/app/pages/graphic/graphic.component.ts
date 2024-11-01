@@ -12,6 +12,7 @@ import { MonthYear } from '../../models/month-year';
   templateUrl: './graphic.component.html',
   styleUrl: './graphic.component.css'
 })
+
 export class GraphicComponent {
 
     monthYear: MonthYear;

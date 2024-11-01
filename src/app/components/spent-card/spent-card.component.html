@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="modal" *ngIf="isModalVisible">
-        <div class="modal__content" [style.backgroundColor]="spentType.color">
+        <div class="modal__content" [style.backgroundColor]="tempColor">
             <div class="line-one__modal">
                 <h3>Preencha o tipo de gasto</h3>
                 <img src="../../../assets/images/crisp_card_approach.png" alt="card_approach">
@@ -23,17 +23,17 @@
                 <img src="../../../assets/images/crisp_chip_card.png" alt="chip_card">
                 <div class="div__description">
                     <label for="type-description">Descrição: *</label>
-                    <input type="text" name="type-description" [(ngModel)]="spentType.description">
+                    <input type="text" name="type-description" [(ngModel)]="tempDescription">
                 </div>
                 <div class="div__color">
                     <label>Cor: *</label>
-                    <input type="color" id="colorPicker" [value]="spentType.color" (input)="onColorChange($event)">
+                    <input type="color" id="colorPicker" [value]="tempColor" (input)="onColorChange($event)">
                 </div>
             </div>
             <div class="line-three__modal">
                 <span>1234 5678 1234 5678</span>
                 <div class="div__down">
-                    <button class="btn btn-primary">Criar</button>
+                    <button class="btn btn-primary" (click)="saveChanges()">Criar</button>
                     <button class="btn btn-secondary close" (click)="closeModal()">Cancelar</button>
                     <img src="../../../assets/images/crisp_card_detail.png" alt="card_detail">
                 </div>

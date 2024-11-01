@@ -14,19 +14,29 @@ export class SpentCardComponent {
 
     @Input()
     spentType: SpentType;
+    tempDescription: string = '';
+    tempColor: string = '';
 
     isModalVisible: boolean = false;
 
     constructor() {
     }
 
-    onColorChange(event: Event) {
-        const inputElement = event.target as HTMLInputElement;
-        this.spentType.color = inputElement.value;
+    openModal() {
+        this.tempDescription = this.spentType.description;
+        this.tempColor = this.spentType.color;
+        this.isModalVisible = true;
     }
 
-    openModal() {
-        this.isModalVisible = true;
+    onColorChange(event: Event) {
+        const inputElement = event.target as HTMLInputElement;
+        this.tempColor = inputElement.value;
+    }
+
+    saveChanges() {
+        this.spentType.description = this.tempDescription;
+        this.spentType.color = this.tempColor;
+        this.isModalVisible = false;
     }
 
     closeModal() {
