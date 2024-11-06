@@ -7,6 +7,7 @@ import { MonthlyContract } from '../../models/monthly-contract';
 import { Invoice } from '../../models/invoice';
 import { MonthTranslateService } from '../../services/month-translate.service';
 import { RealCurrencyPipe } from '../../pipes/real-currency.pipe';
+import { InvoiceService } from '../../services/invoice.service';
 
 @Component({
   selector: 'app-invoice',
@@ -39,38 +40,17 @@ export class InvoiceComponent implements OnInit {
     spentItems = ['', 'Santander', 'Inter', 'NuBank'];
     selectedTypeExpenses: string = this.spentItems[0];
 
-    constructor(private monthTranslate: MonthTranslateService) {
+    constructor( private monthTranslate: MonthTranslateService, private invoiceService: InvoiceService ) {
     }
 
     ngOnInit() {
 
-        this.invoices = [
-            this.invoice = {
-                month: 6,
-                monthName: this.monthTranslate.translate('June'),
-                year: 2024
-            },
-            this.invoice = {
-                month: 7,
-                monthName: this.monthTranslate.translate('July'),
-                year: 2024
-            },
-            this.invoice = {
-                month: 8,
-                monthName: this.monthTranslate.translate('August'),
-                year: 2024
-            },
-            this.invoice = {
-                month: 9,
-                monthName: this.monthTranslate.translate('September'),
-                year: 2024
-            },
-            this.invoice = {
-                month: 10,
-                monthName: this.monthTranslate.translate('October'),
-                year: 2024
-            }
-        ]
+        this.invoiceService.getInvoices().subscribe((response) => {
+            this.invoices = response.map(invoice => ({
+              ...invoice,
+              monthName: this.monthTranslate.translate(invoice.monthName)
+            }));
+          });
 
         this.spentTypes = [
             this.spentType = {
