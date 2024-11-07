@@ -10,6 +10,7 @@ import { RealCurrencyPipe } from '../../pipes/real-currency.pipe';
 import { InvoiceService } from '../../services/invoice.service';
 import { SpentTypeService } from '../../services/spent-type.service';
 import { ToastrService } from 'ngx-toastr';
+import { ExpensesItemService } from '../../services/expenses-item.service';
 
 @Component({
   selector: 'app-invoice',
@@ -23,8 +24,7 @@ export class InvoiceComponent implements OnInit {
     invoices: Invoice[];
     spentTypes: SpentType[];
     totalValueSpent: number;
-    item: ExpensesItem;
-    items: ExpensesItem[];
+    expensesItems: ExpensesItem[];
     totalValueExpenses: number;
     monthlyContract: MonthlyContract;
     monthlyContracts: MonthlyContract[];
@@ -37,14 +37,15 @@ export class InvoiceComponent implements OnInit {
     isExpenseCollapsed = false;
     isContractsCollapsed = false;
 
-    spentItems = ['', 'Santander', 'Inter', 'NuBank'];
-    selectedTypeExpenses: string = this.spentItems[0];
+    spentItems: string[];
+    selectedTypeExpenses: string;
 
     constructor(
         private toastr: ToastrService,
         private monthTranslate: MonthTranslateService,
         private invoiceService: InvoiceService ,
-        private spentTypeService: SpentTypeService
+        private spentTypeService: SpentTypeService,
+        private expensesItemService: ExpensesItemService
     ) { }
 
     ngOnInit() {
@@ -56,7 +57,7 @@ export class InvoiceComponent implements OnInit {
                 ...invoice,
                 monthName: this.monthTranslate.translate(invoice.monthName)
                 }));
-            });
+        });
 
         this.spentTypeService
             .getSpentTypes()
@@ -64,46 +65,24 @@ export class InvoiceComponent implements OnInit {
                 next: (response) => {
                 this.spentTypes = response;
                 this.calculateTotalSpent();
+                this.getSpentItems();
                 },
                 error: (error) => {
                     this.toastr.error(error.error.error, 'Erro ao cadastrar!');
                 }
-            });
+        });
 
-        this.items = [
-            this.item = {
-                description: 'Televisão',
-                installment: 4,
-                itemValue: 150,
-                spentTypeId: 1,
-                monthlyExpensesId: 1
-            },
-            this.item = {
-                description: 'Pratos',
-                installment: 2,
-                itemValue: 50,
-                spentTypeId: 1,
-                monthlyExpensesId: 1
-            },this.item = {
-                description: 'Geladeira',
-                installment: 10,
-                itemValue: 260,
-                spentTypeId: 1,
-                monthlyExpensesId: 1
-            },
-            this.item = {
-                description: 'Mesa',
-                installment: 7,
-                itemValue: 80,
-                spentTypeId: 1,
-                monthlyExpensesId: 1
-            }
-        ]
-
-        this.totalValueExpenses = 0
-        for (let item of this.items) {
-            this.totalValueExpenses += item.itemValue;
-        }
+        this.expensesItemService
+            .getExpensesItem()
+            .subscribe({
+                next: (response) => {
+                this.expensesItems = response;
+                this.calculateTotalExpensesItems();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Erro ao cadastrar!');
+                }
+        });
 
         this.monthlyContracts = [
             this.monthlyContract = {
@@ -176,6 +155,15 @@ export class InvoiceComponent implements OnInit {
 
     calculateTotalSpent(): void {
         this.totalValueSpent = this.spentTypes.reduce((sum, SpentType) => sum + SpentType.spentValue, 0);
+    }
+
+    getSpentItems(): void {
+        this.spentItems = [''].concat(this.spentTypes.map(spentType => spentType.description));
+        this.selectedTypeExpenses = this.spentItems[0];
+    }
+
+    calculateTotalExpensesItems(): void {
+        this.totalValueExpenses = this.expensesItems.reduce((sum, expensesItems) => sum + expensesItems.itemValue, 0);
     }
 
 }

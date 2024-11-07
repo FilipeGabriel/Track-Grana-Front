@@ -1,0 +1,30 @@
+[
+    {
+        "description": "Televisão",
+        "installment": 4,
+        "itemValue": 150,
+        "spentTypeId": 1,
+        "monthlyExpensesId": 1
+    },
+    {
+        "description": "Pratos",
+        "installment": 2,
+        "itemValue": 50,
+        "spentTypeId": 1,
+        "monthlyExpensesId": 1
+    },
+    {
+        "description": "Geladeira",
+        "installment": 10,
+        "itemValue": 260,
+        "spentTypeId": 1,
+        "monthlyExpensesId": 1
+    },
+    {
+        "description": "Mesa",
+        "installment": 7,
+        "itemValue": 80,
+        "spentTypeId": 1,
+        "monthlyExpensesId": 1
+    }
+]
