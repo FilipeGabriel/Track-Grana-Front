@@ -11,6 +11,7 @@ import { InvoiceService } from '../../services/invoice.service';
 import { SpentTypeService } from '../../services/spent-type.service';
 import { ToastrService } from 'ngx-toastr';
 import { ExpensesItemService } from '../../services/expenses-item.service';
+import { MonthlyContractService } from '../../services/monthly-contract.service';
 
 @Component({
   selector: 'app-invoice',
@@ -26,7 +27,6 @@ export class InvoiceComponent implements OnInit {
     totalValueSpent: number;
     expensesItems: ExpensesItem[];
     totalValueExpenses: number;
-    monthlyContract: MonthlyContract;
     monthlyContracts: MonthlyContract[];
     totalValueContract: number;
 
@@ -45,7 +45,8 @@ export class InvoiceComponent implements OnInit {
         private monthTranslate: MonthTranslateService,
         private invoiceService: InvoiceService ,
         private spentTypeService: SpentTypeService,
-        private expensesItemService: ExpensesItemService
+        private expensesItemService: ExpensesItemService,
+        private monthlyContractService: MonthlyContractService
     ) { }
 
     ngOnInit() {
@@ -59,16 +60,30 @@ export class InvoiceComponent implements OnInit {
                 }));
         });
 
+        this.invoiceService
+            .getInvoices()
+            .subscribe({
+                next: (response) => {
+                    this.invoices = response.map(invoice => ({
+                    ...invoice,
+                    monthName: this.monthTranslate.translate(invoice.monthName)
+                }));
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
+                }
+        });
+
         this.spentTypeService
             .getSpentTypes()
             .subscribe({
                 next: (response) => {
-                this.spentTypes = response;
-                this.calculateTotalSpent();
-                this.getSpentItems();
+                    this.spentTypes = response;
+                    this.calculateTotalSpent();
+                    this.getSpentItems();
                 },
                 error: (error) => {
-                    this.toastr.error(error.error.error, 'Erro ao cadastrar!');
+                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
                 }
         });
 
@@ -76,31 +91,25 @@ export class InvoiceComponent implements OnInit {
             .getExpensesItem()
             .subscribe({
                 next: (response) => {
-                this.expensesItems = response;
-                this.calculateTotalExpensesItems();
+                    this.expensesItems = response;
+                    this.calculateTotalExpensesItems();
                 },
                 error: (error) => {
-                    this.toastr.error(error.error.error, 'Erro ao cadastrar!');
+                    this.toastr.error(error.error.error, 'Nenhum item encontrado!');
                 }
         });
 
-        this.monthlyContracts = [
-            this.monthlyContract = {
-                description: 'Spotfy',
-                contractValue: 24.90,
-                contractEnd: '24/02/2026'
-            },
-            this.monthlyContract = {
-                description: 'Prime Vídeo',
-                contractValue: 22,
-                contractEnd: '24/02/2027'
-            }
-        ]
-
-        this.totalValueContract = 0;
-        for (let contract of this.monthlyContracts) {
-            this.totalValueContract += contract.contractValue;
-        }
+        this.monthlyContractService
+            .getMonthlyContracts()
+            .subscribe({
+                next: (response) => {
+                this.monthlyContracts = response;
+                this.calculateTotalMonthlyContract();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Nenhum item encontrado!');
+                }
+        });
 
     }
 
@@ -164,6 +173,10 @@ export class InvoiceComponent implements OnInit {
 
     calculateTotalExpensesItems(): void {
         this.totalValueExpenses = this.expensesItems.reduce((sum, expensesItems) => sum + expensesItems.itemValue, 0);
+    }
+
+    calculateTotalMonthlyContract(): void {
+        this.totalValueContract = this.monthlyContracts.reduce((sum, monthlyContracts) => sum + monthlyContracts.contractValue, 0);
     }
 
 }
