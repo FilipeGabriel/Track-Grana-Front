@@ -8,6 +8,8 @@ import { Invoice } from '../../models/invoice';
 import { MonthTranslateService } from '../../services/month-translate.service';
 import { RealCurrencyPipe } from '../../pipes/real-currency.pipe';
 import { InvoiceService } from '../../services/invoice.service';
+import { SpentTypeService } from '../../services/spent-type.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-invoice',
@@ -18,9 +20,7 @@ import { InvoiceService } from '../../services/invoice.service';
 })
 export class InvoiceComponent implements OnInit {
 
-    invoice: Invoice;
     invoices: Invoice[];
-    spentType: SpentType;
     spentTypes: SpentType[];
     totalValueSpent: number;
     item: ExpensesItem;
@@ -40,43 +40,35 @@ export class InvoiceComponent implements OnInit {
     spentItems = ['', 'Santander', 'Inter', 'NuBank'];
     selectedTypeExpenses: string = this.spentItems[0];
 
-    constructor( private monthTranslate: MonthTranslateService, private invoiceService: InvoiceService ) {
-    }
+    constructor(
+        private toastr: ToastrService,
+        private monthTranslate: MonthTranslateService,
+        private invoiceService: InvoiceService ,
+        private spentTypeService: SpentTypeService
+    ) { }
 
     ngOnInit() {
 
-        this.invoiceService.getInvoices().subscribe((response) => {
-            this.invoices = response.map(invoice => ({
-              ...invoice,
-              monthName: this.monthTranslate.translate(invoice.monthName)
-            }));
-          });
+        this.invoiceService
+            .getInvoices()
+            .subscribe((response) => {
+                this.invoices = response.map(invoice => ({
+                ...invoice,
+                monthName: this.monthTranslate.translate(invoice.monthName)
+                }));
+            });
 
-        this.spentTypes = [
-            this.spentType = {
-                description: 'Inter',
-                spentValue: 150,
-                color: '#f85c01',
-                paid: false
-            },
-            this.spentType = {
-                description: 'Bradesco',
-                spentValue: 350,
-                color: '#be0202',
-                paid: false
-            },
-            this.spentType = {
-                description: 'Nubank',
-                spentValue: 200,
-                color: '#7700ff',
-                paid: false
-            }
-        ]
-
-        this.totalValueSpent = 0;
-        for (let spent of this.spentTypes) {
-            this.totalValueSpent += spent.spentValue;
-        }
+        this.spentTypeService
+            .getSpentTypes()
+            .subscribe({
+                next: (response) => {
+                this.spentTypes = response;
+                this.calculateTotalSpent();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Erro ao cadastrar!');
+                }
+            });
 
         this.items = [
             this.item = {
@@ -180,6 +172,10 @@ export class InvoiceComponent implements OnInit {
     onSelectType(event: Event) {
         const selectElement = event.target as HTMLSelectElement;
         this.selectedTypeExpenses = selectElement.value;
+    }
+
+    calculateTotalSpent(): void {
+        this.totalValueSpent = this.spentTypes.reduce((sum, SpentType) => sum + SpentType.spentValue, 0);
     }
 
 }

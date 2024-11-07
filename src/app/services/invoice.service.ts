@@ -8,9 +8,11 @@ import { Invoice } from '../models/invoice';
 })
 export class InvoiceService {
 
+    apiUrlBase: string = 'assets/data/invoice.json'
+
     constructor(private http: HttpClient) {}
 
     getInvoices(): Observable<Invoice[]> {
-      return this.http.get<Invoice[]>('assets/data/invoice.json');
+      return this.http.get<Invoice[]>(this.apiUrlBase);
     }
 }
