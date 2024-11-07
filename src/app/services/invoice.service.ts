@@ -6,6 +6,7 @@ import { Invoice } from '../models/invoice';
 @Injectable({
   providedIn: 'root'
 })
+
 export class InvoiceService {
 
     apiUrlBase: string = 'assets/data/invoice.json'
@@ -13,6 +14,6 @@ export class InvoiceService {
     constructor(private http: HttpClient) {}
 
     getInvoices(): Observable<Invoice[]> {
-      return this.http.get<Invoice[]>(this.apiUrlBase);
+        return this.http.get<Invoice[]>(this.apiUrlBase);
     }
 }

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Account } from '../../models/account';
 import { User } from '../../models/user';
+import { AccountService } from '../../services/account.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +14,7 @@ import { User } from '../../models/user';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
+
 export class ProfileComponent implements OnInit {
 
     user: User;
@@ -22,7 +25,7 @@ export class ProfileComponent implements OnInit {
     imageSrc: string | ArrayBuffer | null = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s" // Para armazenar a URL da imagem
     isModalVisible: boolean = false;
 
-    constructor() {
+    constructor(private accountService: AccountService, private toastr: ToastrService) {
         this.account = new Account();
         this.trueAccount = new Account();
     }
@@ -35,16 +38,18 @@ export class ProfileComponent implements OnInit {
             email: 'teste@gmail.com'
         }
 
-        this.account = {
-            name: 'Teste',
-            cpf: '112.019.554-32',
-            telephone: '(81)98494-6724',
-            birthDate: '18/04/1997',
-            accountImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s',
-            userId: 1
-        };
+        this.accountService
+            .getAccount()
+            .subscribe({
+                next: (response) => {
+                    this.account = response;
 
-        this.trueAccount = { ...this.account };
+                    this.trueAccount = { ...this.account };
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Usuário não encontrado!');
+                }
+        });
 
     }
 
@@ -54,21 +59,21 @@ export class ProfileComponent implements OnInit {
     onFileSelected(event: Event): void {
         const input = event.target as HTMLInputElement;
         if (input.files && input.files.length > 0) {
-        this.selectedFile = input.files[0];
+            this.selectedFile = input.files[0];
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            if (e.target?.result) {
-            this.account.accountImg = e.target.result;
-            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (e.target?.result) {
+                this.account.accountImg = e.target.result;
+                }
         };
         reader.readAsDataURL(this.selectedFile);
         }
     }
 
     onSubmit() {
+        this.toastr.success('Usuário atualizado com sucesso');
         this.trueAccount = { ...this.account }
-        console.log(this.account);
     }
 
     cancelAlteration() {

@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
+
 export class SpentTypeService {
 
     apiUrlBase: string = 'assets/data/spent-type.json';
@@ -13,7 +14,7 @@ export class SpentTypeService {
     constructor(private http: HttpClient) {}
 
     getSpentTypes(): Observable<SpentType[]> {
-      return this.http.get<SpentType[]>(this.apiUrlBase);
+        return this.http.get<SpentType[]>(this.apiUrlBase);
     }
 
 }

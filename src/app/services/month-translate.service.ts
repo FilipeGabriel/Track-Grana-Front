@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MonthTranslateService {
 
     private monthTranslates: { [key: string]: string } = {

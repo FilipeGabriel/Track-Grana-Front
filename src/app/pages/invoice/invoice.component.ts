@@ -20,6 +20,7 @@ import { MonthlyContractService } from '../../services/monthly-contract.service'
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.css'
 })
+
 export class InvoiceComponent implements OnInit {
 
     invoices: Invoice[];

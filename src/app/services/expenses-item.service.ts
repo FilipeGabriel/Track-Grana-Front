@@ -6,6 +6,7 @@ import { ExpensesItem } from '../models/expenses-item';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ExpensesItemService {
 
     apiUrlBase: string = 'assets/data/expenses-item.json';
@@ -13,7 +14,7 @@ export class ExpensesItemService {
     constructor(private http: HttpClient) {}
 
     getExpensesItem(): Observable<ExpensesItem[]> {
-      return this.http.get<ExpensesItem[]>(this.apiUrlBase);
+        return this.http.get<ExpensesItem[]>(this.apiUrlBase);
     }
 
 }

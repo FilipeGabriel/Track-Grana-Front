@@ -6,6 +6,7 @@ import { MonthlyContract } from '../models/monthly-contract';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MonthlyContractService {
 
     apiUrlBase: string = 'assets/data/monthly-contract.json';
@@ -13,7 +14,7 @@ export class MonthlyContractService {
     constructor(private http: HttpClient) {}
 
     getMonthlyContracts(): Observable<MonthlyContract[]> {
-      return this.http.get<MonthlyContract[]>(this.apiUrlBase);
+        return this.http.get<MonthlyContract[]>(this.apiUrlBase);
     }
 
 }
