@@ -44,22 +44,13 @@ export class InvoiceComponent implements OnInit {
     constructor(
         private toastr: ToastrService,
         private monthTranslate: MonthTranslateService,
-        private invoiceService: InvoiceService ,
+        private invoiceService: InvoiceService,
         private spentTypeService: SpentTypeService,
         private expensesItemService: ExpensesItemService,
         private monthlyContractService: MonthlyContractService
     ) { }
 
     ngOnInit() {
-
-        this.invoiceService
-            .getInvoices()
-            .subscribe((response) => {
-                this.invoices = response.map(invoice => ({
-                ...invoice,
-                monthName: this.monthTranslate.translate(invoice.monthName)
-                }));
-        });
 
         this.invoiceService
             .getInvoices()
