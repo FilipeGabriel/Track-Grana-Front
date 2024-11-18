@@ -5,8 +5,14 @@
     <div class="graphic__body">
         <div class="graphic__years">
             <div class="group-buttons">
-                <label class="radio-button" *ngFor="let year of uniqueYear">
-                    <input type="radio" name="option">
+                <label
+                    class="radio-button"
+                    *ngFor="let year of uniqueYear">
+                    <input
+                        type="radio"
+                        name="option"
+                        [checked]="year === selectedYear"
+                        (click)="onYearSelected(year)">
                     <span>{{ year }}</span>
                 </label>
             </div>
