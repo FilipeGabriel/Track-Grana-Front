@@ -24,6 +24,10 @@ import { MonthlyContractService } from '../../services/monthly-contract.service'
 export class InvoiceComponent implements OnInit {
 
     invoices: Invoice[];
+    uniqueYears: number[];
+    selectedYear: number;
+    filteredMonthNames: string[];
+
     spentTypes: SpentType[];
     totalValueSpent: number;
     expensesItems: ExpensesItem[];
@@ -52,18 +56,19 @@ export class InvoiceComponent implements OnInit {
 
     ngOnInit() {
 
-        this.invoiceService
-            .getInvoices()
-            .subscribe({
-                next: (response) => {
-                    this.invoices = response.map(invoice => ({
+        this.invoiceService.getInvoices().subscribe({
+            next: (response) => {
+                this.invoices = response.map(invoice => ({
                     ...invoice,
                     monthName: this.monthTranslate.translate(invoice.monthName)
                 }));
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
-                }
+                this.uniqueYears = [...new Set(this.invoices.map(invoice => invoice.year))];
+                this.selectedYear = this.uniqueYears[1]; //usar aqui o ano guardado no localstorage
+                this.updateFilteredMonthNames();
+            },
+            error: (error) => {
+                this.toastr.error(error.error.error, 'Nenhum item encontrado');
+            }
         });
 
         this.spentTypeService
@@ -152,6 +157,18 @@ export class InvoiceComponent implements OnInit {
     onSelectType(event: Event) {
         const selectElement = event.target as HTMLSelectElement;
         this.selectedTypeExpenses = selectElement.value;
+    }
+
+    updateFilteredMonthNames() {
+        this.filteredMonthNames = this.invoices
+            .filter(invoice => invoice.year === this.selectedYear)
+            .map(invoice => invoice.monthName);
+    }
+
+    onYearChange(event: Event) {
+        const selectElement = event.target as HTMLSelectElement;
+        this.selectedYear = Number(selectElement.value);
+        this.updateFilteredMonthNames();
     }
 
     calculateTotalSpent(): void {

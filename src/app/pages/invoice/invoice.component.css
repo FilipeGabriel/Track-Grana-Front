@@ -45,6 +45,8 @@ input::placeholder {
 
 .group-buttons {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .radio-button {

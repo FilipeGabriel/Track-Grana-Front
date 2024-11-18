@@ -5,9 +5,9 @@
     <div class="invoice__body">
         <div class="line__one">
             <div class="group-buttons">
-                <label class="radio-button" *ngFor="let invoice of invoices">
+                <label class="radio-button" *ngFor="let months of filteredMonthNames">
                     <input type="radio" name="option">
-                    <span>{{ invoice.monthName }}</span>
+                    <span>{{ months }}</span>
                 </label>
                 <button (click)="openInvoiceModal()"><i class="fas fa-plus"></i></button>
             </div>
