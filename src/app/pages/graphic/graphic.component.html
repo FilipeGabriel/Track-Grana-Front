@@ -13,7 +13,11 @@
         </div>
         <div class="graphic__div">
             <div class="bar-chart__div">
-                <app-bar-chart></app-bar-chart>
+                <canvas baseChart
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [datasets]="barChartData">
+                </canvas>
             </div>
             <div class="graphic__index">
                 <div class="index__div">
