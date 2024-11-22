@@ -36,7 +36,12 @@ export class LoginComponent {
                     this.router.navigate(['/home/graphic']);
                 },
                 error: (error) => {
-                    this.toastr.error('Usuário e/ou senha incorreto!');
+                    if (this.user.email == null || this.user.password == null) {
+                        this.toastr.error('Nenhum dos campos devem estar nulo.', 'Atenção!')
+                    }
+                    if (this.user.email != null || this.user.password != null) {
+                        this.toastr.error('Usuário e/ou senha incorreto!');
+                    }
                 }
             })
 
