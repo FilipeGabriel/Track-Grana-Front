@@ -9,17 +9,19 @@
             <div class="card-title">
                 <h2>Login</h2>
             </div>
-            <div class="card-body">
-                <div class="tg__fields">
-                    <label>Usuário:</label>
-                    <input type="text" class="form-control" />
-                    <label>Senha:</label>
-                    <input type="password" class="form-control" />
+            <form #loginForm="ngForm" (submit)="onSubmit()" action="">
+                <div class="card-body">
+                    <div class="tg__fields">
+                        <label>Email:</label>
+                        <input type="text" class="form-control" name="email" [(ngModel)]="user.email" />
+                        <label>Senha:</label>
+                        <input type="password" class="form-control" name="password" [(ngModel)]="user.password" />
+                    </div>
+                    <div class="tg__button-login">
+                        <button type="submit" class="btn btn-warning">Acessar</button>
+                    </div>
                 </div>
-                <div class="tg__button-login">
-                    <button class="btn btn-warning" routerLink="/home/graphic">Acessar</button>
-                </div>
-            </div>
+            </form>
             <div class="card-footer">
                 <a href="#">Esqueceu a senha?</a>
                 <a routerLink="/register">Cadastre-se aqui!</a>

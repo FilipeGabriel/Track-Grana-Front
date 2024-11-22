@@ -15,12 +15,10 @@
                 </div>
                 <div class="card-body">
                     <div class="tg__fields">
-                        <label>Usuário: *</label>
-                        <input type="text" class="form-control" [(ngModel)]="user.username" />
-                        <label>Senha: *</label>
-                        <input type="password" class="form-control" [(ngModel)]="user.password" />
                         <label>E-mail: *</label>
                         <input type="text" class="form-control" [(ngModel)]="user.email" />
+                        <label>Senha: *</label>
+                        <input type="password" class="form-control" [(ngModel)]="user.password" />
                     </div>
                     <div class="tg__buttons">
                         <button class="btn btn-primary" (click)="signUp()" >Registrar</button>

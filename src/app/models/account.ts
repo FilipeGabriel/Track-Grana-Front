@@ -1,5 +1,6 @@
 export class Account {
 
+    userName: string
     name: string;
     cpf: string;
     telephone: string;

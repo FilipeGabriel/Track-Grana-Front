@@ -33,9 +33,8 @@ export class ProfileComponent implements OnInit {
     ngOnInit() {
 
         this.user = {
-            username: 'Teste',
-            password: '123456',
-            email: 'teste@gmail.com'
+            email: 'teste@gmail.com',
+            password: '123456'
         }
 
         this.accountService

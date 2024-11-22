@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { User } from '../../models/user';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -22,6 +22,7 @@ export class RegisterComponent {
 
     constructor(
         private authService: AuthService,
+        private router: Router,
         private toastr: ToastrService
     ) {
         this.user = new User();
@@ -33,9 +34,9 @@ export class RegisterComponent {
             .subscribe({
                 next: (response) => {
                     this.toastr.success('Cadastro realizado com sucesso', 'Parabéns!');
-                    this.user.username = "";
-                    this.user.password = "";
                     this.user.email = "";
+                    this.user.password = "";
+                    this.router.navigate(['/login']);
                 },
                 error: (error) => {
                     this.toastr.error(error.error.error, 'Erro ao cadastrar!');
