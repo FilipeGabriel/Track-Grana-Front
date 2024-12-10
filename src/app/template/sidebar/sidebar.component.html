@@ -43,10 +43,10 @@
                     <a routerLink="/home/spent">Tipos de Gasto</a>
                 </li>
                 <li>
-                    <button routerLink="/login">
+                    <button (click)="logout()">
                         <img src="../../../assets/images/exit_icone.png" alt="exit_icone">
                     </button>
-                    <a routerLink="/login">Sair</a>
+                    <a routerLink="/login" (click)="logout()">Sair</a>
                 </li>
             </ul>
         </div>
@@ -73,7 +73,7 @@
                     </button>
                 </li>
                 <li>
-                    <button mat-raised-button matTooltip="Sair" matTooltipPosition="right" routerLink="/login">
+                    <button mat-raised-button matTooltip="Sair" matTooltipPosition="right" (click)="logout()">
                         <img src="../../../assets/images/exit_icone.png" alt="exit_icone">
                     </button>
                 </li>

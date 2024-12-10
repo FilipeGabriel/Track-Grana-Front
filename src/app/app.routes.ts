@@ -6,14 +6,16 @@ import { GraphicComponent } from './pages/graphic/graphic.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { SpentTypeComponent } from './pages/spent-type/spent-type.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'home', component: HomeComponent, children: [
+    { path: 'register', component: RegisterComponent, canActivate: [ authGuard ] },
+    { path: 'home', component: HomeComponent,  canActivate: [ authGuard ], children: [
         { path: 'graphic', component: GraphicComponent },
         { path: 'profile', component: ProfileComponent },
         { path: 'invoice', component: InvoiceComponent },
         { path: 'spent', component: SpentTypeComponent }
-    ] }
+    ] },
+    {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
