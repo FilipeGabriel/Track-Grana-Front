@@ -32,7 +32,8 @@ export class LoginComponent {
             .subscribe({
                 next: (response) => {
                     const access_token = JSON.stringify(response);
-                    localStorage.setItem('access_token', access_token)
+                    localStorage.setItem('access_token', response.token);
+                    localStorage.setItem('user_id', response.id);
                     this.router.navigate(['/home/graphic']);
                 },
                 error: (error) => {

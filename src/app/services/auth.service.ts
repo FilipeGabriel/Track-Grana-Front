@@ -23,19 +23,24 @@ export class AuthService {
     }
 
     tryLogin(user: User): Observable<any> {
-        return this.http.post(this.tokenUrl, user).pipe(
-            tap((response: any) => {
-                localStorage.setItem('access_token', response.token);
-            })
-        )
+        return this.http.post(this.tokenUrl, user)
+    }
+
+    getUserById(id: string | null): Observable<any> {
+        return this.http.get<any>(`${this.apiUrlBase}/${id}`);
     }
 
     logout(): void {
         localStorage.removeItem('access_token')
+        localStorage.removeItem('user_id')
     }
 
     getToken(): string | null {
         return localStorage.getItem('access_token');
+    }
+
+    getUserId(): string | null {
+        return localStorage.getItem('user_id');
     }
 
     isAuthenticated(): boolean {
