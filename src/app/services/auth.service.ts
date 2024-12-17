@@ -13,13 +13,14 @@ import { JwtHelperService } from '@auth0/angular-jwt'
 export class AuthService {
 
     apiUrlBase: string = environment.apiUrlBase + '/v1/api/users';
+    apiUrlRegister: string = environment.apiUrlBase + environment.registerUrl;
     tokenUrl: string = environment.apiUrlBase + environment.getTokenUrl;
     jwtHelper: JwtHelperService = new JwtHelperService();
 
     constructor( private http: HttpClient, private router: Router ) { }
 
     insert(user: User): Observable<any> {
-        return this.http.post(this.apiUrlBase, user)
+        return this.http.post(this.apiUrlRegister, user)
     }
 
     tryLogin(user: User): Observable<any> {

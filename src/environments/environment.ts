@@ -2,6 +2,7 @@ export const environment = {
 
     production: false,
     apiUrlBase:  'http://localhost:8080',
-    getTokenUrl: '/auth/login'
+    getTokenUrl: '/auth/login',
+    registerUrl: '/auth/register'
 
 };
