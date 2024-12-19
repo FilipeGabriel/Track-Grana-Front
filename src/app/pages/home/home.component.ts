@@ -4,6 +4,7 @@ import { SidebarComponent } from '../../template/sidebar/sidebar.component';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { Account } from '../../models/account';
+import { UserComplete } from '../../models/userClomplete';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,7 @@ import { Account } from '../../models/account';
 export class HomeComponent {
 
     id: string | null;
-    user: User;
-    account: Account;
+    firstAccess: boolean;
 
     constructor(
         private authService: AuthService
@@ -31,10 +31,20 @@ export class HomeComponent {
             .getUserById(this.id)
             .subscribe({
                 next: (response) => {
-                    this.user = response;
-                    console.log(this.user)
+                    const loggedUser = new UserComplete(
+                        response.email,
+                        response.registrationDate,
+                        response.account
+                    )
+                    if(loggedUser.account == null){
+                        this.firstAccess = true
+                    } else {
+                        this.firstAccess = false
+                    }
+                    console.log(this.firstAccess)
+                    localStorage.setItem('logged_user', JSON.stringify(loggedUser));
                 }
-            });
+        });
 
     }
 

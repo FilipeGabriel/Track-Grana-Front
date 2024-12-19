@@ -34,6 +34,7 @@ export class AuthService {
     logout(): void {
         localStorage.removeItem('access_token')
         localStorage.removeItem('user_id')
+        localStorage.removeItem('logged_user')
     }
 
     getToken(): string | null {
