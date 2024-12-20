@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../../template/sidebar/sidebar.component';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user';
-import { Account } from '../../models/account';
 import { UserComplete } from '../../models/userClomplete';
+import { CommonModule } from '@angular/common';
+import { ProfileComponent } from "../profile/profile.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SidebarComponent, RouterOutlet],
+  imports: [SidebarComponent, RouterOutlet, CommonModule, ProfileComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -41,7 +41,6 @@ export class HomeComponent {
                     } else {
                         this.firstAccess = false
                     }
-                    console.log(this.firstAccess)
                     localStorage.setItem('logged_user', JSON.stringify(loggedUser));
                 }
         });

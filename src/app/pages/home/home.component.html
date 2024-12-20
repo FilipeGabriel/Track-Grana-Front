@@ -5,4 +5,9 @@
             <router-outlet></router-outlet>
         </div>
     </div>
+    <div class="account_modal" *ngIf="firstAccess">
+        <div class="account-modal_content">
+            <app-profile [firstAccess]="firstAccess"></app-profile>
+        </div>
+    </div>
 </div>

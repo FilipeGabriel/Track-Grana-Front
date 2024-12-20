@@ -6,6 +6,6 @@ export class Account {
     telephone: string;
     birthDate: string;
     accountImg: string | ArrayBuffer | null;
-    userId: number;
+    userId: string | null;
 
 }
