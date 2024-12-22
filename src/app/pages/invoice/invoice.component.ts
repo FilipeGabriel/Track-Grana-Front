@@ -12,16 +12,21 @@ import { SpentTypeService } from '../../services/spent-type.service';
 import { ToastrService } from 'ngx-toastr';
 import { ExpensesItemService } from '../../services/expenses-item.service';
 import { MonthlyContractService } from '../../services/monthly-contract.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [TitleComponent, CommonModule, RealCurrencyPipe],
+  imports: [TitleComponent, CommonModule, RealCurrencyPipe, FormsModule],
   templateUrl: './invoice.component.html',
   styleUrl: './invoice.component.css'
 })
 
 export class InvoiceComponent implements OnInit {
+
+    month: number | null = null;
+    year: number | null = null;
+    invoice: Invoice;
 
     invoices: Invoice[];
     uniqueYears: number[];
@@ -63,7 +68,7 @@ export class InvoiceComponent implements OnInit {
                     monthName: this.monthTranslate.translate(invoice.monthName)
                 }));
                 this.uniqueYears = [...new Set(this.invoices.map(invoice => invoice.year))];
-                this.selectedYear = this.uniqueYears[1]; //usar aqui o ano guardado no localstorage
+                this.selectedYear = this.uniqueYears[1];
                 this.updateFilteredMonthNames();
             },
             error: (error) => {
@@ -115,10 +120,24 @@ export class InvoiceComponent implements OnInit {
     }
 
     saveInvoice() {
-        this.closeInvoiceModal();
+        this.invoiceService
+            .insertInvoice(this.month, this.year)
+            .subscribe({
+                next: (response) => {
+                    this.invoice = response;
+                    console.log(this.invoice);
+                    this.closeInvoiceModal();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error);
+                }
+        });
+
     }
 
     closeInvoiceModal() {
+        this.month = null;
+        this.year = null;
         this.isModalInvoiceVisible = false;
     }
 

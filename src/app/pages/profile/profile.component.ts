@@ -62,6 +62,7 @@ export class ProfileComponent {
             .subscribe({
                 next: (response) => {
                     this.account = response;
+                    window.location.reload();
                     this.toastr.success('Cadastro de usuário finalizado com sucesso!');
                 },
                 error: (error) => {
