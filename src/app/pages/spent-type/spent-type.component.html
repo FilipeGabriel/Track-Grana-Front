@@ -33,17 +33,17 @@
                 <img src="../../../assets/images/crisp_chip_card.png" alt="chip_card">
                 <div class="div__description">
                     <label for="type-description">Descrição: *</label>
-                    <input type="text" name="type-description" placeholder="ex: NuBank">
+                    <input type="text" name="type-description" placeholder="ex: NuBank" [(ngModel)]="description">
                 </div>
                 <div class="div__color">
                     <label>Cor: *</label>
-                    <input type="color" id="colorPicker" [value]="selectedColor" (input)="onColorChange($event)">
+                    <input type="color" id="colorPicker" [value]="selectedColor" (input)="onColorChange($event)" [(ngModel)]="color">
                 </div>
             </div>
             <div class="line-three__modal">
                 <span>1234 5678 1234 5678</span>
                 <div class="div__down">
-                    <button class="btn btn-primary">Criar</button>
+                    <button class="btn btn-primary" (click)="saveSpentType()" >Criar</button>
                     <button class="btn btn-secondary close" (click)="closeModal()">Cancelar</button>
                     <img src="../../../assets/images/crisp_card_detail.png" alt="card_detail">
                 </div>

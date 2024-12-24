@@ -125,11 +125,11 @@ export class InvoiceComponent implements OnInit {
             .subscribe({
                 next: (response) => {
                     this.invoice = response;
-                    console.log(this.invoice);
                     this.closeInvoiceModal();
+                    this.toastr.success("Fatura criada com sucesso!");
                 },
                 error: (error) => {
-                    this.toastr.error(error.error.error);
+                    this.toastr.error(error.error.message);
                 }
         });
 

@@ -4,5 +4,6 @@ export class SpentType {
     spentValue: number;
     color: string;
     paid: boolean;
+    userId: string | null;
 
 }
