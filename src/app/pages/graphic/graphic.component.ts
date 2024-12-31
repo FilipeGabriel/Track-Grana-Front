@@ -5,6 +5,7 @@ import { InvoiceService } from '../../services/invoice.service';
 import { Invoice } from '../../models/invoice';
 import { ToastrService } from 'ngx-toastr';
 import { BaseChartDirective } from 'ng2-charts';
+import { MonthTranslateService } from '../../services/month-translate.service';
 
 @Component({
   selector: 'app-graphic',
@@ -18,6 +19,7 @@ export class GraphicComponent {
     invoices: Invoice[] = [];
     uniqueYear: number[] = [];
     selectedYear: number | null = null;
+    filteredMonthNames: string[];
 
     public barChartLabels: string[] = [];
     public barChartType: string = 'bar';
@@ -26,6 +28,7 @@ export class GraphicComponent {
 
     constructor(
         private invoiceService: InvoiceService,
+        private monthTranslate: MonthTranslateService,
         private toastr: ToastrService
     ) {}
 
@@ -36,13 +39,17 @@ export class GraphicComponent {
     private loadInvoices() {
         this.invoiceService.getInvoices().subscribe({
             next: (response) => {
-                this.invoices = response;
+                this.invoices = response.map(invoice => ({
+                    ...invoice,
+                    monthName: this.monthTranslate.translate(invoice.monthInvoice.monthName)
+                }));
                 this.uniqueYear = this.getUniqueYear(this.invoices);
 
                 if (this.uniqueYear.length > 0) {
                     const recentYear = Math.max(...this.uniqueYear);
                     this.onYearSelected(recentYear);
                 }
+                this.updateFilteredMonthNames();
             },
             error: (error) => {
                 this.toastr.error(error.error.error, 'Nenhum item encontrado');
@@ -51,15 +58,15 @@ export class GraphicComponent {
     }
 
     private getUniqueYear(invoices: Invoice[]): number[] {
-        return Array.from(new Set(invoices.map(obj => obj.year)));
+       return Array.from(new Set(invoices.map(obj => this.getYear(obj.monthInvoice.monthYear))));
     }
 
     onYearSelected(year: number) {
         this.selectedYear = year;
-        const filteredInvoices = this.invoices.filter(invoice => invoice.year === year);
+        const filteredInvoices = this.invoices.filter(invoice => this.getYear(invoice.monthInvoice.monthYear) === year);
 
         const monthNames = filteredInvoices.map(invoice => invoice.monthName);
-        const invoiceValues = filteredInvoices.map(invoice => invoice.value);
+        const invoiceValues = filteredInvoices.map(invoice => invoice.totalInvoiceValue);
         const colors = this.generateColors(invoiceValues);
 
         this.updateChartData(monthNames, invoiceValues, colors);
@@ -100,5 +107,18 @@ export class GraphicComponent {
                 backgroundColor: colors
             }
         ];
+    }
+
+    getYear(date: string): number {
+        const dateString = date;
+        const parts = dateString.split("/");
+        const year = parseInt(parts[2],10);
+        return year;
+    }
+
+    updateFilteredMonthNames() {
+        this.filteredMonthNames = this.invoices
+           .filter(invoice => this.getYear(invoice.monthInvoice.monthYear) === this.selectedYear)
+            .map(invoice => invoice.monthName);
     }
 }

@@ -26,7 +26,7 @@ export class ProfileComponent {
     @Input() firstAccess: boolean;
 
     selectedFile: File | null = null;
-    imageSrc: string | ArrayBuffer | null = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s" // Para armazenar a URL da imagem
+    imageSrc: string | ArrayBuffer | null = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s"
     isModalVisible: boolean = false;
 
     constructor(

@@ -61,19 +61,21 @@ export class InvoiceComponent implements OnInit {
 
     ngOnInit() {
 
-        this.invoiceService.getInvoices().subscribe({
-            next: (response) => {
-                this.invoices = response.map(invoice => ({
-                    ...invoice,
-                    monthName: this.monthTranslate.translate(invoice.monthName)
-                }));
-                this.uniqueYears = [...new Set(this.invoices.map(invoice => invoice.year))];
-                this.selectedYear = this.uniqueYears[1];
-                this.updateFilteredMonthNames();
-            },
-            error: (error) => {
-                this.toastr.error(error.error.error, 'Nenhum item encontrado');
-            }
+        this.invoiceService
+            .getInvoices()
+            .subscribe({
+                next: (response) => {
+                    this.invoices = response.map(invoice => ({
+                        ...invoice,
+                        monthName: this.monthTranslate.translate(invoice.monthInvoice.monthName)
+                    }));
+                    this.uniqueYears = [...new Set(this.invoices.map(invoice => this.getYear(invoice.monthInvoice.monthYear)))];
+                    this.selectedYear = this.uniqueYears[1];
+                    this.updateFilteredMonthNames();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
+                }
         });
 
         this.spentTypeService
@@ -119,7 +121,7 @@ export class InvoiceComponent implements OnInit {
         this.isModalInvoiceVisible = true;
     }
 
-    saveInvoice() {
+    insertInvoice() {
         this.invoiceService
             .insertInvoice(this.month, this.year)
             .subscribe({
@@ -132,6 +134,8 @@ export class InvoiceComponent implements OnInit {
                     this.toastr.error(error.error.message);
                 }
         });
+
+
 
     }
 
@@ -179,15 +183,15 @@ export class InvoiceComponent implements OnInit {
     }
 
     updateFilteredMonthNames() {
-        this.filteredMonthNames = this.invoices
-            .filter(invoice => invoice.year === this.selectedYear)
-            .map(invoice => invoice.monthName);
+       this.filteredMonthNames = this.invoices
+          .filter(invoice => this.getYear(invoice.monthInvoice.monthYear) === this.selectedYear)
+           .map(invoice => invoice.monthName);
     }
 
     onYearChange(event: Event) {
-        const selectElement = event.target as HTMLSelectElement;
-        this.selectedYear = Number(selectElement.value);
-        this.updateFilteredMonthNames();
+       const selectElement = event.target as HTMLSelectElement;
+       this.selectedYear = Number(selectElement.value);
+       this.updateFilteredMonthNames();
     }
 
     calculateTotalSpent(): void {
@@ -205,6 +209,13 @@ export class InvoiceComponent implements OnInit {
 
     calculateTotalMonthlyContract(): void {
         this.totalValueContract = this.monthlyContracts.reduce((sum, monthlyContracts) => sum + monthlyContracts.contractValue, 0);
+    }
+
+    getYear(date: string): number {
+        const dateString = date;
+        const parts = dateString.split("/");
+        const year = parseInt(parts[2],10);
+        return year;
     }
 
 }

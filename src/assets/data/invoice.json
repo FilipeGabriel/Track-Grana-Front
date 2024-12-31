@@ -1,92 +1,142 @@
 [
     {
-        "month": 8,
-        "monthName": "August",
-        "year": 2023,
-        "value": 2250
+        "id": 7,
+        "totalInvoiceValue": 2800,
+        "totalPaid": false,
+        "monthInvoice": {
+          "id": 8,
+          "monthName": "OCTOBER",
+          "monthYear": "01/10/2023"
+        },
+        "monthlyContracts": {
+          "id": 8,
+          "totalMonthlyContractsValue": 0,
+          "contractItems": []
+        },
+        "monthlyExpenses": {
+          "id": 8,
+          "totalMonthlyExpensesValue": 0,
+          "expensesItems": []
+        }
     },
     {
-        "month": 9,
-        "monthName": "September",
-        "year": 2023,
-        "value": 2850
+      "id": 1,
+      "totalInvoiceValue": 2450,
+      "totalPaid": false,
+      "monthInvoice": {
+        "id": 1,
+        "monthName": "OCTOBER",
+        "monthYear": "01/10/2024"
+      },
+      "monthlyContracts": {
+        "id": 1,
+        "totalMonthlyContractsValue": 0,
+        "contractItems": []
+      },
+      "monthlyExpenses": {
+        "id": 1,
+        "totalMonthlyExpensesValue": 0,
+        "expensesItems": []
+      }
     },
     {
-        "month": 10,
-        "monthName": "October",
-        "year": 2023,
-        "value": 2600
+      "id": 2,
+      "totalInvoiceValue": 2750,
+      "totalPaid": false,
+      "monthInvoice": {
+        "id": 2,
+        "monthName": "NOVEMBER",
+        "monthYear": "01/11/2024"
+      },
+      "monthlyContracts": {
+        "id": 2,
+        "totalMonthlyContractsValue": 0,
+        "contractItems": []
+      },
+      "monthlyExpenses": {
+        "id": 2,
+        "totalMonthlyExpensesValue": 0,
+        "expensesItems": []
+      }
     },
     {
-        "month": 11,
-        "monthName": "November",
-        "year": 2023,
-        "value": 2800
+      "id": 3,
+      "totalInvoiceValue": 3000,
+      "totalPaid": false,
+      "monthInvoice": {
+        "id": 3,
+        "monthName": "AUGUST",
+        "monthYear": "01/08/2024"
+      },
+      "monthlyContracts": {
+        "id": 3,
+        "totalMonthlyContractsValue": 0,
+        "contractItems": []
+      },
+      "monthlyExpenses": {
+        "id": 3,
+        "totalMonthlyExpensesValue": 0,
+        "expensesItems": []
+      }
     },
     {
-        "month": 12,
-        "monthName": "December",
-        "year": 2023,
-        "value": 3000
+      "id": 4,
+      "totalInvoiceValue": 2500,
+      "totalPaid": false,
+      "monthInvoice": {
+        "id": 5,
+        "monthName": "JULY",
+        "monthYear": "01/07/2024"
+      },
+      "monthlyContracts": {
+        "id": 5,
+        "totalMonthlyContractsValue": 0,
+        "contractItems": []
+      },
+      "monthlyExpenses": {
+        "id": 5,
+        "totalMonthlyExpensesValue": 0,
+        "expensesItems": []
+      }
     },
     {
-        "month": 1,
-        "monthName": "January",
-        "year": 2024,
-        "value": 2500
+      "id": 5,
+      "totalInvoiceValue": 2700,
+      "totalPaid": false,
+      "monthInvoice": {
+        "id": 6,
+        "monthName": "JANUARY",
+        "monthYear": "01/01/2024"
+      },
+      "monthlyContracts": {
+        "id": 6,
+        "totalMonthlyContractsValue": 0,
+        "contractItems": []
+      },
+      "monthlyExpenses": {
+        "id": 6,
+        "totalMonthlyExpensesValue": 0,
+        "expensesItems": []
+      }
     },
     {
-        "month": 2,
-        "monthName": "February",
-        "year": 2024,
-        "value": 2250
-    },
-    {
-        "month": 3,
-        "monthName": "March",
-        "year": 2024,
-        "value": 2300
-    },
-    {
-        "month": 4,
-        "monthName": "April",
-        "year": 2024,
-        "value": 2100
-    },
-    {
-        "month": 5,
-        "monthName": "May",
-        "year": 2024,
-        "value": 1950
-    },
-    {
-        "month": 6,
-        "monthName": "June",
-        "year": 2024,
-        "value": 2400
-    },
-    {
-        "month": 7,
-        "monthName": "July",
-        "year": 2024,
-        "value": 2500
-    },
-    {
-        "month": 8,
-        "monthName": "August",
-        "year": 2024,
-        "value": 2600
-    },
-    {
-        "month": 9,
-        "monthName": "September",
-        "year": 2024,
-        "value": 2350
-    },
-    {
-        "month": 10,
-        "monthName": "October",
-        "year": 2024,
-        "value": 2100
+      "id": 6,
+      "totalInvoiceValue": 3050,
+      "totalPaid": false,
+      "monthInvoice": {
+        "id": 7,
+        "monthName": "FEBRUARY",
+        "monthYear": "01/02/2024"
+      },
+      "monthlyContracts": {
+        "id": 7,
+        "totalMonthlyContractsValue": 0,
+        "contractItems": []
+      },
+      "monthlyExpenses": {
+        "id": 7,
+        "totalMonthlyExpensesValue": 0,
+        "expensesItems": []
+      }
     }
-]
+  ]
