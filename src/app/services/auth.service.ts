@@ -17,18 +17,22 @@ export class AuthService {
     tokenUrl: string = environment.apiUrlBase + environment.getTokenUrl;
     jwtHelper: JwtHelperService = new JwtHelperService();
 
-    constructor( private http: HttpClient, private router: Router ) { }
+    constructor( private http: HttpClient ) { }
 
     insert(user: User): Observable<any> {
-        return this.http.post(this.apiUrlRegister, user)
+        return this.http.post(this.apiUrlRegister, user);
     }
 
     tryLogin(user: User): Observable<any> {
-        return this.http.post(this.tokenUrl, user)
+        return this.http.post(this.tokenUrl, user);
     }
 
-    getUserById(id: string | null): Observable<any> {
-        return this.http.get<any>(`${this.apiUrlBase}/${id}`);
+    updatePassword(user: { password: string, newPassword: string }): Observable<any> {
+        return this.http.put(`${this.apiUrlBase}/${this.getUserId()}`, user);
+    }
+
+    getUserById(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrlBase}/${this.getUserId()}`);
     }
 
     logout(): void {

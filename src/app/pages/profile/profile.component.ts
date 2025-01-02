@@ -20,6 +20,10 @@ import { AuthService } from '../../services/auth.service';
 
 export class ProfileComponent {
 
+    password: string;
+    confirmNewPassword: string;
+    newPassword: string;
+
     user: User;
     account: Account;
     trueAccount: Account;
@@ -57,15 +61,15 @@ export class ProfileComponent {
 
         if (!this.firstAccess) {
             this.authService
-                .getUserById(userId)
+                .getUserById()
                 .subscribe ({
                     next: (response) => {
-                        if (response.account.birthDate) {
-                            const [day, month, year] = response.account.birthDate.split('/');
-                            response.account.birthDate = `${year}-${month}-${day}`;
-                        };
                         this.user = response;
                         this.trueAccount = { ...this.user.account };
+                        if (this.user.account.birthDate) {
+                            const [day, month, year] = this.user.account.birthDate.split('/');
+                            this.user.account.birthDate = `${year}-${month}-${day}`;
+                        };
                     },
                     error: (error) => {
                         this.toastr.error(error.error.error, 'Erro ao carregar usuário.');
@@ -101,11 +105,11 @@ export class ProfileComponent {
                 .updateAccount(this.trueAccount.id, this.user.account)
                 .subscribe({
                     next: (response) => {
-                        if (response.birthDate) {
-                            const [day, month, year] = response.birthDate.split('/');
-                            response.birthDate = `${year}-${month}-${day}`;
-                        };
                         this.user.account = response;
+                        if (this.user.account.birthDate) {
+                            const [day, month, year] = this.user.account.birthDate.split('/');
+                            this.user.account.birthDate = `${year}-${month}-${day}`;
+                        };
                     },
                     error: (error) => {
                         this.toastr.error(error.error.error);
@@ -148,8 +152,34 @@ export class ProfileComponent {
         this.isModalVisible = true;
     }
 
+    updatePassword() {
+        const user = {
+            password: this.password,
+            newPassword: this.newPassword
+        }
+        if (this.newPassword == this.confirmNewPassword) {
+            this.authService
+                .updatePassword(user)
+                .subscribe({
+                    next: (response) => {
+                        this.toastr.success("Senha alterada com sucesso!");
+                        this.closeModal();
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.message);
+                    }
+            });
+        } else {
+            this.toastr.error("Senhas não confirmam!");
+        }
+
+    }
+
     closeModal() {
         this.isModalVisible = false;
+        this.password = "";
+        this.newPassword = "";
+        this.confirmNewPassword = "";
     }
 
     private formatDateToSend(date: string | Date): string {

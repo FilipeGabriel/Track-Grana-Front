@@ -25,10 +25,9 @@ export class HomeComponent {
     }
 
     ngOnInit() {
-        this.id = this.authService.getUserId();
 
         this.authService
-            .getUserById(this.id)
+            .getUserById()
             .subscribe({
                 next: (response) => {
                     const loggedUser = new UserComplete(
