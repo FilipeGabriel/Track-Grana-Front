@@ -22,4 +22,8 @@ export class AccountService {
         return this.http.post<Account>(this.apiUrlBase, account);
     }
 
+    updateAccount(accountId: string, account: Account): Observable<any> {
+        return this.http.put(`${this.apiUrlBase}/${accountId}`, account);
+    }
+
 }

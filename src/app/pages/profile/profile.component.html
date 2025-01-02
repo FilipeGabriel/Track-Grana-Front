@@ -7,22 +7,26 @@
             <div class="profile__form">
                 <div class="div__form">
                     <div class="div__image">
-                        <div class="user__image">
-                            <img [src]="account.accountImg" alt="user_image" name="accountImg">
+                        <div class="user__image" *ngIf="firstAccess">
+                            <img [src]="account.accountImage" alt="user_image" name="accountImage">
+                        </div>
+                        <div class="user__image" *ngIf="!firstAccess">
+                            <img [src]="user.account.accountImage" alt="user_image" name="accountImage">
                         </div>
                         <button class="btn btn-primary" (click)="fileInput.click()" type="button">Alterar foto</button>
                         <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" />
                     </div>
                     <div class="div__inputs">
                         <div class="form__line-one">
-                            <div class="div__username" *ngIf="!firstAccess">
-                                <label for="">Username:</label>
-                                <input type="text" [(ngModel)]="account.userName" name="username" disabled="">
-                            </div>
                             <div class="div__username" *ngIf="firstAccess">
                                 <label for="">Username:</label>
-                                <input type="text" [(ngModel)]="account.userName" name="username">
+                                <input type="text" [(ngModel)]="account.userName" name="userName">
                             </div>
+                            <div class="div__username" *ngIf="!firstAccess">
+                                <label for="">Username:</label>
+                                <input type="text" [(ngModel)]="user.account.userName" name="userName" disabled="">
+                            </div>
+
                             <div class="div__password" *ngIf="!firstAccess">
                                 <label for="">Senha:</label>
                                 <div class="input__password">
@@ -32,29 +36,51 @@
                             </div>
                         </div>
                         <div class="form__line-two">
-                            <div class="div__full-name">
+                            <div class="div__full-name" *ngIf="firstAccess">
                                 <label for="">Nome completo:</label>
                                 <input type="text" [(ngModel)]="account.name" name="name" placeholder="ex: José Anastácio da Silva">
                             </div>
+                            <div class="div__full-name" *ngIf="!firstAccess">
+                                <label for="">Nome completo:</label>
+                                <input type="text" [(ngModel)]="user.account.name" name="name" placeholder="ex: José Anastácio da Silva">
+                            </div>
                         </div>
                         <div class="form__line-three">
-                            <div class="div__email">
+                            <div class="div__email" *ngIf="firstAccess">
                                 <label for="">E-mail:</label>
                                 <input type="text" [(ngModel)]="userEmail" name="email" disabled="">
                             </div>
-                            <div class="div__cpf">
+                            <div class="div__email" *ngIf="!firstAccess">
+                                <label for="">E-mail:</label>
+                                <input type="text" [(ngModel)]="user.email" name="email" disabled="">
+                            </div>
+
+                            <div class="div__cpf" *ngIf="firstAccess">
                                 <label for="">CPF:</label>
                                 <input type="text" [(ngModel)]="account.cpf" name="cpf" placeholder="ex: 123.456.789-10">
                             </div>
+                            <div class="div__cpf" *ngIf="!firstAccess">
+                                <label for="">CPF:</label>
+                                <input type="text" [(ngModel)]="user.account.cpf" name="cpf" placeholder="ex: 123.456.789-10" disabled="">
+                            </div>
                         </div>
                         <div class="form__line-four">
-                            <div class="div__telephone">
+                            <div class="div__telephone" *ngIf="firstAccess">
                                 <label for="">Telefone:</label>
                                 <input type="text" [(ngModel)]="account.telephone" name="telephone" placeholder="ex: (81)99999-9999">
                             </div>
-                            <div class="div__birth-date">
+                            <div class="div__telephone" *ngIf="!firstAccess">
+                                <label for="">Telefone:</label>
+                                <input type="text" [(ngModel)]="user.account.telephone" name="telephone" placeholder="ex: (81)99999-9999">
+                            </div>
+
+                            <div class="div__birth-date" *ngIf="firstAccess">
                                 <label for="">Data de nascimento:</label>
                                 <input type="date" [(ngModel)]="account.birthDate" name="birthDate">
+                            </div>
+                            <div class="div__birth-date" *ngIf="!firstAccess">
+                                <label for="">Data de nascimento:</label>
+                                <input type="date" [(ngModel)]="user.account.birthDate" name="birthDate">
                             </div>
                         </div>
                     </div>

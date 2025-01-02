@@ -7,6 +7,8 @@ import { User } from '../../models/user';
 import { AccountService } from '../../services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
+import { UserComplete } from '../../models/userClomplete';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,20 +28,24 @@ export class ProfileComponent {
     @Input() firstAccess: boolean;
 
     selectedFile: File | null = null;
-    imageSrc: string | ArrayBuffer | null = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s"
     isModalVisible: boolean = false;
 
     constructor(
         private accountService: AccountService,
+        private authService: AuthService,
         private toastr: ToastrService,
         private dateFormatPipe: DateFormatPipe
     ) {
+        this.user = new User();
+        this.user.account = new Account(); //
         this.account = new Account();
         this.trueAccount = new Account();
     }
 
     ngOnInit() {
-        const loggedUser = localStorage.getItem('logged_user')
+        const userId = localStorage.getItem('user_id');
+
+        const loggedUser = localStorage.getItem('logged_user');
         if (loggedUser) {
             const userObject = JSON.parse(loggedUser);
             const email = userObject.email;
@@ -47,8 +53,22 @@ export class ProfileComponent {
         } else {
             this.toastr.error('Usuário não encontrado no localStorage.')
         }
-        this.account.accountImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s";
-        this.account.userId = localStorage.getItem('user_id')
+        this.account.accountImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s";
+        this.account.userId = userId;
+
+        if (!this.firstAccess) {
+            this.authService
+                .getUserById(userId)
+                .subscribe ({
+                    next: (response) => {
+                        this.user = response;
+                        this.trueAccount = { ...this.user.account };
+                        if(this.user.account == null) {
+                            this.account.accountImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s";
+                        };
+                    }
+            });
+        };
     }
 
     onSubmit() {
@@ -70,8 +90,18 @@ export class ProfileComponent {
                 }
             });
         } else {
+            this.accountService
+                .updateAccount(this.trueAccount.id, this.user.account)
+                .subscribe({
+                    next: (response) => {
+                        this.user.account = response;
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.error);
+                    }
+            });
             this.toastr.success('Usuário atualizado com sucesso');
-            this.trueAccount = { ...this.account }
+            this.trueAccount = { ...this.user.account }
         }
     }
 
@@ -85,7 +115,12 @@ export class ProfileComponent {
             const reader = new FileReader();
             reader.onload = (e) => {
                 if (e.target?.result) {
-                this.account.accountImg = e.target.result;
+                    if (this.firstAccess) {
+                        this.account.accountImage = e.target.result;
+                    } else {
+                        this.user.account.accountImage = e.target.result;
+                    }
+
                 }
         };
         reader.readAsDataURL(this.selectedFile);
@@ -93,7 +128,7 @@ export class ProfileComponent {
     }
 
     cancelAlteration() {
-        this.account = { ...this.trueAccount }
+        this.user.account = { ...this.trueAccount };
     }
 
     openModal() {

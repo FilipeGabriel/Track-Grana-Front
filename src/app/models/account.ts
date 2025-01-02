@@ -1,11 +1,12 @@
 export class Account {
 
-    userName: string
+    id: string;
+    userName: string;
     name: string;
     cpf: string;
     telephone: string;
     birthDate: string;
-    accountImg: string | ArrayBuffer | null;
+    accountImage: string | ArrayBuffer | null;
     userId: string | null;
 
 }
