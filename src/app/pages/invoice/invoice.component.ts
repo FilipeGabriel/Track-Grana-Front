@@ -78,19 +78,6 @@ export class InvoiceComponent implements OnInit {
                 }
         });
 
-        this.spentTypeService
-            .getSpentTypes()
-            .subscribe({
-                next: (response) => {
-                    this.spentTypes = response;
-                    this.calculateTotalSpent();
-                    this.getSpentItems();
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
-                }
-        });
-
         this.expensesItemService
             .getExpensesItem()
             .subscribe({
@@ -134,8 +121,6 @@ export class InvoiceComponent implements OnInit {
                     this.toastr.error(error.error.message);
                 }
         });
-
-
 
     }
 
@@ -199,7 +184,7 @@ export class InvoiceComponent implements OnInit {
     }
 
     getSpentItems(): void {
-        this.spentItems = [''].concat(this.spentTypes.map(spentType => spentType.description));
+        this.spentItems = [''].concat(this.spentTypes.map(spentType => spentType.name));
         this.selectedTypeExpenses = this.spentItems[0];
     }
 

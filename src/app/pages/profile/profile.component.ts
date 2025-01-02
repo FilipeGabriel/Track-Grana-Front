@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { TitleComponent } from '../../components/title/title.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +6,6 @@ import { Account } from '../../models/account';
 import { User } from '../../models/user';
 import { AccountService } from '../../services/account.service';
 import { ToastrService } from 'ngx-toastr';
-import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -14,8 +13,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [TitleComponent, CommonModule, FormsModule],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
-  providers: [DateFormatPipe]
+  styleUrl: './profile.component.css'
 })
 
 export class ProfileComponent {
@@ -37,7 +35,6 @@ export class ProfileComponent {
         private accountService: AccountService,
         private authService: AuthService,
         private toastr: ToastrService,
-        private dateFormatPipe: DateFormatPipe
     ) {
         this.user = new User();
         this.user.account = new Account(); //

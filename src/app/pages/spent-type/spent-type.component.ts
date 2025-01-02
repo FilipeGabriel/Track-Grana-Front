@@ -35,29 +35,16 @@ export class SpentTypeComponent implements OnInit{
 
     ngOnInit() {
 
-        this.spentTypes = [
-            this.spentType = {
-                description: 'Inter',
-                spentValue: 150,
-                color: '#f85c01',
-                paid: false,
-                userId: "1"
-            },
-            this.spentType = {
-                description: 'Bradesco',
-                spentValue: 350,
-                color: '#be0202',
-                paid: false,
-                userId: "1"
-            },
-            this.spentType = {
-                description: 'Nubank',
-                spentValue: 200,
-                color: '#7700ff',
-                paid: false,
-                userId: "1"
-            }
-        ]
+        this.spentTypeService
+            .getAllSpentsType()
+            .subscribe({
+                next: (response) => {
+                    this.spentTypes = response;
+                },
+                error: (error) => {
+                    this.toastr.error("Nenhum tipo de gasto encontrado");
+                }
+            })
 
     }
 
@@ -78,11 +65,22 @@ export class SpentTypeComponent implements OnInit{
                     this.spentType = response;
                     this.toastr.success("Tipo de gasto cadastrado com sucesso!");
                     this.closeModal();
+                    this.refreshSpentTypes();
                 },
                 error: (error) => {
                     this.toastr.error(error.error.error);
                 }
             })
+    }
+
+    refreshSpentTypes() {
+        this.spentTypeService
+            .getAllSpentsType()
+            .subscribe({
+                next: (response) => {
+                    this.spentTypes = response;
+                }
+            });
     }
 
     closeModal() {
@@ -91,5 +89,4 @@ export class SpentTypeComponent implements OnInit{
         this.selectedColor = '#B5B0B0';
         this.isModalVisible = false;
     }
-
 }

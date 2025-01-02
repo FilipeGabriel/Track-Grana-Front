@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SpentType } from '../../models/spent-type';
 import { FormsModule } from '@angular/forms';
+import { SpentTypeService } from '../../services/spent-type.service';
 
 @Component({
   selector: 'app-spent-card',
@@ -12,18 +13,19 @@ import { FormsModule } from '@angular/forms';
 })
 export class SpentCardComponent {
 
-    @Input()
-    spentType: SpentType;
+    @Input() spentType: SpentType;
     tempDescription: string = '';
     tempColor: string = '';
+    spentTypeActual: SpentType;
 
     isModalVisible: boolean = false;
 
-    constructor() {
-    }
+    constructor(
+        private spentTypeService: SpentTypeService
+    ) { }
 
     openModal() {
-        this.tempDescription = this.spentType.description;
+        this.tempDescription = this.spentType.name;
         this.tempColor = this.spentType.color;
         this.isModalVisible = true;
     }
@@ -34,7 +36,7 @@ export class SpentCardComponent {
     }
 
     saveChanges() {
-        this.spentType.description = this.tempDescription;
+        this.spentType.name = this.tempDescription;
         this.spentType.color = this.tempColor;
         this.isModalVisible = false;
     }

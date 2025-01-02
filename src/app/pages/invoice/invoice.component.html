@@ -27,7 +27,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let spent of spentTypes">
-                            <td [style.color]="spent.color">{{ spent.description }}</td>
+                            <td [style.color]="spent.color">{{ spent.name }}</td>
                             <td>{{ spent.spentValue | realCurrency }}</td>
                             <td>{{ spent.paid }}</td>
                         </tr>

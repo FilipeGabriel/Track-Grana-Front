@@ -1,6 +1,7 @@
 export class SpentType {
 
-    description: string;
+    spentId: string;
+    name: string;
     spentValue: number;
     color: string;
     paid: boolean;

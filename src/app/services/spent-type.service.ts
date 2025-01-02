@@ -15,39 +15,39 @@ export class SpentTypeService {
 
     apiUrlBaseTeste: string = 'assets/data/spent-type.json';
     apiUrlBase: string = environment.apiUrlBase + '/v1/api/spents-type';
+    apiUrlBaseAll: string = environment.apiUrlBase + '/v1/api/spents-type/find-all';
 
     constructor(
-        private http: HttpClient,
-        private authService: AuthService
+        private http: HttpClient
     ) {}
 
-    getSpentTypes(): Observable<SpentType[]> {
-        return this.http.get<SpentType[]>(this.apiUrlBaseTeste);
+    getAllSpentsType(): Observable<SpentType[]> {
+        return this.http.get<SpentType[]>(`${this.apiUrlBaseAll}/${this.getAccountId()}`);
     }
 
     insertSpentType(description: string | null, color: string | null ): Observable<any> {
 
+        const body = {
+            name: description,
+            color: color,
+            totalBankValue: 0.0,
+            accountId: this.getAccountId()
+        };
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.post(this.apiUrlBase, body, { headers });
+
+    }
+
+    getAccountId() {
         const loggedUser = localStorage.getItem('logged_user');
         if (loggedUser) {
             const userObject = JSON.parse(loggedUser);
             this.accountId = userObject.account?.id;
-            if (this.accountId) {
-                const body = {
-                    name: description,
-                    color: color,
-                    totalBankValue: 0.0,
-                    accountId: this.accountId
-                };
-
-                const headers = new HttpHeaders({
-                    'Content-Type': 'application/json',
-                });
-                return this.http.post(this.apiUrlBase, body, { headers });
-            } else {
-                throw new Error('Account ID não encontrado.');
-            }
+            return this.accountId;
         } else {
-            throw new Error('Usuário não encontrado no localStorage.');
+            throw new Error('Account ID não encontrado.');
         }
     }
 
