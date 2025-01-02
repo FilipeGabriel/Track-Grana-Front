@@ -7,7 +7,6 @@ import { User } from '../../models/user';
 import { AccountService } from '../../services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
-import { UserComplete } from '../../models/userClomplete';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -61,19 +60,27 @@ export class ProfileComponent {
                 .getUserById(userId)
                 .subscribe ({
                     next: (response) => {
+                        if (response.account.birthDate) {
+                            const [day, month, year] = response.account.birthDate.split('/');
+                            response.account.birthDate = `${year}-${month}-${day}`;
+                        };
                         this.user = response;
                         this.trueAccount = { ...this.user.account };
-                        if(this.user.account == null) {
-                            this.account.accountImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s";
-                        };
-                    }
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.error, 'Erro ao carregar usuário.');
+                    },
             });
         };
+
     }
 
     onSubmit() {
-        if (this.account.birthDate) {
-            this.account.birthDate = this.dateFormatPipe.transform(this.account.birthDate);
+
+        if (this.firstAccess && this.account.birthDate) {
+            this.account.birthDate = this.formatDateToSend(this.account.birthDate);
+        } else if (!this.firstAccess && this.user.account.birthDate) {
+            this.user.account.birthDate = this.formatDateToSend(this.user.account.birthDate);
         }
 
         if(this.firstAccess){
@@ -94,6 +101,10 @@ export class ProfileComponent {
                 .updateAccount(this.trueAccount.id, this.user.account)
                 .subscribe({
                     next: (response) => {
+                        if (response.birthDate) {
+                            const [day, month, year] = response.birthDate.split('/');
+                            response.birthDate = `${year}-${month}-${day}`;
+                        };
                         this.user.account = response;
                     },
                     error: (error) => {
@@ -129,6 +140,8 @@ export class ProfileComponent {
 
     cancelAlteration() {
         this.user.account = { ...this.trueAccount };
+        const [day, month, year] = this.user.account.birthDate.split('/');
+        this.user.account.birthDate = `${year}-${month}-${day}`;
     }
 
     openModal() {
@@ -137,6 +150,15 @@ export class ProfileComponent {
 
     closeModal() {
         this.isModalVisible = false;
+    }
+
+    private formatDateToSend(date: string | Date): string {
+        const parsedDate = new Date(date);
+        const day = String(parsedDate.getUTCDate()).padStart(2, '0');
+        const month = String(parsedDate.getUTCMonth() + 1).padStart(2, '0');
+        const year = parsedDate.getUTCFullYear();
+
+        return `${day}/${month}/${year}`;
     }
 
 }
