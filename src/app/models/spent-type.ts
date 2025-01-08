@@ -2,7 +2,7 @@ export class SpentType {
 
     spentId: string;
     name: string;
-    spentValue: number;
+    totalBankValue: number;
     color: string;
     paid: boolean;
     userId: string | null;

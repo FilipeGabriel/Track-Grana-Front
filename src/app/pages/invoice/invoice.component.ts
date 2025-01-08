@@ -78,6 +78,15 @@ export class InvoiceComponent implements OnInit {
                 }
         });
 
+        this.spentTypeService
+            .getAllSpentsType()
+            .subscribe({
+                next: (response) => {
+                    this.spentTypes = response;
+                    this.calculateTotalSpent();
+                }
+            })
+
         this.expensesItemService
             .getExpensesItem()
             .subscribe({
@@ -168,19 +177,20 @@ export class InvoiceComponent implements OnInit {
     }
 
     updateFilteredMonthNames() {
-       this.filteredMonthNames = this.invoices
-          .filter(invoice => this.getYear(invoice.monthInvoice.monthYear) === this.selectedYear)
-           .map(invoice => invoice.monthName);
+        this.filteredMonthNames = this.invoices
+            .filter(invoice => this.getYear(invoice.monthInvoice.monthYear) === this.selectedYear)
+            .sort((a, b) => new Date(a.monthInvoice.monthYear).getTime() - new Date(b.monthInvoice.monthYear).getTime())
+            .map(invoice => invoice.monthName);
     }
 
     onYearChange(event: Event) {
-       const selectElement = event.target as HTMLSelectElement;
-       this.selectedYear = Number(selectElement.value);
-       this.updateFilteredMonthNames();
+        const selectElement = event.target as HTMLSelectElement;
+        this.selectedYear = Number(selectElement.value);
+        this.updateFilteredMonthNames();
     }
 
     calculateTotalSpent(): void {
-        this.totalValueSpent = this.spentTypes.reduce((sum, SpentType) => sum + SpentType.spentValue, 0);
+        this.totalValueSpent = this.spentTypes.reduce((sum, SpentType) => sum + SpentType.totalBankValue, 0);
     }
 
     getSpentItems(): void {

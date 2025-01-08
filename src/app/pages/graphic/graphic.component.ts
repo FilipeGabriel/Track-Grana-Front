@@ -65,8 +65,14 @@ export class GraphicComponent {
         this.selectedYear = year;
         const filteredInvoices = this.invoices.filter(invoice => this.getYear(invoice.monthInvoice.monthYear) === year);
 
-        const monthNames = filteredInvoices.map(invoice => invoice.monthName);
-        const invoiceValues = filteredInvoices.map(invoice => invoice.totalInvoiceValue);
+        const sortedInvoices = filteredInvoices.sort((a, b) => {
+            const dateA = new Date(a.monthInvoice.monthYear);
+            const dateB = new Date(b.monthInvoice.monthYear);
+            return dateA.getTime() - dateB.getTime();
+        });
+
+        const monthNames = sortedInvoices.map(invoice => invoice.monthName);
+        const invoiceValues = sortedInvoices.map(invoice => invoice.totalInvoiceValue);
         const colors = this.generateColors(invoiceValues);
 
         this.updateChartData(monthNames, invoiceValues, colors);
