@@ -35,6 +35,7 @@ export class LoginComponent {
                     const access_token = JSON.stringify(response);
                     localStorage.setItem('access_token', response.token);
                     localStorage.setItem('user_id', response.id);
+                    localStorage.setItem('selected_year', '');
                     this.router.navigate(['/home/graphic']);
                 },
                 error: (error) => {

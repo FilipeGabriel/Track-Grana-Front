@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt'
 
 @Injectable({
@@ -36,9 +35,10 @@ export class AuthService {
     }
 
     logout(): void {
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('user_id')
-        localStorage.removeItem('logged_user')
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('logged_user');
+        localStorage.removeItem('selected_year');
     }
 
     getToken(): string | null {

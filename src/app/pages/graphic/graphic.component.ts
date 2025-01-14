@@ -33,6 +33,10 @@ export class GraphicComponent {
     ) {}
 
     ngOnInit() {
+        const storedYear = localStorage.getItem('selected_year');
+        if (storedYear) {
+            this.selectedYear = parseInt(storedYear, 10);
+        }
         this.loadInvoices();
     }
 
@@ -46,8 +50,12 @@ export class GraphicComponent {
                 this.uniqueYear = this.getUniqueYear(this.invoices);
 
                 if (this.uniqueYear.length > 0) {
-                    const recentYear = Math.max(...this.uniqueYear);
-                    this.onYearSelected(recentYear);
+                    if (this.selectedYear === null || !this.uniqueYear.includes(this.selectedYear)) {
+                        const recentYear = Math.max(...this.uniqueYear);
+                        this.onYearSelected(recentYear);
+                    } else {
+                        this.onYearSelected(this.selectedYear);
+                    }
                 }
                 this.updateFilteredMonthNames();
             },
@@ -76,6 +84,7 @@ export class GraphicComponent {
         const colors = this.generateColors(invoiceValues);
 
         this.updateChartData(monthNames, invoiceValues, colors);
+        localStorage.setItem('selected_year', this.selectedYear.toString());
     }
 
     private generateColors(values: number[]): string[] {
