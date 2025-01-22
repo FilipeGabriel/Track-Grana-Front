@@ -61,22 +61,7 @@ export class InvoiceComponent implements OnInit {
 
     ngOnInit() {
 
-        this.invoiceService
-            .getInvoices()
-            .subscribe({
-                next: (response) => {
-                    this.invoices = response.map(invoice => ({
-                        ...invoice,
-                        monthName: this.monthTranslate.translate(invoice.monthInvoice.monthName)
-                    }));
-                    this.uniqueYears = [...new Set(this.invoices.map(invoice => this.getYear(invoice.monthInvoice.monthYear)))];
-                    this.selectedYear = this.uniqueYears[1];
-                    this.updateFilteredMonthNames();
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
-                }
-        });
+        this.getInvoices();
 
         this.spentTypeService
             .getAllSpentsType()
@@ -131,6 +116,25 @@ export class InvoiceComponent implements OnInit {
                 }
         });
 
+    }
+
+    getInvoices() {
+        this.invoiceService
+            .getInvoices()
+            .subscribe({
+                next: (response) => {
+                    this.invoices = response.map(invoice => ({
+                        ...invoice,
+                        monthName: this.monthTranslate.translate(invoice.monthInvoice.monthName)
+                    }));
+                    const yearInLocalStorage = localStorage.getItem('selected_year');
+                    this.selectedYear = Number(yearInLocalStorage);
+                    this.updateFilteredMonthNames();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
+                }
+        });
     }
 
     closeInvoiceModal() {
