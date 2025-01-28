@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ExpensesItemService } from '../../services/expenses-item.service';
 import { MonthlyContractService } from '../../services/monthly-contract.service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-invoice',
@@ -53,6 +54,7 @@ export class InvoiceComponent implements OnInit {
     constructor(
         private toastr: ToastrService,
         private monthTranslate: MonthTranslateService,
+        private authService: AuthService,
         private invoiceService: InvoiceService,
         private spentTypeService: SpentTypeService,
         private expensesItemService: ExpensesItemService,
@@ -103,18 +105,39 @@ export class InvoiceComponent implements OnInit {
     }
 
     insertInvoice() {
-        this.invoiceService
-            .insertInvoice(this.month, this.year)
-            .subscribe({
-                next: (response) => {
-                    this.invoice = response;
-                    this.closeInvoiceModal();
-                    this.toastr.success("Fatura criada com sucesso!");
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.message);
-                }
-        });
+        const selectedYear = localStorage.getItem('selected_year');
+        if (selectedYear) {
+            this.invoiceService
+                .insertInvoice(this.month, this.year)
+                .subscribe({
+                    next: (response) => {
+                        this.invoice = response;
+                        this.closeInvoiceModal();
+                        this.getInvoices();
+                        this.toastr.success("Fatura criada com sucesso!");
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.message);
+                    }
+            });
+        } else {
+            this.invoiceService
+                .insertInvoice(this.month, this.year)
+                .subscribe({
+                    next: (response) => {
+                        this.invoice = response;
+                        const year = this.getYear(this.invoice.monthInvoice.monthYear).toString();
+                        localStorage.setItem('selected_year', year)
+                        this.closeInvoiceModal();
+                        this.getInvoices();
+                        this.toastr.success("Fatura criada com sucesso!");
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.message);
+                    }
+            });
+        }
+
 
     }
 

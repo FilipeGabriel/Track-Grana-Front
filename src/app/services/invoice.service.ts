@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class InvoiceService {
 
     accountId: number| null;
+    selectedYear: number;
 
     apiUrlBaseTeste: string = 'assets/data/invoice.json'
     apiUrlBase: string = environment.apiUrlBase + '/v1/api/invoices';
@@ -22,7 +23,34 @@ export class InvoiceService {
     ) {}
 
     getInvoices(): Observable<Invoice[]> {
-        return this.http.get<Invoice[]>(this.apiUrlBaseTeste);
+        const loggedUser = localStorage.getItem('logged_user');
+        const selectedYear = localStorage.getItem('selected_year');
+        if (loggedUser) {
+            const userObject = JSON.parse(loggedUser);
+            this.accountId = userObject.account?.id;
+            if (this.accountId) {
+                return this.http.get<Invoice[]>(`${this.apiUrlBase}/find-all/${this.accountId}/${selectedYear}`);
+            } else {
+                throw new Error('Account ID não encontrado.');
+            }
+        } else {
+            throw new Error('Usuário não encontrado no localStorage.');
+        }
+    }
+
+    getAllInvoices(): Observable<Invoice[]> {
+        const loggedUser = localStorage.getItem('logged_user');
+        if (loggedUser) {
+            const userObject = JSON.parse(loggedUser);
+            this.accountId = userObject.account?.id;
+            if (this.accountId) {
+                return this.http.get<Invoice[]>(`${this.apiUrlBase}/find-all/${this.accountId}`);
+            } else {
+                throw new Error('Account ID não encontrado.');
+            }
+        } else {
+            throw new Error('Usuário não encontrado no localStorage.');
+        }
     }
 
     insertInvoice(month:number | null, year: number | null): Observable<any> {

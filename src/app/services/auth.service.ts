@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt'
@@ -47,6 +47,10 @@ export class AuthService {
 
     getUserId(): string | null {
         return localStorage.getItem('user_id');
+    }
+
+    getSelectedYear(): string | null {
+        return localStorage.getItem('selected_year');
     }
 
     isAuthenticated(): boolean {

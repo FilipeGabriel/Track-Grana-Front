@@ -17,7 +17,7 @@ import { MonthTranslateService } from '../../services/month-translate.service';
 export class GraphicComponent {
 
     invoices: Invoice[] = [];
-    uniqueYear: number[] = [];
+    uniqueYears: number[] = [];
     selectedYear: number | null = null;
     filteredMonthNames: string[];
 
@@ -41,31 +41,32 @@ export class GraphicComponent {
     }
 
     private loadInvoices() {
-        this.invoiceService.getInvoices().subscribe({
-            next: (response) => {
-                this.invoices = response.map(invoice => ({
-                    ...invoice,
-                    monthName: this.monthTranslate.translate(invoice.monthInvoice.monthName)
-                }));
-                this.uniqueYear = this.getUniqueYear(this.invoices);
-
-                if (this.uniqueYear.length > 0) {
-                    if (this.selectedYear === null || !this.uniqueYear.includes(this.selectedYear)) {
-                        const recentYear = Math.max(...this.uniqueYear);
-                        this.onYearSelected(recentYear);
-                    } else {
-                        this.onYearSelected(this.selectedYear);
+        this.invoiceService
+            .getAllInvoices()
+            .subscribe({
+                next: (response) => {
+                    this.invoices = response.map(invoice => ({
+                        ...invoice,
+                        monthName: this.monthTranslate.translate(invoice.monthInvoice.monthName)
+                    }));
+                    this.uniqueYears = this.getUniqueYears(this.invoices);
+                    if (this.uniqueYears.length > 0) {
+                        if (this.selectedYear === null || !this.uniqueYears.includes(this.selectedYear)) {
+                            const recentYear = Math.max(...this.uniqueYears);
+                            this.onYearSelected(recentYear);
+                        } else {
+                            this.onYearSelected(this.selectedYear);
+                        }
                     }
+                    this.updateFilteredMonthNames();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
                 }
-                this.updateFilteredMonthNames();
-            },
-            error: (error) => {
-                this.toastr.error(error.error.error, 'Nenhum item encontrado');
-            }
         });
     }
 
-    private getUniqueYear(invoices: Invoice[]): number[] {
+    private getUniqueYears(invoices: Invoice[]): number[] {
        return Array.from(new Set(invoices.map(obj => this.getYear(obj.monthInvoice.monthYear))));
     }
 
