@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../../template/sidebar/sidebar.component';
 import { AuthService } from '../../services/auth.service';
@@ -15,7 +15,6 @@ import { ProfileComponent } from "../profile/profile.component";
 })
 export class HomeComponent {
 
-    id: string | null;
     firstAccess: boolean;
 
     constructor(

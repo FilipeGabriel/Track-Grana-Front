@@ -59,9 +59,6 @@ export class GraphicComponent {
                         }
                     }
                     this.updateFilteredMonthNames();
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
                 }
         });
     }

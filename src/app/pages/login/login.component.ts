@@ -1,11 +1,9 @@
-import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { ToastrService } from 'ngx-toastr';
-import { UserComplete } from '../../models/userClomplete';
 
 @Component({
   selector: 'app-login',
@@ -27,27 +25,40 @@ export class LoginComponent {
     }
 
     onSubmit() {
-
         this.authService
             .tryLogin(this.user)
             .subscribe({
                 next: (response) => {
-                    const access_token = JSON.stringify(response);
                     localStorage.setItem('access_token', response.token);
                     localStorage.setItem('user_id', response.id);
                     localStorage.setItem('selected_year', '');
-                    this.router.navigate(['/home/graphic']);
+
+                    this.authService
+                        .getUserById()
+                        .subscribe({
+                            next: (userData) => {
+                                const loggedUser = {
+                                    email: userData.email,
+                                    registrationDate: userData.registrationDate,
+                                    account: userData.account
+                                };
+                                localStorage.setItem('logged_user', JSON.stringify(loggedUser));
+
+                                this.router.navigate(['/home/graphic']);
+                            },
+                            error: (error) => {
+                                this.toastr.error('Erro ao buscar dados do usuário.');
+                            }
+                    });
                 },
                 error: (error) => {
-                    if (this.user.email == null || this.user.password == null) {
-                        this.toastr.error('Nenhum dos campos devem estar nulo.', 'Atenção!')
-                    }
-                    if (this.user.email != null || this.user.password != null) {
+                    if (!this.user.email || !this.user.password) {
+                        this.toastr.error('Nenhum dos campos deve estar nulo.', 'Atenção!');
+                    } else {
                         this.toastr.error('Usuário e/ou senha incorreto!');
                     }
                 }
-            })
-
+        });
     }
 
 }
