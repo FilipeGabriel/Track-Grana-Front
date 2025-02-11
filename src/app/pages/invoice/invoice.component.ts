@@ -13,7 +13,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ExpensesItemService } from '../../services/expenses-item.service';
 import { MonthlyContractService } from '../../services/monthly-contract.service';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-invoice',
@@ -32,6 +31,8 @@ export class InvoiceComponent implements OnInit {
     invoices: Invoice[];
     uniqueYears: number[];
     selectedYear: number;
+    selectedMonthId: number | null = null;
+    monthNameSelected: string;
     filteredMonthNames: string[];
 
     spentTypes: SpentType[];
@@ -54,7 +55,6 @@ export class InvoiceComponent implements OnInit {
     constructor(
         private toastr: ToastrService,
         private monthTranslate: MonthTranslateService,
-        private authService: AuthService,
         private invoiceService: InvoiceService,
         private spentTypeService: SpentTypeService,
         private expensesItemService: ExpensesItemService,
@@ -72,7 +72,7 @@ export class InvoiceComponent implements OnInit {
                     this.spentTypes = response;
                     this.calculateTotalSpent();
                 }
-            })
+        });
 
         this.expensesItemService
             .getExpensesItem()
@@ -101,6 +101,7 @@ export class InvoiceComponent implements OnInit {
     }
 
     openInvoiceModal() {
+        this.month = null;
         this.isModalInvoiceVisible = true;
     }
 
@@ -153,9 +154,23 @@ export class InvoiceComponent implements OnInit {
                     const yearInLocalStorage = localStorage.getItem('selected_year');
                     this.selectedYear = Number(yearInLocalStorage);
                     this.updateFilteredMonthNames();
+                    this.selectLastMonth();
                 },
                 error: (error) => {
                     this.toastr.error(error.error.error, 'Nenhum item encontrado');
+                }
+        });
+    }
+
+    getDataForMonth(id: number): void {
+        this.invoiceService
+            .getInvoiceById(id)
+            .subscribe({
+                next: (response) => {
+                    this.invoice = response;
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.message, 'Erro ao buscar dados do mês');
                 }
         });
     }
@@ -168,6 +183,14 @@ export class InvoiceComponent implements OnInit {
 
     openExpensesModal() {
         this.isModalExpensesVisible = true;
+        this.spentTypeService
+            .getAllSpentsType()
+            .subscribe({
+                next: (response) => {
+                    this.spentTypes = response;
+                    this.calculateTotalSpent();
+                }
+        });
     }
 
     saveExpenses() {
@@ -210,6 +233,24 @@ export class InvoiceComponent implements OnInit {
             .map(invoice => invoice.monthName);
     }
 
+    selectLastMonth(): void {
+        if (this.filteredMonthNames.length > 0) {
+            const latestMonth = this.filteredMonthNames[this.filteredMonthNames.length - 1];
+            this.monthNameSelected = latestMonth;
+            this.month = this.getMonthNumber(latestMonth);
+            this.getDataForMonth(this.month);
+        }
+    }
+
+    getMonthNumber(monthName: string): number {
+        const months: Record<string, number> = {
+            'Janeiro': 1, 'Fevereiro': 2, 'Março': 3, 'Abril': 4, 'Maio': 5, 'Junho': 6,
+            'Julho': 7, 'Agosto': 8, 'Setembro': 9, 'Outubro': 10, 'Novembro': 11, 'Dezembro': 12
+        };
+
+        return months[monthName as keyof typeof months] || 1;
+    }
+
     onYearChange(event: Event) {
         const selectElement = event.target as HTMLSelectElement;
         this.selectedYear = Number(selectElement.value);
@@ -234,10 +275,19 @@ export class InvoiceComponent implements OnInit {
     }
 
     getYear(date: string): number {
-        const dateString = date;
-        const parts = dateString.split("/");
-        const year = parseInt(parts[2],10);
-        return year;
+        const parts = date.split("/");
+        return parseInt(parts[2], 10);
+    }
+
+    onMonthSelect(month: string): void {
+        this.monthNameSelected = month;
+        this.month = this.getMonthNumber(month);
+
+        const selectedMonth = this.invoices.find(invoice => invoice.monthName === month);
+        if (selectedMonth) {
+            this.selectedMonthId = selectedMonth.monthInvoice.id;
+            this.getDataForMonth(this.selectedMonthId);
+        }
     }
 
 }

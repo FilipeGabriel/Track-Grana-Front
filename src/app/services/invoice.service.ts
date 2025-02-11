@@ -38,6 +38,21 @@ export class InvoiceService {
         }
     }
 
+    getInvoiceById(id: number): Observable<Invoice> {
+        const loggedUser = localStorage.getItem('logged_user');
+        if (loggedUser) {
+            const userObject = JSON.parse(loggedUser);
+            this.accountId = userObject.account?.id;
+            if (this.accountId) {
+                return this.http.get<Invoice>(`${this.apiUrlBase}/${id}`);
+            } else {
+                throw new Error('Account ID não encontrado.');
+            }
+        } else {
+            throw new Error('Usuário não encontrado no localStorage.');
+        }
+    }
+
     getAllInvoices(): Observable<Invoice[]> {
         const loggedUser = localStorage.getItem('logged_user');
         if (loggedUser) {

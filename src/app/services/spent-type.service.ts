@@ -13,7 +13,6 @@ export class SpentTypeService {
 
     accountId: number| null;
 
-    apiUrlBaseTeste: string = 'assets/data/spent-type.json';
     apiUrlBase: string = environment.apiUrlBase + '/v1/api/spents-type';
     apiUrlBaseAll: string = environment.apiUrlBase + '/v1/api/spents-type/find-all';
 
