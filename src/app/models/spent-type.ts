@@ -1,6 +1,6 @@
 export class SpentType {
 
-    spentId: string;
+    id: string | number;
     name: string;
     totalBankValue: number;
     color: string;

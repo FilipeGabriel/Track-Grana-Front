@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { SpentType } from '../models/spent-type';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({

@@ -9,12 +9,16 @@ import { ExpensesItem } from '../models/expenses-item';
 
 export class ExpensesItemService {
 
-    apiUrlBase: string = 'assets/data/expenses-item.json';
+    apiUrlBaseTeste: string = 'assets/data/expenses-item.json';
 
     constructor(private http: HttpClient) {}
 
     getExpensesItem(): Observable<ExpensesItem[]> {
-        return this.http.get<ExpensesItem[]>(this.apiUrlBase);
+        return this.http.get<ExpensesItem[]>(this.apiUrlBaseTeste);
     }
+
+    // insertExpenseItem(expensesItem: any): Observable<any> {
+
+    // }
 
 }

@@ -1,9 +1,9 @@
 export class ExpensesItem {
 
     description: string;
-    installment: number;
-    itemValue: number;
-    spentTypeId: number;
+    installment: number | null;
+    itemValue: number | null;
+    spentTypeId: number | null;
     monthlyExpensesId: number;
 
 }

@@ -15,11 +15,16 @@ import { MonthlyContractService } from '../../services/monthly-contract.service'
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-invoice',
-  standalone: true,
-  imports: [TitleComponent, CommonModule, RealCurrencyPipe, FormsModule],
-  templateUrl: './invoice.component.html',
-  styleUrl: './invoice.component.css'
+    selector: 'app-invoice',
+    standalone: true,
+    imports: [
+        TitleComponent,
+        CommonModule,
+        RealCurrencyPipe,
+        FormsModule
+    ],
+    templateUrl: './invoice.component.html',
+    styleUrl: './invoice.component.css'
 })
 
 export class InvoiceComponent implements OnInit {
@@ -27,11 +32,13 @@ export class InvoiceComponent implements OnInit {
     month: number | null = null;
     year: number | null = null;
     invoice: Invoice;
+    expenseItem: ExpensesItem;
 
     invoices: Invoice[];
     uniqueYears: number[];
     selectedYear: number;
     selectedMonthId: number | null = null;
+    selectedSpentType: any;
     monthNameSelected: string;
     filteredMonthNames: string[];
 
@@ -59,7 +66,9 @@ export class InvoiceComponent implements OnInit {
         private spentTypeService: SpentTypeService,
         private expensesItemService: ExpensesItemService,
         private monthlyContractService: MonthlyContractService
-    ) { }
+    ) {
+        this.expenseItem = new ExpensesItem();
+    }
 
     ngOnInit() {
 
@@ -170,7 +179,7 @@ export class InvoiceComponent implements OnInit {
                     this.invoice = response;
                 },
                 error: (error) => {
-                    this.toastr.error(error.error.message, 'Erro ao buscar dados do mês');
+                    this.toastr.error(error.error.error, 'Erro ao buscar dados do mês');
                 }
         });
     }
@@ -188,16 +197,32 @@ export class InvoiceComponent implements OnInit {
             .subscribe({
                 next: (response) => {
                     this.spentTypes = response;
+                    this.spentTypes.unshift({
+                        id: 0,
+                        name: 'Selecione...',
+                        totalBankValue: 0,
+                        color: '',
+                        paid: false,
+                        userId: ''
+                    })
                     this.calculateTotalSpent();
                 }
         });
     }
 
-    saveExpenses() {
-        this.closeExpensesModal()
+    saveExpenses() { //fazer a requisição para salvar
+        this.expenseItem.spentTypeId = this.selectedSpentType;
+        this.expenseItem.monthlyExpensesId = this.invoice.monthlyExpenses.id;
+
+        this.closeExpensesModal();
     }
 
     closeExpensesModal() {
+        this.expenseItem.description = '';
+        this.expenseItem.installment = null;
+        this.expenseItem.itemValue = null;
+        this.expenseItem.spentTypeId = null; // continuar daqui para ao fechar o modal selecionar o primeiro item do select (finalizado)
+        this.selectedSpentType = this.spentTypes.length > 0 ? this.spentTypes[0].id : null;
         this.isModalExpensesVisible = false;
     }
 
@@ -238,7 +263,12 @@ export class InvoiceComponent implements OnInit {
             const latestMonth = this.filteredMonthNames[this.filteredMonthNames.length - 1];
             this.monthNameSelected = latestMonth;
             this.month = this.getMonthNumber(latestMonth);
-            this.getDataForMonth(this.month);
+
+            const selectedMonth = this.invoices.find(invoice => this.getMonthNumber(invoice.monthName) === this.month);
+            if (selectedMonth) {
+                this.selectedMonthId = selectedMonth.monthInvoice.id;
+                this.getDataForMonth(this.selectedMonthId);
+            }
         }
     }
 
@@ -267,7 +297,7 @@ export class InvoiceComponent implements OnInit {
     }
 
     calculateTotalExpensesItems(): void {
-        this.totalValueExpenses = this.expensesItems.reduce((sum, expensesItems) => sum + expensesItems.itemValue, 0);
+        this.totalValueExpenses = this.expensesItems.reduce((sum, expensesItems) => sum + (expensesItems.itemValue ?? 0), 0);
     }
 
     calculateTotalMonthlyContract(): void {
