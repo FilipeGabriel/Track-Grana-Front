@@ -8,6 +8,6 @@ export class SpentType {
     paid: boolean;
     userId: string | null;
     invoices: Invoice[];
-    totalValue: number; // chat
+    totalValue: number;
 
 }

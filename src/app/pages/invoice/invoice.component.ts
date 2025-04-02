@@ -137,7 +137,7 @@ export class InvoiceComponent implements OnInit {
 
     }
 
-    getInvoices() {
+    getInvoices(skipSelectLastMonth: boolean = false) {
         this.invoiceService
             .getInvoices()
             .subscribe({
@@ -149,7 +149,10 @@ export class InvoiceComponent implements OnInit {
                     const yearInLocalStorage = localStorage.getItem('selected_year');
                     this.selectedYear = Number(yearInLocalStorage);
                     this.updateFilteredMonthNames();
-                    this.selectLastMonth();
+                    // Só chama selectLastMonth() se skipSelectLastMonth for falso
+                    if (!skipSelectLastMonth) {
+                        this.selectLastMonth();
+                    }
                 },
                 error: (error) => {
                     this.toastr.error(error.error.error, 'Nenhum item encontrado');
@@ -229,7 +232,8 @@ export class InvoiceComponent implements OnInit {
             .subscribe({
                 next: (response) => {
                     this.expenseItem = response;
-                    this.getInvoices();
+                    this.getDataForMonth(this.selectedMonthId!);
+                    this.getInvoices(true); // Aqui evitamos que vá para o último mês
                     this.getSpentTypes();
                     this.toastr.success("Item criado com sucesso!");
                     this.closeExpensesModal();
