@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ExpensesItemService } from '../../services/expenses-item.service';
 import { MonthlyContractService } from '../../services/monthly-contract.service';
 import { FormsModule } from '@angular/forms';
+import { ContractItem } from '../../models/contract-item';
 
 @Component({
     selector: 'app-invoice',
@@ -33,6 +34,7 @@ export class InvoiceComponent implements OnInit {
     year: number | null = null;
     invoice: Invoice;
     expenseItem: ExpensesItem;
+    contractItem: MonthlyContract;
 
     invoices: Invoice[];
     uniqueYears: number[];
@@ -43,9 +45,13 @@ export class InvoiceComponent implements OnInit {
     filteredMonthNames: string[];
 
     spentTypes: SpentType[];
-    totalValueSpent: number;
+    spentTypesModal: SpentType[];
+    spentTypeForInvoice: SpentType[];
+    totalValueSpent: number = 0;
+    totalValueSpentByItem: number = 0;
     expensesItems: ExpensesItem[];
-    totalValueExpenses: number;
+    contractItems: ContractItem[];
+    totalValueExpenses: number = 0;
     monthlyContracts: MonthlyContract[];
     totalValueContract: number;
 
@@ -74,26 +80,7 @@ export class InvoiceComponent implements OnInit {
 
         this.getInvoices();
 
-        this.spentTypeService
-            .getAllSpentsType()
-            .subscribe({
-                next: (response) => {
-                    this.spentTypes = response;
-                    this.calculateTotalSpent();
-                }
-        });
-
-        this.expensesItemService
-            .getExpensesItem()
-            .subscribe({
-                next: (response) => {
-                    this.expensesItems = response;
-                    this.calculateTotalExpensesItems();
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.error, 'Nenhum item encontrado!');
-                }
-        });
+        this.getSpentTypes();
 
         this.monthlyContractService
             .getMonthlyContracts()
@@ -148,7 +135,6 @@ export class InvoiceComponent implements OnInit {
             });
         }
 
-
     }
 
     getInvoices() {
@@ -177,9 +163,32 @@ export class InvoiceComponent implements OnInit {
             .subscribe({
                 next: (response) => {
                     this.invoice = response;
+                    this.expensesItems = this.invoice.monthlyExpenses.expensesItems;
+                    this.contractItems = this.invoice.monthlyContracts.contractItems;
+                    this.spentTypeForInvoice = this.invoice.spentTypes;
+
+                    this.expensesItems = this.expensesItems.map(item => ({
+                        ...item,
+                        spentTypeId: item.spentType ? item.spentType.id : item.spentTypeId
+                    }));
+
+                    this.calculateTotalSpentByType();
+                    this.calculateTotalExpensesItems();
+                    this.calculateTotalMonthlyContract();
+                    this.calculateTotalSpents();
                 },
                 error: (error) => {
                     this.toastr.error(error.error.error, 'Erro ao buscar dados do mês');
+                }
+        });
+    }
+
+    getSpentTypes(){
+        this.spentTypeService
+            .getAllSpentsType()
+            .subscribe({
+                next: (response) => {
+                    this.spentTypes = response;
                 }
         });
     }
@@ -196,33 +205,47 @@ export class InvoiceComponent implements OnInit {
             .getAllSpentsType()
             .subscribe({
                 next: (response) => {
-                    this.spentTypes = response;
-                    this.spentTypes.unshift({
+                    this.spentTypesModal = response;
+                    this.spentTypesModal.unshift({
                         id: 0,
                         name: 'Selecione...',
-                        totalBankValue: 0,
                         color: '',
                         paid: false,
-                        userId: ''
+                        userId: '',
+                        invoices: [],
+                        totalValue: 0
                     })
-                    this.calculateTotalSpent();
+                    this.selectedSpentType = this.spentTypesModal.length > 0 ? this.spentTypesModal[0].id : null;
                 }
         });
     }
 
-    saveExpenses() { //fazer a requisição para salvar
+    saveExpenses() {
         this.expenseItem.spentTypeId = this.selectedSpentType;
         this.expenseItem.monthlyExpensesId = this.invoice.monthlyExpenses.id;
 
-        this.closeExpensesModal();
+        this.expensesItemService
+            .insertExpenseItem(this.expenseItem)
+            .subscribe({
+                next: (response) => {
+                    this.expenseItem = response;
+                    this.getInvoices();
+                    this.getSpentTypes();
+                    this.toastr.success("Item criado com sucesso!");
+                    this.closeExpensesModal();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Erro ao cadastrar item');
+                }
+            })
     }
 
     closeExpensesModal() {
         this.expenseItem.description = '';
         this.expenseItem.installment = null;
         this.expenseItem.itemValue = null;
-        this.expenseItem.spentTypeId = null; // continuar daqui para ao fechar o modal selecionar o primeiro item do select (finalizado)
-        this.selectedSpentType = this.spentTypes.length > 0 ? this.spentTypes[0].id : null;
+        this.expenseItem.spentTypeId = null;
+        this.selectedSpentType = this.spentTypesModal.length > 0 ? this.spentTypesModal[0].id : null;
         this.isModalExpensesVisible = false;
     }
 
@@ -287,14 +310,25 @@ export class InvoiceComponent implements OnInit {
         this.updateFilteredMonthNames();
     }
 
-    calculateTotalSpent(): void {
-        this.totalValueSpent = this.spentTypes.reduce((sum, SpentType) => sum + SpentType.totalBankValue, 0);
+    calculateTotalSpents(): void {
+        this.totalValueSpent = this.totalValueExpenses + this.totalValueContract;
     }
 
-    getSpentItems(): void {
-        this.spentItems = [''].concat(this.spentTypes.map(spentType => spentType.name));
-        this.selectedTypeExpenses = this.spentItems[0];
+    calculateTotalSpentByType() {
+        this.spentTypeForInvoice = this.spentTypes.map(spentType => {
+            const filteredItems = this.expensesItems.filter(item => item.spentTypeId === Number(spentType.id));
+            const total = filteredItems.reduce((sum, item) => sum + (item.itemValue ?? 0), 0);
+            return {
+                ...spentType,
+                totalValue: total
+            };
+        });
     }
+
+    // getSpentItems(): void {      verificar necessidade
+    //     this.spentItems = [''].concat(this.spentTypes.map(spentType => spentType.name));
+    //     this.selectedTypeExpenses = this.spentItems[0];
+    // }
 
     calculateTotalExpensesItems(): void {
         this.totalValueExpenses = this.expensesItems.reduce((sum, expensesItems) => sum + (expensesItems.itemValue ?? 0), 0);

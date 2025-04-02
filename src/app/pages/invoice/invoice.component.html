@@ -29,9 +29,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let spent of spentTypes">
+                        <tr *ngFor="let spent of spentTypeForInvoice">
                             <td [style.color]="spent.color">{{ spent.name }}</td>
-                            <td>{{ spent.totalBankValue | realCurrency }}</td>
+                            <td>{{ spent.totalValue | realCurrency }}</td>
                             <td>{{ spent.paid }}</td>
                         </tr>
                         <tr>
@@ -142,7 +142,7 @@
                     <div class="expenses-data__input">
                         <label for="dropdown">Tipo de Gasto: *</label>
                         <select id="dropdown" [(ngModel)]="selectedSpentType" (change)="onSelectType($event)" >
-                            <option *ngFor="let item of spentTypes" [ngValue]="item.id">{{ item.name }}</option>
+                            <option *ngFor="let item of spentTypesModal" [ngValue]="item.id">{{ item.name }}</option>
                         </select>
                     </div>
                 </div>

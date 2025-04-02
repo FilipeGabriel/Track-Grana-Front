@@ -1,6 +1,7 @@
 import { MonthInvoice } from "./month-invoice";
 import { MonthlyContracts } from "./monthly-contracts";
 import { MonthlyExpenses } from "./monthly-expenses";
+import { SpentType } from "./spent-type";
 
 export class Invoice {
 
@@ -11,5 +12,6 @@ export class Invoice {
     monthlyContracts: MonthlyContracts;
     monthlyExpenses: MonthlyExpenses;
     monthName: string
+    spentTypes: SpentType[];
 
 }

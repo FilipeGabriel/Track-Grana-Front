@@ -68,7 +68,7 @@ export class SpentTypeComponent implements OnInit{
                     this.refreshSpentTypes();
                 },
                 error: (error) => {
-                    this.toastr.error(error.error.error);
+                    this.toastr.error(error.error.message);
                 }
             })
     }
