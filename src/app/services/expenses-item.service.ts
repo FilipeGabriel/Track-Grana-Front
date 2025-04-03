@@ -27,11 +27,9 @@ export class ExpensesItemService {
             spentTypeId: expensesItem.spentTypeId,
             monthlyExpensesId: expensesItem.monthlyExpensesId
         };
-
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
-
         return this.http.post(`${this.apiUrlBase}`, body, { headers });
     }
 }

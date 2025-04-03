@@ -158,22 +158,22 @@
                 <div class="contracts-modal__line-one">
                     <div class="contracts-data__input">
                         <label for="">Descrição: *</label>
-                        <input type="text" name="description" placeholder=" ex: Spotfy">
+                        <input type="text" name="description" [(ngModel)]="contractItem.description" placeholder=" ex: Netflix">
                     </div>
                     <div class="contracts-data__input">
                         <label for="">Valor: *</label>
-                        <input type="text" name="value" placeholder=" ex: R$ 24,90">
+                        <input type="text" name="value" [(ngModel)]="contractItem.itemValue" placeholder=" ex: R$ 24,90">
                     </div>
                 </div>
                 <div class="contracts-modal__line-two">
                     <div class="expenses-data__input">
                         <label for="">Fim Contrato: *</label>
-                        <input type="date" name="installment">
+                        <input type="date" name="contractEnd" [(ngModel)]="contractItem.endDate">
                     </div>
                     <div class="expenses-data__input">
                         <label for="dropdown">Tipo de Gasto: *</label>
-                        <select id="dropdown" (change)="onSelectType($event)">
-                            <option *ngFor="let item of spentItems" [value]="item">{{ item }}</option>
+                        <select id="dropdown" [(ngModel)]="selectedSpentType" (change)="onSelectType($event)" >
+                            <option *ngFor="let item of spentTypesModal" [ngValue]="item.id">{{ item.name }}</option>
                         </select>
                     </div>
                 </div>

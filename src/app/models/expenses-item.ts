@@ -6,6 +6,5 @@ export class ExpensesItem {
     spentTypeId: number | null;
     monthlyExpensesId: number;
 
-    // Propriedade opcional (apenas para facilitar a conversão)
     spentType?: { id: number };
 }

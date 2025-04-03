@@ -34,7 +34,7 @@ export class InvoiceComponent implements OnInit {
     year: number | null = null;
     invoice: Invoice;
     expenseItem: ExpensesItem;
-    contractItem: MonthlyContract;
+    contractItem: ContractItem;
 
     invoices: Invoice[];
     uniqueYears: number[];
@@ -74,6 +74,7 @@ export class InvoiceComponent implements OnInit {
         private monthlyContractService: MonthlyContractService
     ) {
         this.expenseItem = new ExpensesItem();
+        this.contractItem = new ContractItem();
     }
 
     ngOnInit() {
@@ -149,7 +150,6 @@ export class InvoiceComponent implements OnInit {
                     const yearInLocalStorage = localStorage.getItem('selected_year');
                     this.selectedYear = Number(yearInLocalStorage);
                     this.updateFilteredMonthNames();
-                    // Só chama selectLastMonth() se skipSelectLastMonth for falso
                     if (!skipSelectLastMonth) {
                         this.selectLastMonth();
                     }
@@ -233,7 +233,7 @@ export class InvoiceComponent implements OnInit {
                 next: (response) => {
                     this.expenseItem = response;
                     this.getDataForMonth(this.selectedMonthId!);
-                    this.getInvoices(true); // Aqui evitamos que vá para o último mês
+                    this.getInvoices(true);
                     this.getSpentTypes();
                     this.toastr.success("Item criado com sucesso!");
                     this.closeExpensesModal();
@@ -241,27 +241,61 @@ export class InvoiceComponent implements OnInit {
                 error: (error) => {
                     this.toastr.error(error.error.error, 'Erro ao cadastrar item');
                 }
-            })
+        })
     }
 
     closeExpensesModal() {
-        this.expenseItem.description = '';
-        this.expenseItem.installment = null;
-        this.expenseItem.itemValue = null;
-        this.expenseItem.spentTypeId = null;
-        this.selectedSpentType = this.spentTypesModal.length > 0 ? this.spentTypesModal[0].id : null;
+        this.expenseItem = new ExpensesItem();
         this.isModalExpensesVisible = false;
     }
 
     openContractsModal() {
         this.isModalContractsVisible = true;
+        this.spentTypeService
+            .getAllSpentsType()
+            .subscribe({
+                next: (response) => {
+                    this.spentTypesModal = response;
+                    this.spentTypesModal.unshift({
+                        id: 0,
+                        name: 'Selecione...',
+                        color: '',
+                        paid: false,
+                        userId: '',
+                        invoices: [],
+                        totalValue: 0
+                    })
+                    this.selectedSpentType = this.spentTypesModal.length > 0 ? this.spentTypesModal[0].id : null;
+                }
+        });
     }
 
     saveContracts() {
-        this.closeContractsModal();
+        this.contractItem.spentTypeId = this.selectedSpentType;
+        this.contractItem.monthlyContractsId = this.invoice.monthlyContracts.id;
+        const itemDate = new Date(this.contractItem.endDate);
+        const formattedDate = itemDate.toLocaleDateString("pt-BR");
+        this.contractItem.endDate = formattedDate;
+
+        this.monthlyContractService
+            .insertContractItem(this.contractItem)
+            .subscribe({
+                next: (response) => {
+                    this.contractItem = response;
+                    this.getDataForMonth(this.selectedMonthId!);
+                    this.getInvoices(true);
+                    this.getSpentTypes();
+                    this.toastr.success("Item criado com sucesso!");
+                    this.closeContractsModal();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Erro ao cadastrar item');
+                }
+        })
     }
 
     closeContractsModal() {
+        this.contractItem = new ContractItem()
         this.isModalContractsVisible = false;
     }
 
