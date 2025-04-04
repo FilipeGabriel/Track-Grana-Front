@@ -83,18 +83,6 @@ export class InvoiceComponent implements OnInit {
 
         this.getSpentTypes();
 
-        this.monthlyContractService
-            .getMonthlyContracts()
-            .subscribe({
-                next: (response) => {
-                this.monthlyContracts = response;
-                this.calculateTotalMonthlyContract();
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.error, 'Nenhum item encontrado!');
-                }
-        });
-
     }
 
     openInvoiceModal() {
@@ -171,6 +159,10 @@ export class InvoiceComponent implements OnInit {
                     this.spentTypeForInvoice = this.invoice.spentTypes;
 
                     this.expensesItems = this.expensesItems.map(item => ({
+                        ...item,
+                        spentTypeId: item.spentType ? item.spentType.id : item.spentTypeId
+                    }));
+                    this.contractItems = this.contractItems.map(item => ({
                         ...item,
                         spentTypeId: item.spentType ? item.spentType.id : item.spentTypeId
                     }));
@@ -354,8 +346,14 @@ export class InvoiceComponent implements OnInit {
 
     calculateTotalSpentByType() {
         this.spentTypeForInvoice = this.spentTypes.map(spentType => {
-            const filteredItems = this.expensesItems.filter(item => item.spentTypeId === Number(spentType.id));
-            const total = filteredItems.reduce((sum, item) => sum + (item.itemValue ?? 0), 0);
+            const filteredExpenesItems = this.expensesItems.filter(item => item.spentTypeId === Number(spentType.id));
+            const filteredContractItems = this.contractItems.filter(item => item.spentTypeId === Number(spentType.id));
+
+            const totalExpenses = filteredExpenesItems.reduce((sum, item) => sum + (item.itemValue ?? 0), 0);
+            const totalContracts = filteredContractItems.reduce((sum, item) => sum + (item.itemValue ?? 0), 0);
+
+            const total = totalExpenses + totalContracts;
+
             return {
                 ...spentType,
                 totalValue: total
@@ -373,7 +371,7 @@ export class InvoiceComponent implements OnInit {
     }
 
     calculateTotalMonthlyContract(): void {
-        this.totalValueContract = this.monthlyContracts.reduce((sum, monthlyContracts) => sum + monthlyContracts.contractValue, 0);
+        this.totalValueContract = this.contractItems.reduce((sum, monthlyContracts) => sum + (monthlyContracts.itemValue ?? 0), 0);
     }
 
     getYear(date: string): number {

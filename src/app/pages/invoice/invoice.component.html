@@ -88,10 +88,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let contract of monthlyContracts">
-                            <td *ngIf="!isContractsCollapsed">{{ contract.description }}</td>
-                            <td *ngIf="!isContractsCollapsed">{{ contract.contractValue | realCurrency }}</td>
-                            <td *ngIf="!isContractsCollapsed">{{ contract.contractEnd }}</td>
+                        <tr *ngFor="let item of contractItems">
+                            <td *ngIf="!isContractsCollapsed">{{ item.description }}</td>
+                            <td *ngIf="!isContractsCollapsed">{{ item.itemValue| realCurrency }}</td>
+                            <td *ngIf="!isContractsCollapsed">{{ item.endDate }}</td>
                         </tr>
                         <tr>
                             <td class="change-td__color">Total</td>

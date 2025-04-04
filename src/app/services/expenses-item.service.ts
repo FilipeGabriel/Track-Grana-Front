@@ -10,14 +10,9 @@ import { environment } from '../../environments/environment';
 
 export class ExpensesItemService {
 
-    apiUrlBaseTeste: string = 'assets/data/expenses-item.json';
     apiUrlBase: string = environment.apiUrlBase + '/v1/api/expenses-items';
 
     constructor(private http: HttpClient) {}
-
-    getExpensesItem(): Observable<ExpensesItem[]> {
-        return this.http.get<ExpensesItem[]>(this.apiUrlBaseTeste);
-    }
 
     insertExpenseItem(expensesItem: ExpensesItem): Observable<any> {
         const body = {

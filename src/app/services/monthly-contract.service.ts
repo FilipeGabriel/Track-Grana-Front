@@ -11,14 +11,9 @@ import { ContractItem } from '../models/contract-item';
 
 export class MonthlyContractService {
 
-    apiUrlBaseTeste: string = 'assets/data/monthly-contract.json';
     apiUrlBase: string = environment.apiUrlBase + '/v1/api/contract-items';
 
     constructor(private http: HttpClient) {}
-
-    getMonthlyContracts(): Observable<MonthlyContract[]> {
-        return this.http.get<MonthlyContract[]>(this.apiUrlBaseTeste);
-    }
 
     insertContractItem(contractItem: ContractItem): Observable<any> {
         const body = {

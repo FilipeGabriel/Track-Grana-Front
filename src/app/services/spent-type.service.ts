@@ -28,7 +28,6 @@ export class SpentTypeService {
         const body = {
             name: description,
             color: color,
-            totalBankValue: 0.0,
             accountId: this.getAccountId()
         };
         const headers = new HttpHeaders({
