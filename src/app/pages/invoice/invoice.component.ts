@@ -447,4 +447,9 @@ export class InvoiceComponent implements OnInit {
             });
     }
 
+    getSpentTypeColor(spentTypeId: number): string {
+        const spentType = this.spentTypes.find(type => Number(type.id) === Number(spentTypeId));
+        return spentType ? spentType.color : '';
+    }
+
 }

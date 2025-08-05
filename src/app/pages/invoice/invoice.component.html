@@ -61,7 +61,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of expensesItems">
-                            <td *ngIf="!isExpenseCollapsed">{{ item.description }}</td>
+                            <td *ngIf="!isExpenseCollapsed" [style.color]="getSpentTypeColor(item.spentTypeId ?? 0)">{{ item.description }}</td>
                             <td *ngIf="!isExpenseCollapsed">{{ item.itemValue | realCurrency }}</td>
                             <td *ngIf="!isExpenseCollapsed">{{ item.installment }}</td>
                         </tr>
@@ -89,7 +89,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of contractItems">
-                            <td *ngIf="!isContractsCollapsed">{{ item.description }}</td>
+                            <td *ngIf="!isContractsCollapsed" [style.color]="getSpentTypeColor(item.spentTypeId)">{{ item.description }}</td>
                             <td *ngIf="!isContractsCollapsed">{{ item.itemValue| realCurrency }}</td>
                             <td *ngIf="!isContractsCollapsed">{{ item.endDate }}</td>
                         </tr>
