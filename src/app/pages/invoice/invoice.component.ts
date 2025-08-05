@@ -154,8 +154,16 @@ export class InvoiceComponent implements OnInit {
             .subscribe({
                 next: (response) => {
                     this.invoice = response;
+                    const loggedUser = localStorage.getItem('logged_user');
+                    let contractItems;
+                    if (loggedUser) {
+                        const userObject = JSON.parse(loggedUser);
+                        contractItems = userObject.account.monthlyContracts.contractItems;
+                    } else {
+                        this.toastr.error('Usuário não encontrado no localStorage.')
+                    }
                     this.expensesItems = this.invoice.monthlyExpenses.expensesItems;
-                    this.contractItems = this.invoice.monthlyContracts.contractItems;
+                    this.contractItems = contractItems;
                     this.spentTypeForInvoice = this.invoice.spentTypes;
 
                     this.expensesItems = this.expensesItems.map(item => ({
@@ -263,8 +271,17 @@ export class InvoiceComponent implements OnInit {
     }
 
     saveContracts() {
+        const loggedUser = localStorage.getItem('logged_user');
+        let monthlyContractsId;
+        if (loggedUser) {
+            const userObject = JSON.parse(loggedUser);
+            monthlyContractsId = userObject.account.monthlyContracts.id;
+        } else {
+            this.toastr.error('Usuário não encontrado no localStorage.')
+        }
         this.contractItem.spentTypeId = this.selectedSpentType;
-        this.contractItem.monthlyContractsId = this.invoice.monthlyContracts.id;
+        this.contractItem.monthlyContractsId = monthlyContractsId;
+        this.contractItem.invoiceId = this.invoice.id;
         const itemDate = new Date(this.contractItem.endDate);
         const formattedDate = itemDate.toLocaleDateString("pt-BR");
         this.contractItem.endDate = formattedDate;

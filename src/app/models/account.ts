@@ -1,3 +1,5 @@
+import { MonthlyContracts } from "./monthly-contracts";
+
 export class Account {
 
     id: string;
@@ -8,5 +10,6 @@ export class Account {
     birthDate: string;
     accountImage: string | ArrayBuffer | null;
     userId: string | null;
+    monthlyContracts: MonthlyContracts;
 
 }

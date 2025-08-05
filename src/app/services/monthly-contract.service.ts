@@ -21,7 +21,8 @@ export class MonthlyContractService {
             itemValue: contractItem.itemValue,
             endDate: contractItem.endDate,
             spentTypeId: contractItem.spentTypeId,
-            monthlyContractsId: contractItem.monthlyContractsId
+            monthlyContractsId: contractItem.monthlyContractsId,
+            invoiceId: contractItem.invoiceId
         };
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',

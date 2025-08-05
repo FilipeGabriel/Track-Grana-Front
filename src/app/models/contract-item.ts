@@ -5,6 +5,7 @@ export class ContractItem {
     endDate: string;
     spentTypeId: number;
     monthlyContractsId: number;
+    invoiceId: number;
 
     spentType?: { id: number };
 }
