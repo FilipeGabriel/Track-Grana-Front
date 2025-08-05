@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DynamicCurrencyPipe implements PipeTransform {
   transform(value: string | number): string {
-    let digits = String(value).replace(/\D/g, '');
+    let digits = typeof value === 'number' ? String(value) : String(value).replace(/\D/g, '');
     if (!digits) return '0,00';
     while (digits.length < 3) {
       digits = '0' + digits;

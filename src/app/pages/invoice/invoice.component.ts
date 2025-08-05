@@ -15,6 +15,9 @@ import { MonthlyContractService } from '../../services/monthly-contract.service'
 import { FormsModule } from '@angular/forms';
 import { ContractItem } from '../../models/contract-item';
 import { DynamicCurrencyPipe } from '../../pipes/dynamic-currency.pipe';
+import { AuthService } from '../../services/auth.service';
+import { Account } from '../../models/account';
+import { User } from '../../models/user';
 
 @Component({
     selector: 'app-invoice',
@@ -37,6 +40,8 @@ export class InvoiceComponent implements OnInit {
     invoice: Invoice;
     expenseItem: ExpensesItem;
     contractItem: ContractItem;
+    user: User;
+    account: Account;
 
     invoices: Invoice[];
     uniqueYears: number[];
@@ -73,7 +78,8 @@ export class InvoiceComponent implements OnInit {
         private invoiceService: InvoiceService,
         private spentTypeService: SpentTypeService,
         private expensesItemService: ExpensesItemService,
-        private monthlyContractService: MonthlyContractService
+        private monthlyContractService: MonthlyContractService,
+        private authService: AuthService
     ) {
         this.expenseItem = new ExpensesItem();
         this.contractItem = new ContractItem();
@@ -228,6 +234,7 @@ export class InvoiceComponent implements OnInit {
     saveExpenses() {
         this.expenseItem.spentTypeId = this.selectedSpentType;
         this.expenseItem.monthlyExpensesId = this.invoice.monthlyExpenses.id;
+        this.expenseItem.itemValue = (this.expenseItem.itemValue ?? 0) / 100;
 
         this.expensesItemService
             .insertExpenseItem(this.expenseItem)
@@ -287,12 +294,15 @@ export class InvoiceComponent implements OnInit {
         const itemDate = new Date(this.contractItem.endDate);
         const formattedDate = itemDate.toLocaleDateString("pt-BR");
         this.contractItem.endDate = formattedDate;
+        this.contractItem.itemValue = (this.contractItem.itemValue ?? 0) / 100;
 
         this.monthlyContractService
             .insertContractItem(this.contractItem)
             .subscribe({
                 next: (response) => {
                     this.contractItem = response;
+                    this.getDataForMonth(this.selectedMonthId!);
+                    this.getAccount();
                     this.getDataForMonth(this.selectedMonthId!);
                     this.getInvoices(true);
                     this.getSpentTypes();
@@ -419,6 +429,22 @@ export class InvoiceComponent implements OnInit {
         const input = event.target as HTMLInputElement;
         const digits = input.value.replace(/\D/g, '');
         this.contractItem.itemValue = Number(digits);
+    }
+
+    getAccount(){
+        this.authService
+                .getUserById()
+                .subscribe ({
+                    next: (response) => {
+                        this.user = response;
+                        this.account = { ...this.user.account };
+                        this.contractItems = this.account.monthlyContracts.contractItems;
+                        localStorage.setItem('logged_user', JSON.stringify(this.user));
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.error, 'Erro ao carregar usuário.');
+                    },
+            });
     }
 
 }
