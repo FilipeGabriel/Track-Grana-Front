@@ -131,7 +131,8 @@
                     </div>
                     <div class="expenses-data__input">
                         <label for="">Valor: *</label>
-                        <input type="text" name="value" [(ngModel)]="expenseItem.itemValue" placeholder=" ex: R$ 50,00">
+                        <input type="text" name="value" [value]="(expenseItem.itemValue ?? 0) | dynamicCurrency" (input)="onItemValueInputExpense($event)"
+  placeholder=" ex: R$ 50,00">
                     </div>
                 </div>
                 <div class="expenses-modal__line-two">
@@ -162,7 +163,7 @@
                     </div>
                     <div class="contracts-data__input">
                         <label for="">Valor: *</label>
-                        <input type="text" name="value" [(ngModel)]="contractItem.itemValue" placeholder=" ex: R$ 24,90">
+                        <input type="text" name="value" [value]="contractItem.itemValue | dynamicCurrency"  (input)="onItemValueInputContract($event)">
                     </div>
                 </div>
                 <div class="contracts-modal__line-two">

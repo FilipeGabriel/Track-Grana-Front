@@ -14,6 +14,7 @@ import { ExpensesItemService } from '../../services/expenses-item.service';
 import { MonthlyContractService } from '../../services/monthly-contract.service';
 import { FormsModule } from '@angular/forms';
 import { ContractItem } from '../../models/contract-item';
+import { DynamicCurrencyPipe } from '../../pipes/dynamic-currency.pipe';
 
 @Component({
     selector: 'app-invoice',
@@ -22,6 +23,7 @@ import { ContractItem } from '../../models/contract-item';
         TitleComponent,
         CommonModule,
         RealCurrencyPipe,
+        DynamicCurrencyPipe,
         FormsModule
     ],
     templateUrl: './invoice.component.html',
@@ -405,6 +407,18 @@ export class InvoiceComponent implements OnInit {
             this.selectedMonthId = selectedMonth.monthInvoice.id;
             this.getDataForMonth(this.selectedMonthId);
         }
+    }
+
+    onItemValueInputExpense(event: Event) {
+        const input = event.target as HTMLInputElement;
+        const digits = input.value.replace(/\D/g, '');
+        this.expenseItem.itemValue = Number(digits);
+    }
+
+    onItemValueInputContract(event: Event) {
+        const input = event.target as HTMLInputElement;
+        const digits = input.value.replace(/\D/g, '');
+        this.contractItem.itemValue = Number(digits);
     }
 
 }
