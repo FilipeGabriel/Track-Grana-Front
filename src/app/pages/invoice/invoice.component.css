@@ -212,6 +212,11 @@ tbody {
     margin-right: 10px;
 }
 
+.expense-item-row:hover {
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+
 .monthly-contracts__table {
     display: flex;
     flex-direction: column;

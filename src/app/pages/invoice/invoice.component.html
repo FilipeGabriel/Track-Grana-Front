@@ -60,7 +60,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of expensesItems">
+                        <tr *ngFor="let item of expensesItems" class="expense-item-row">
                             <td *ngIf="!isExpenseCollapsed" [style.color]="getSpentTypeColor(item.spentTypeId ?? 0)">{{ item.description }}</td>
                             <td *ngIf="!isExpenseCollapsed">{{ item.itemValue | realCurrency }}</td>
                             <td *ngIf="!isExpenseCollapsed">{{ item.installment }}</td>
