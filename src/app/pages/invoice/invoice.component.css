@@ -224,6 +224,11 @@ tbody {
     margin-left: 10px;
 }
 
+.contracts-item-row:hover {
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+
 .add-invoice__modal {
     scrollbar-width: none;
     -ms-overflow-style: none;
