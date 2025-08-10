@@ -148,13 +148,19 @@
                     </div>
                 </div>
                 <div class="expenses-modal__line-three" *ngIf="!isEditingExpense">
-                    <button class="btn btn-primary" (click)="saveExpenses()">Criar</button>
+                    <button class="btn btn-primary" (click)="saveExpenses()">
+                        <i class="fas fa-save"></i> Criar
+                    </button>
                     <button class="btn btn-secondary close" (click)="closeExpensesModal()">Cancelar</button>
                 </div>
                 <div class="expenses-modal__line-three" *ngIf="isEditingExpense">
-                    <button class="btn btn-primary" (click)="saveExpenses()">Salvar</button>
+                    <button class="btn btn-primary" (click)="saveExpenses()">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
                     <button class="btn btn-secondary close" (click)="closeExpensesModal()">Cancelar</button>
-                    <button class="btn btn-danger" (click)="deleteExpenses(expenseItem.id)">Apagar</button>
+                    <button class="btn btn-danger" (click)="deleteExpenses(expenseItem.id)">
+                        <i class="fas fa-trash"></i> Excluir
+                    </button>
                 </div>
             </div>
         </div>
@@ -184,13 +190,19 @@
                     </div>
                 </div>
                 <div class="contracts-modal__line-three" *ngIf="!isEditingContract">
-                    <button class="btn btn-primary" (click)="saveContracts()">Criar</button>
+                    <button class="btn btn-primary" (click)="saveContracts()">
+                        <i class="fas fa-save"></i> Criar
+                    </button>
                     <button class="btn btn-secondary close" (click)="closeContractsModal()">Cancelar</button>
                 </div>
                 <div class="contracts-modal__line-three" *ngIf="isEditingContract">
-                    <button class="btn btn-primary" (click)="saveContracts()">Salvar</button>
+                    <button class="btn btn-primary" (click)="saveContracts()">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
                     <button class="btn btn-secondary close" (click)="closeContractsModal()">Cancelar</button>
-                    <button class="btn btn-danger" (click)="deleteContract(contractItem.id)">Apagar</button>
+                    <button class="btn btn-danger" (click)="deleteContract(contractItem.id)">
+                        <i class="fas fa-trash"></i> Excluir
+                    </button>
                 </div>
             </div>
         </div>
