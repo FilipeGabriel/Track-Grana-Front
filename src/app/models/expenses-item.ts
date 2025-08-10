@@ -1,5 +1,6 @@
 export class ExpensesItem {
 
+    id: number;
     description: string;
     installment: number | null;
     itemValue: number | null;

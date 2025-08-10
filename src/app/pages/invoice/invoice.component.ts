@@ -65,6 +65,7 @@ export class InvoiceComponent implements OnInit {
     isModalInvoiceVisible: boolean = false;
     isModalExpensesVisible: boolean = false;
     isModalContractsVisible: boolean = false;
+    isEditingExpense: boolean = false;
 
     isExpenseCollapsed = false;
     isContractsCollapsed = false;
@@ -212,6 +213,7 @@ export class InvoiceComponent implements OnInit {
 
     openExpensesModal() {
         this.isModalExpensesVisible = true;
+        this.isEditingExpense = false;
         this.spentTypeService
             .getAllSpentsType()
             .subscribe({
@@ -231,26 +233,69 @@ export class InvoiceComponent implements OnInit {
         });
     }
 
+    openExpensesModalEdit(itemId: number) {
+        this.isEditingExpense = true;
+        this.expensesItemService
+            .getExpenseItemById(itemId)
+            .subscribe({
+                next: (response) => {
+                    this.expenseItem = response;
+                    this.expenseItem.itemValue = (this.expenseItem.itemValue ?? 0) * 100;
+
+                    this.spentTypeService
+                        .getAllSpentsType()
+                        .subscribe({
+                            next: (response) => {
+                                this.spentTypesModal = response;
+                                this.selectedSpentType = this.expenseItem.spentType?.id;
+                            }
+                    });
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Item não encontrado');
+                }
+            })
+        this.isModalExpensesVisible = true;
+    }
+
     saveExpenses() {
         this.expenseItem.spentTypeId = this.selectedSpentType;
         this.expenseItem.monthlyExpensesId = this.invoice.monthlyExpenses.id;
         this.expenseItem.itemValue = (this.expenseItem.itemValue ?? 0) / 100;
 
-        this.expensesItemService
-            .insertExpenseItem(this.expenseItem)
-            .subscribe({
-                next: (response) => {
-                    this.expenseItem = response;
-                    this.getDataForMonth(this.selectedMonthId!);
-                    this.getInvoices(true);
-                    this.getSpentTypes();
-                    this.toastr.success("Item criado com sucesso!");
-                    this.closeExpensesModal();
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.error, 'Erro ao cadastrar item');
-                }
-        })
+        if (this.isEditingExpense) {
+            this.expensesItemService
+                .updateExpenseItem(this.expenseItem.id, this.expenseItem)
+                .subscribe({
+                    next: (response) => {
+                        this.expenseItem = response;
+                        this.getDataForMonth(this.selectedMonthId!);
+                        this.getInvoices(true);
+                        this.getSpentTypes();
+                        this.toastr.success("Item atualizado com sucesso!");
+                        this.closeExpensesModal();
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.error, 'Erro ao atualizar item');
+                    }
+                });
+        } else {
+            this.expensesItemService
+                .insertExpenseItem(this.expenseItem)
+                .subscribe({
+                    next: (response) => {
+                        this.expenseItem = response;
+                        this.getDataForMonth(this.selectedMonthId!);
+                        this.getInvoices(true);
+                        this.getSpentTypes();
+                        this.toastr.success("Item criado com sucesso!");
+                        this.closeExpensesModal();
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.error, 'Erro ao cadastrar item');
+                    }
+                });
+        }
     }
 
     closeExpensesModal() {

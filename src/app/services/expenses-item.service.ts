@@ -14,6 +14,10 @@ export class ExpensesItemService {
 
     constructor(private http: HttpClient) {}
 
+    getExpenseItemById(itemId: number): Observable<ExpensesItem> {
+        return this.http.get<ExpensesItem>(`${this.apiUrlBase}/${itemId}`);
+    }
+
     insertExpenseItem(expensesItem: ExpensesItem): Observable<any> {
         const body = {
             description: expensesItem.description,
@@ -26,5 +30,17 @@ export class ExpensesItemService {
             'Content-Type': 'application/json',
         });
         return this.http.post(`${this.apiUrlBase}`, body, { headers });
+    }
+
+    updateExpenseItem(itemId: number, expensesItem: ExpensesItem): Observable<any> {
+        const body = {
+            description: expensesItem.description,
+            itemValue: expensesItem.itemValue,
+            spentTypeId: expensesItem.spentTypeId,
+        };
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.put(`${this.apiUrlBase}/${itemId}`, body, { headers });
     }
 }

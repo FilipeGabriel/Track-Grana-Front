@@ -60,7 +60,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of expensesItems" class="expense-item-row">
+                        <tr *ngFor="let item of expensesItems" class="expense-item-row"  (click)="openExpensesModalEdit(item.id)">
                             <td *ngIf="!isExpenseCollapsed" [style.color]="getSpentTypeColor(item.spentTypeId ?? 0)">{{ item.description }}</td>
                             <td *ngIf="!isExpenseCollapsed">{{ item.itemValue | realCurrency }}</td>
                             <td *ngIf="!isExpenseCollapsed">{{ item.installment }}</td>
@@ -138,7 +138,7 @@
                 <div class="expenses-modal__line-two">
                     <div class="expenses-data__input">
                         <label for="">Parcela: *</label>
-                        <input type="number" name="installment" [(ngModel)]="expenseItem.installment" placeholder=" ex: 4">
+                        <input type="number" name="installment" [(ngModel)]="expenseItem.installment" placeholder=" ex: 4" [disabled]="isEditingExpense">
                     </div>
                     <div class="expenses-data__input">
                         <label for="dropdown">Tipo de Gasto: *</label>
@@ -148,7 +148,7 @@
                     </div>
                 </div>
                 <div class="expenses-modal__line-three">
-                    <button class="btn btn-primary" (click)="saveExpenses()">Criar</button>
+                    <button class="btn btn-primary" (click)="saveExpenses()">Salvar</button>
                     <button class="btn btn-secondary close" (click)="closeExpensesModal()">Cancelar</button>
                 </div>
             </div>
@@ -179,7 +179,7 @@
                     </div>
                 </div>
                 <div class="contracts-modal__line-three">
-                    <button class="btn btn-primary" (click)="saveContracts()">Criar</button>
+                    <button class="btn btn-primary" (click)="saveContracts()">Salvar</button>
                     <button class="btn btn-secondary close" (click)="closeContractsModal()">Cancelar</button>
                 </div>
             </div>
