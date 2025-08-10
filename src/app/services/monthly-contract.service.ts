@@ -15,6 +15,10 @@ export class MonthlyContractService {
 
     constructor(private http: HttpClient) {}
 
+    getContractItemById(itemId: number): Observable<ContractItem> {
+        return this.http.get<ContractItem>(`${this.apiUrlBase}/${itemId}`);
+    }
+
     insertContractItem(contractItem: ContractItem): Observable<any> {
         const body = {
             description: contractItem.description,
@@ -28,6 +32,19 @@ export class MonthlyContractService {
             'Content-Type': 'application/json',
         });
         return this.http.post(`${this.apiUrlBase}`, body, { headers });
+    }
+
+    updateContractItem(itemId: number, contractItem: ContractItem): Observable<any> {
+        const body = {
+            description: contractItem.description,
+            itemValue: contractItem.itemValue,
+            endDate: contractItem.endDate,
+            spentTypeId: contractItem.spentTypeId,
+        };
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.put(`${this.apiUrlBase}/${itemId}`, body, { headers });
     }
 
 }

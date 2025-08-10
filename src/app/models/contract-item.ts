@@ -1,5 +1,6 @@
 export class ContractItem {
 
+    id: number;
     description: string;
     itemValue: number;
     endDate: string;

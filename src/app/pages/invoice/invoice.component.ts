@@ -66,6 +66,7 @@ export class InvoiceComponent implements OnInit {
     isModalExpensesVisible: boolean = false;
     isModalContractsVisible: boolean = false;
     isEditingExpense: boolean = false;
+    isEditingContract: boolean = false;
 
     isExpenseCollapsed = false;
     isContractsCollapsed = false;
@@ -305,6 +306,7 @@ export class InvoiceComponent implements OnInit {
 
     openContractsModal() {
         this.isModalContractsVisible = true;
+        this.isEditingContract = false;
         this.spentTypeService
             .getAllSpentsType()
             .subscribe({
@@ -324,6 +326,35 @@ export class InvoiceComponent implements OnInit {
         });
     }
 
+    openContractsModalEdit(itemId: number) {
+        this.isEditingContract = true
+        this.monthlyContractService
+            .getContractItemById(itemId)
+            .subscribe({
+                next: (response) => {
+                    this.contractItem = response;
+                    if (this.contractItem.endDate && this.contractItem.endDate.includes('/')) {
+                        const [day, month, year] = this.contractItem.endDate.split('/');
+                        this.contractItem.endDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+                    }
+                    this.contractItem.itemValue = (this.contractItem.itemValue ?? 0) * 100;
+
+                    this.spentTypeService
+                        .getAllSpentsType()
+                        .subscribe({
+                            next: (response) => {
+                                this.spentTypesModal = response;
+                                this.selectedSpentType = this.contractItem.spentType?.id;
+                            }
+                    });
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Item não encontrado');
+                }
+            })
+        this.isModalContractsVisible = true;
+    }
+
     saveContracts() {
         const loggedUser = localStorage.getItem('logged_user');
         let monthlyContractsId;
@@ -336,28 +367,49 @@ export class InvoiceComponent implements OnInit {
         this.contractItem.spentTypeId = this.selectedSpentType;
         this.contractItem.monthlyContractsId = monthlyContractsId;
         this.contractItem.invoiceId = this.invoice.id;
-        const itemDate = new Date(this.contractItem.endDate);
-        const formattedDate = itemDate.toLocaleDateString("pt-BR");
-        this.contractItem.endDate = formattedDate;
+        if (this.contractItem.endDate && this.contractItem.endDate.includes('-')) {
+            const [year, month, day] = this.contractItem.endDate.split('-');
+            this.contractItem.endDate = `${day}/${month}/${year}`;
+        }
         this.contractItem.itemValue = (this.contractItem.itemValue ?? 0) / 100;
 
-        this.monthlyContractService
-            .insertContractItem(this.contractItem)
-            .subscribe({
-                next: (response) => {
-                    this.contractItem = response;
-                    this.getDataForMonth(this.selectedMonthId!);
-                    this.getAccount();
-                    this.getDataForMonth(this.selectedMonthId!);
-                    this.getInvoices(true);
-                    this.getSpentTypes();
-                    this.toastr.success("Item criado com sucesso!");
-                    this.closeContractsModal();
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.error, 'Erro ao cadastrar item');
-                }
-        })
+        if (this.isEditingContract) {
+            this.monthlyContractService
+                .updateContractItem(this.contractItem.id, this.contractItem)
+                .subscribe({
+                    next: (response) => {
+                        this.contractItem = response;
+                        this.getDataForMonth(this.selectedMonthId!);
+                        this.getAccount();
+                        this.getDataForMonth(this.selectedMonthId!);
+                        this.getInvoices(true);
+                        this.getSpentTypes();
+                        this.toastr.success("Item atualizado com sucesso!");
+                        this.closeContractsModal();
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.error, 'Item não encontrado');
+                    }
+                })
+        } else {
+            this.monthlyContractService
+                .insertContractItem(this.contractItem)
+                .subscribe({
+                    next: (response) => {
+                        this.contractItem = response;
+                        this.getDataForMonth(this.selectedMonthId!);
+                        this.getAccount();
+                        this.getDataForMonth(this.selectedMonthId!);
+                        this.getInvoices(true);
+                        this.getSpentTypes();
+                        this.toastr.success("Item criado com sucesso!");
+                        this.closeContractsModal();
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.error, 'Erro ao cadastrar item');
+                    }
+            })
+        }
     }
 
     closeContractsModal() {
