@@ -47,4 +47,8 @@ export class MonthlyContractService {
         return this.http.put(`${this.apiUrlBase}/${itemId}`, body, { headers });
     }
 
+    deleteContract(itemId: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrlBase}/${itemId}`);
+    }
+
 }

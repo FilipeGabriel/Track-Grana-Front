@@ -299,6 +299,24 @@ export class InvoiceComponent implements OnInit {
         }
     }
 
+    deleteExpenses(itemId: number) {
+        const itemName = this.expenseItem.description
+        this.expensesItemService
+            .deleteExpense(itemId)
+            .subscribe({
+                next: (response) => {
+                    this.getDataForMonth(this.selectedMonthId!);
+                    this.getInvoices(true);
+                    this.getSpentTypes();
+                    this.toastr.success(`Item '${itemName}' excluído com sucesso!`);
+                    this.closeExpensesModal();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Item não encontrado');
+                }
+            })
+    }
+
     closeExpensesModal() {
         this.expenseItem = new ExpensesItem();
         this.isModalExpensesVisible = false;
@@ -410,6 +428,26 @@ export class InvoiceComponent implements OnInit {
                     }
             })
         }
+    }
+
+    deleteContract(itemId: number) {
+        const itemName = this.contractItem.description
+        this.monthlyContractService
+            .deleteContract(itemId)
+            .subscribe({
+                next: (response) => {
+                    this.getDataForMonth(this.selectedMonthId!);
+                    this.getAccount();
+                    this.getDataForMonth(this.selectedMonthId!);
+                    this.getInvoices(true);
+                    this.getSpentTypes();
+                    this.toastr.success(`Contrato '${itemName}' excluído com sucesso!`);
+                    this.closeContractsModal();
+                },
+                error: (error) => {
+                    this.toastr.error(error.error.error, 'Item não encontrado');
+                }
+            })
     }
 
     closeContractsModal() {

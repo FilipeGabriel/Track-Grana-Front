@@ -123,7 +123,7 @@
         </div>
         <div class="add-expenses__modal" *ngIf="isModalExpensesVisible">
             <div class="expenses-modal__content">
-                <h3>Adicione novo item</h3>
+                <h3>{{ isEditingExpense ? 'Alterar item' : 'Adicione novo item' }}</h3>
                 <div class="expenses-modal__line-one">
                     <div class="expenses-data__input">
                         <label for="">Descrição: *</label>
@@ -147,15 +147,20 @@
                         </select>
                     </div>
                 </div>
-                <div class="expenses-modal__line-three">
+                <div class="expenses-modal__line-three" *ngIf="!isEditingExpense">
+                    <button class="btn btn-primary" (click)="saveExpenses()">Criar</button>
+                    <button class="btn btn-secondary close" (click)="closeExpensesModal()">Cancelar</button>
+                </div>
+                <div class="expenses-modal__line-three" *ngIf="isEditingExpense">
                     <button class="btn btn-primary" (click)="saveExpenses()">Salvar</button>
                     <button class="btn btn-secondary close" (click)="closeExpensesModal()">Cancelar</button>
+                    <button class="btn btn-danger" (click)="deleteExpenses(expenseItem.id)">Apagar</button>
                 </div>
             </div>
         </div>
         <div class="add-contracts__modal" *ngIf="isModalContractsVisible">
             <div class="contracts-modal__content">
-                <h3>Adicione novo contrato</h3>
+                <h3>{{ isEditingContract ? 'Alterar contrato' : 'Adicione novo contrato' }}</h3>
                 <div class="contracts-modal__line-one">
                     <div class="contracts-data__input">
                         <label for="">Descrição: *</label>
@@ -178,9 +183,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="contracts-modal__line-three">
+                <div class="contracts-modal__line-three" *ngIf="!isEditingContract">
+                    <button class="btn btn-primary" (click)="saveContracts()">Criar</button>
+                    <button class="btn btn-secondary close" (click)="closeContractsModal()">Cancelar</button>
+                </div>
+                <div class="contracts-modal__line-three" *ngIf="isEditingContract">
                     <button class="btn btn-primary" (click)="saveContracts()">Salvar</button>
                     <button class="btn btn-secondary close" (click)="closeContractsModal()">Cancelar</button>
+                    <button class="btn btn-danger" (click)="deleteContract(contractItem.id)">Apagar</button>
                 </div>
             </div>
         </div>

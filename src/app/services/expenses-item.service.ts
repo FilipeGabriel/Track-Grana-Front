@@ -43,4 +43,8 @@ export class ExpensesItemService {
         });
         return this.http.put(`${this.apiUrlBase}/${itemId}`, body, { headers });
     }
+
+    deleteExpense(itemId: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrlBase}/${itemId}`);
+    }
 }
