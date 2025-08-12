@@ -37,6 +37,18 @@ export class SpentTypeService {
 
     }
 
+    updateSpentTypeNameColor(spentType: SpentType): Observable<SpentType>  {
+        const body = {
+            name: spentType.name,
+            color: spentType.color,
+            paid: spentType.paid
+        };
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+        return this.http.put<SpentType>(`${this.apiUrlBase}/${spentType.id}`, body, { headers });
+    }
+
     getAccountId() {
         const loggedUser = localStorage.getItem('logged_user');
         if (loggedUser) {
