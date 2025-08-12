@@ -37,7 +37,7 @@ export class SpentTypeService {
 
     }
 
-    updateSpentTypeNameColor(spentType: SpentType): Observable<SpentType>  {
+    updateSpentTypeNameColor(spentType: SpentType): Observable<SpentType> {
         const body = {
             name: spentType.name,
             color: spentType.color,
