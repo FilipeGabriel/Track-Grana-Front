@@ -20,6 +20,7 @@ export class GraphicComponent {
     uniqueYears: number[] = [];
     selectedYear: number | null = null;
     filteredMonthNames: string[];
+    isEmpty: boolean = false;
 
     public barChartLabels: string[] = [];
     public barChartType: string = 'bar';
@@ -45,20 +46,25 @@ export class GraphicComponent {
             .getAllInvoices()
             .subscribe({
                 next: (response) => {
-                    this.invoices = response.map(invoice => ({
-                        ...invoice,
-                        monthName: this.monthTranslate.translate(invoice.monthInvoice.monthName)
-                    }));
-                    this.uniqueYears = this.getUniqueYears(this.invoices);
-                    if (this.uniqueYears.length > 0) {
-                        if (this.selectedYear === null || !this.uniqueYears.includes(this.selectedYear)) {
-                            const recentYear = Math.max(...this.uniqueYears);
-                            this.onYearSelected(recentYear);
-                        } else {
-                            this.onYearSelected(this.selectedYear);
+                    if (response.length < 1) {
+                        this.isEmpty = true
+                    } else {
+                        this.isEmpty = false
+                        this.invoices = response.map(invoice => ({
+                            ...invoice,
+                            monthName: this.monthTranslate.translate(invoice.monthInvoice.monthName)
+                        }));
+                        this.uniqueYears = this.getUniqueYears(this.invoices);
+                        if (this.uniqueYears.length > 0) {
+                            if (this.selectedYear === null || !this.uniqueYears.includes(this.selectedYear)) {
+                                const recentYear = Math.max(...this.uniqueYears);
+                                this.onYearSelected(recentYear);
+                            } else {
+                                this.onYearSelected(this.selectedYear);
+                            }
                         }
+                        this.updateFilteredMonthNames();
                     }
-                    this.updateFilteredMonthNames();
                 }
         });
     }
