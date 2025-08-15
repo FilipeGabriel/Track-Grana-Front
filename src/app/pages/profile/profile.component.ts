@@ -103,15 +103,18 @@ export class ProfileComponent {
                 .subscribe({
                     next: (response) => {
                         this.user.account = response;
+
                         if (this.user.account.birthDate) {
                             const [day, month, year] = this.user.account.birthDate.split('/');
                             this.user.account.birthDate = `${year}-${month}-${day}`;
-                        };
+                        }
+
+                        this.authService.updateUserImage(this.user.account.accountImage);
                     },
                     error: (error) => {
                         this.toastr.error(error.error.error);
                     }
-            });
+                });
             this.toastr.success('Usuário atualizado com sucesso');
             this.trueAccount = { ...this.user.account }
         }

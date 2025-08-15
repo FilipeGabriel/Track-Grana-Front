@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt'
@@ -15,6 +15,9 @@ export class AuthService {
     apiUrlRegister: string = environment.apiUrlBase + environment.registerUrl;
     tokenUrl: string = environment.apiUrlBase + environment.getTokenUrl;
     jwtHelper: JwtHelperService = new JwtHelperService();
+
+    private userImageSubject = new BehaviorSubject<string | ArrayBuffer | null>(null);
+    userImage$: Observable<string | ArrayBuffer | null> = this.userImageSubject.asObservable();
 
     constructor( private http: HttpClient ) { }
 
@@ -60,6 +63,10 @@ export class AuthService {
             return !expired;
         }
         return false;
+    }
+
+    updateUserImage(newImageUrl: string | ArrayBuffer | null) {
+        this.userImageSubject.next(newImageUrl);
     }
 
 }
