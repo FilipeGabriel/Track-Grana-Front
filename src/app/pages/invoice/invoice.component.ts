@@ -67,6 +67,7 @@ export class InvoiceComponent implements OnInit {
     isModalContractsVisible: boolean = false;
     isEditingExpense: boolean = false;
     isEditingContract: boolean = false;
+    isEmpty: boolean = false;
 
     isExpenseCollapsed = false;
     isContractsCollapsed = false;
@@ -141,6 +142,7 @@ export class InvoiceComponent implements OnInit {
             .getInvoices()
             .subscribe({
                 next: (response) => {
+                    this.isEmpty = false;
                     this.invoices = response.map(invoice => ({
                         ...invoice,
                         monthName: this.monthTranslate.translate(invoice.monthInvoice.monthName)
@@ -153,7 +155,7 @@ export class InvoiceComponent implements OnInit {
                     }
                 },
                 error: (error) => {
-                    this.toastr.error(error.error.error, 'Nenhum item encontrado');
+                    this.isEmpty = true;
                 }
         });
     }
@@ -483,7 +485,7 @@ export class InvoiceComponent implements OnInit {
 
             const selectedMonth = this.invoices.find(invoice => this.getMonthNumber(invoice.monthName) === this.month);
             if (selectedMonth) {
-                this.selectedMonthId = selectedMonth.monthInvoice.id;
+                this.selectedMonthId = selectedMonth.id;
                 this.getDataForMonth(this.selectedMonthId);
             }
         }
@@ -549,7 +551,7 @@ export class InvoiceComponent implements OnInit {
 
         const selectedMonth = this.invoices.find(invoice => invoice.monthName === month);
         if (selectedMonth) {
-            this.selectedMonthId = selectedMonth.monthInvoice.id;
+            this.selectedMonthId = selectedMonth.id;
             this.getDataForMonth(this.selectedMonthId);
         }
     }

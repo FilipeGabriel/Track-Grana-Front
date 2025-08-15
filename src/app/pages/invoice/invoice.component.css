@@ -114,6 +114,19 @@ input::placeholder {
     width: 100%;
 }
 
+.image__div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.image__div > span {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;

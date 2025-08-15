@@ -1,5 +1,5 @@
 <div class="invoice__container">
-    <div class="invoice__title">
+    <div class="invoice__title" *ngIf="!isEmpty">
         <app-title [title]="'Fatura - ' + selectedYear"></app-title>
     </div>
     <div class="invoice__body">
@@ -15,7 +15,13 @@
                 <button (click)="openInvoiceModal()"><i class="fas fa-plus"></i></button>
             </div>
         </div>
-        <div class="line__two">
+        <div class="line__two" *ngIf="isEmpty">
+            <div class="image__div">
+                <img src="../../../assets/images/no_invoices.png" alt="no_invoices">
+                <span>Você ainda não tem faturas</span>
+            </div>
+        </div>
+        <div class="line__two" *ngIf="!isEmpty">
             <div class="total-invoice__table">
                 <div class="change__width" id="center__div">
                     <span>Fatural Total</span>
@@ -43,7 +49,7 @@
                 </table>
             </div>
         </div>
-        <div class="line__three">
+        <div class="line__three" *ngIf="!isEmpty">
             <div class="monthly-expense__table">
                 <div class="change__width">
                     <button class="button-plus__scale" (click)="openExpensesModal()"><i class="fas fa-plus"></i></button>
