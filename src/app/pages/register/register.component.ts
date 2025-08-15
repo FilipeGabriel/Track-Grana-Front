@@ -29,18 +29,22 @@ export class RegisterComponent {
     }
 
     signUp(){
-        this.authService
-            .insert(this.user)
-            .subscribe({
-                next: (response) => {
-                    this.toastr.success('Cadastro realizado com sucesso', 'Parabéns!');
-                    this.user.email = "";
-                    this.user.password = "";
-                    this.router.navigate(['/login']);
-                },
-                error: (error) => {
-                    this.toastr.error(error.error.error, 'Erro ao cadastrar!');
-                }
-            })
+        if (!this.user.email || !this.user.password) {
+            this.toastr.error('Nenhum dos campos deve estar nulo.');
+        } else {
+            this.authService
+                .insert(this.user)
+                .subscribe({
+                    next: (response) => {
+                        this.toastr.success('Cadastro realizado com sucesso', 'Parabéns!');
+                        this.user.email = "";
+                        this.user.password = "";
+                        this.router.navigate(['/login']);
+                    },
+                    error: (error) => {
+                        this.toastr.error(error.error.error, 'Erro ao cadastrar!');
+                    }
+                })
+        }
     }
 }
