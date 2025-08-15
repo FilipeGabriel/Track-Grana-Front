@@ -2,13 +2,13 @@
     <div class="graphic__title">
         <app-title title="Gráfico de gasto por mês"></app-title>
     </div>
-    <div class="graphic__body" *ngIf="isEmpty">
+    <div class="graphic__body" *ngIf="!isLoading && isEmpty">
         <div class="image__div">
             <img src="../../../assets/images/no_graph.png" alt="no_graph">
             <span>Você ainda não possui faturas para exibir no gráfico</span>
         </div>
     </div>
-    <div class="graphic__body" *ngIf="!isEmpty">
+    <div class="graphic__body" *ngIf="!isLoading && !isEmpty">
         <div class="graphic__years">
             <div class="group-buttons">
                 <label
@@ -46,5 +46,7 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="graphic__body" *ngIf="isLoading">
     </div>
 </div>

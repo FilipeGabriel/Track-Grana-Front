@@ -92,6 +92,7 @@
     flex-direction: column;
     justify-content: center;
 
+    width: 80%;
     height: 70%;
     margin-bottom: 20px;
 }
