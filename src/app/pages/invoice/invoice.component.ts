@@ -68,6 +68,7 @@ export class InvoiceComponent implements OnInit {
     isEditingExpense: boolean = false;
     isEditingContract: boolean = false;
     isEmpty: boolean = false;
+    isLoading: boolean = false;
 
     isExpenseCollapsed = false;
     isContractsCollapsed = false;
@@ -138,6 +139,8 @@ export class InvoiceComponent implements OnInit {
     }
 
     getInvoices(skipSelectLastMonth: boolean = false) {
+        this.isLoading = true;
+
         this.invoiceService
             .getInvoices()
             .subscribe({
@@ -156,6 +159,10 @@ export class InvoiceComponent implements OnInit {
                 },
                 error: (error) => {
                     this.isEmpty = true;
+                    console.log(this.isEmpty, this.isLoading)
+                },
+                complete: () => {
+                    this.isLoading = false;
                 }
         });
     }
