@@ -74,7 +74,7 @@ export class GraphicComponent {
                     this.isEmpty = true;
                 },
                 complete: () => {
-                    this.isLoading = false; // encerra carregamento
+                    this.isLoading = false;
                 }
             });
     }

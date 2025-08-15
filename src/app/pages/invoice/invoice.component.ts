@@ -159,7 +159,6 @@ export class InvoiceComponent implements OnInit {
                 },
                 error: (error) => {
                     this.isEmpty = true;
-                    console.log(this.isEmpty, this.isLoading)
                 },
                 complete: () => {
                     this.isLoading = false;
