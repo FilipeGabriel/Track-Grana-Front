@@ -18,6 +18,8 @@ export class AuthService {
 
     private userImageSubject = new BehaviorSubject<string | ArrayBuffer | null>(null);
     userImage$: Observable<string | ArrayBuffer | null> = this.userImageSubject.asObservable();
+    private userNameSubject = new BehaviorSubject<string | null>(null);
+    userName$: Observable<string | null> = this.userNameSubject.asObservable();
 
     constructor( private http: HttpClient ) { }
 
@@ -65,8 +67,9 @@ export class AuthService {
         return false;
     }
 
-    updateUserImage(newImageUrl: string | ArrayBuffer | null) {
+    updateUserImageAndUserName(newImageUrl: string | ArrayBuffer | null, newUserName: string | null) {
         this.userImageSubject.next(newImageUrl);
+        this.userNameSubject.next(newUserName);
     }
 
 }

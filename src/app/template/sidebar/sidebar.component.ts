@@ -16,8 +16,11 @@ export class SidebarComponent implements OnInit{
 
     isCollapsed = false;
     reducedScreen = false;
+
     defaultImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwGsNv23K5shKblMsKePA8o6M2kqBH39PZqA&s';
     userImage: string | ArrayBuffer | null = this.defaultImage;
+    defaultUserName = '';
+    userName: string | null = this.defaultImage;;
 
     constructor(
         private authService: AuthService,
@@ -29,6 +32,9 @@ export class SidebarComponent implements OnInit{
         this.getUser();
         this.authService.userImage$.subscribe((newImage) => {
             this.userImage = newImage || this.defaultImage;
+        });
+        this.authService.userName$.subscribe((newUserName) => {
+            this.userName = newUserName || this.defaultUserName;
         });
     }
 
@@ -59,9 +65,11 @@ export class SidebarComponent implements OnInit{
             .subscribe({
                 next: (response) => {
                     this.userImage = response.account?.accountImage || this.defaultImage;
+                    this.userName = response.account?.userName || this.defaultUserName;
                 },
                 error: () => {
                     this.userImage = this.defaultImage;
+                    this.userName = this.defaultUserName;
                 }
             })
     }

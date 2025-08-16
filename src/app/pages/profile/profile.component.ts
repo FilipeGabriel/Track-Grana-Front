@@ -109,7 +109,7 @@ export class ProfileComponent {
                             this.user.account.birthDate = `${year}-${month}-${day}`;
                         }
 
-                        this.authService.updateUserImage(this.user.account.accountImage);
+                        this.authService.updateUserImageAndUserName(this.user.account.accountImage, this.user.account.userName);
                     },
                     error: (error) => {
                         this.toastr.error(error.error.error);
